@@ -40,8 +40,9 @@ $colors: (
     --surface-d:#dee2e6;
     --surface-e:#ffffff;
     --surface-f:#ffffff;
-    --text-color:#495057;
-    --text-color-secondary:#6c757d;
+    --text-color:#ffffff;
+    --text-color-secondary:#000000;
+    --text-color-secondary-hover:#243F4E;
     --primary-color:#2196F3;
     --primary-color-text:#ffffff;
     --surface-0: #ffffff;
@@ -60,9 +61,10 @@ $colors: (
     --border-radius:#{$borderRadius};
     --surface-ground:#f8f9fa;
     --surface-section:#ffffff;
-    --surface-card:#ffffff;
+    --surface-toolbar:#ffffff;
+    --surface-card:#272727;
     --surface-overlay:#272727;
-    --surface-border:#dee2e6;
+    --surface-border:#243F4E;
     --surface-hover:#6CCAFF;
     --maskbg: #{$maskBg};
     --highlight-bg: #{$highlightBg};
@@ -70,5 +72,6 @@ $colors: (
     --focus-ring: #{$focusShadow};
     --primary-light-blue: #6CCAFF;
     --primary-dark-blue: #243F4E;
+    --header-color: #ffffff;
     color-scheme: light;
 }
