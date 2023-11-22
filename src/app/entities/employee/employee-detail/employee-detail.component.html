@@ -1,1 +1,127 @@
-<p>employee-detail works!</p>
+<div class="grid">
+  <div class="col-12" *ngIf="employee">
+    <p-toast></p-toast>
+    <div class="filters">
+
+    </div>
+
+    <h2 >{{employee.name + ' ' + employee.firstname}}</h2>
+
+    <div class="employee-detail-container">
+      <div class="first-part">
+        <div class="custom-card">
+          <div class="card-header">Date d'embauche</div>
+          <div class="card-content">
+            <div>
+              {{ employee.hireDate | date: 'dd/MM/yyyy' }}
+            </div>
+          </div>
+        </div>
+        <div class="custom-card">
+          <div class="card-header">Date de fin du contrat</div>
+          <div class="card-content">
+            <div *ngIf="employee.contractEndDate">
+              {{ employee.contractEndDate | date: 'dd/MM/yyyy' }}
+            </div>
+            <div *ngIf="!employee.contractEndDate">
+              --
+            </div>
+          </div>
+        </div>
+        <div class="custom-card">
+          <div class="card-header">Type de contrat</div>
+          <div class="card-content">
+            <div>
+              <span *ngIf="employee.contractType">{{ employee.contractType | contractTypeDisplay}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="custom-card">
+          <div class="card-header">Role</div>
+          <div class="card-content">
+            <div>
+              {{employee.role}}
+            </div>
+          </div>
+        </div>
+        <div class="custom-card">
+          <div class="card-header">Restaurant</div>
+          <div class="card-content">
+            <div>
+              {{employee.restaurant?.name}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="personal-part">
+        <div class="custom-card">
+          <div class="card-header">Informations personnelles</div>
+          <div class="card-content">
+            <div class="card-part">
+              <div class="part-title">Nom: </div>
+              <div class="part-content">{{employee.name}}</div>
+            </div>
+            <div class="card-part">
+              <div class="part-title">Prénom: </div>
+              <div class="part-content">{{employee.firstname}}</div>
+            </div>
+            <div class="card-part">
+              <div class="part-title">Email: </div>
+              <div class="part-content">{{employee.email}}</div>
+            </div>
+            <div class="card-part">
+              <div class="part-title">Sexe: </div>
+              <div class="part-content">{{employee.sexe}}</div>
+            </div>
+            <div class="card-part">
+              <div class="part-title">Adresse: </div>
+              <div class="part-content">{{employee.address ? employee.address : '--'}}</div>
+            </div>
+            <div class="card-part">
+              <div class="part-title">Code postal: </div>
+              <div class="part-content">{{employee.postalCode ? employee.postalCode : '--'}}</div>
+            </div>
+            <div class="card-part">
+              <div class="part-title">Numéro de sécurité sociale: </div>
+              <div class="part-content">{{employee.socialSecurityNumber ? employee.socialSecurityNumber : '--'}}</div>
+            </div>
+            <div class="card-part">
+              <div class="part-title">Handicap: </div>
+              <div class="part-content">
+                <span>{{employee.disability ? 'Oui' : 'Non'}}</span>
+                <a *ngIf="employee.disability" class="part-link">Voir</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="third-part">
+        <div class="custom-card">
+          <div class="card-header salary-card">Historique des salaires</div>
+          <div class="card-content"></div>
+        </div>
+        <div class="custom-card">
+          <div class="card-header note-card">Notes</div>
+          <div class="card-content"></div>
+        </div>
+        <div class="custom-card-container">
+          <div class="custom-card absences-card">
+            <div class="card-header">Absences / retards</div>
+            <div class="card-content">
+              <div>
+                <span>A remplir plus tard</span>
+              </div>
+            </div>
+          </div>
+          <div class="custom-card">
+            <div class="card-header warning-card">Avertissements</div>
+            <div class="card-content"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

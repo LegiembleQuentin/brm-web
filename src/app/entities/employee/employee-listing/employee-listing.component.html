@@ -2,16 +2,68 @@
   <div class="col-12">
     <p-toast></p-toast>
 
+    <div class="custom-topbar">
+      <div class="topbar-background">
+        <div class="topbar-container">
+          <div class="custom-dropdown restaurant-filter">
+            <label for="restaurantFilter">Restaurant</label>
+            <p-dropdown
+              [options]="getRestaurantsWithNoneOption()"
+              optionLabel="name"
+              optionValue="id"
+              placeholder="Restaurant"
+              [(ngModel)]="filters.restaurant"
+              id="restaurantFilter"
+              inputId="restaurantFilter">
+            </p-dropdown>
+          </div>
+          <div class="custom-dropdown role-filter">
+            <label for="roleFilter">Role</label>
+            <p-dropdown
+              inputId="roleFilter"
+              id="roleFilter"
+              [(ngModel)]="filters.role"
+              optionLabel="label"
+              optionValue="value"
+              [options]="getRolesWithNoneOption()"
+              placeholder="Rôle"
+            ></p-dropdown>
+          </div>
+          <div class="custom-dropdown">
+            <label for="contractTypeFilter">Contrat</label>
+            <p-dropdown
+              [(ngModel)]="filters.contractType"
+              id="contractTypeFilter"
+              inputId="contractTypeFilter"
+              optionLabel="label"
+              optionValue="value"
+              [options]="getContractTypeWithNoneOption()"
+              placeholder="Contrat"
+            ></p-dropdown>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <p-table #dt [value]="employees" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['name','country.name','representative.name','status']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedEmployees" selectionMode="multiple" [rowHover]="true" dataKey="id">
       <ng-template pTemplate="caption">
         <p-toolbar styleClass="mb-4">
-          <h5>Employee</h5>
+          <h5 class="custom-title">Employés</h5>
           <ng-template pTemplate="right">
             <div class="my-2 customBtnGrp">
+              <div class="search-bar">
+                <div class="input-search">
+                  <i class="pi pi-search"></i>
+                  <input type="text" [(ngModel)]="filters.search" placeholder="Rechercher">
+                </div>
+                <div class="underline-search"></div>
+              </div>
               <div class="addBtn" (click)="openNew()">
                 <span class="addBtnPlus">+</span> <span>Ajouter</span>
               </div>
-              <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedEmployees()" [disabled]="!selectedEmployees || !selectedEmployees.length"></button>
+              <div>
+                <button (click)="search()">test</button>
+              </div>
 <!--              <span class="block mt-2 md:mt-0 p-input-icon-left">-->
 <!--                      <i class="pi pi-search"></i>-->
 <!--                      <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."  class="w-full sm:w-auto"/>-->
@@ -22,23 +74,18 @@
       </ng-template>
       <ng-template pTemplate="header">
         <tr>
-          <th style="width: 3rem">
-            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-          </th>
           <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th>
           <th pSortableColumn="name">Nom <p-sortIcon field="name"></p-sortIcon></th>
           <th pSortableColumn="firstname">Prénom <p-sortIcon field="firstname"></p-sortIcon></th>
           <th pSortableColumn="hireDate">Date d'embauche <p-sortIcon field="hireDate"></p-sortIcon></th>
           <th pSortableColumn="contractType">Type de contrat <p-sortIcon field="hireDate"></p-sortIcon></th>
+          <th pSortableColumn="restaurant">Restaurant <p-sortIcon field="restaurant"></p-sortIcon></th>
           <th pSortableColumn="enabled">Actif <p-sortIcon field="enabled"></p-sortIcon></th>
           <th></th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-employee>
         <tr>
-          <td>
-            <p-tableCheckbox [value]="employee"></p-tableCheckbox>
-          </td>
           <td style="width:14%; min-width:10rem;"><span class="p-column-title">Id</span>
             {{employee.id}}
           </td>
@@ -58,6 +105,10 @@
             <span class="p-column-title">Contract type</span>
             {{ employee.contractType | contractTypeDisplay }}
           </td>
+          <td style="width:14%; min-width:10rem;">
+            <span class="p-column-title">Contract type</span>
+            {{ employee.restaurant.name }}
+          </td>
           <td *ngIf="employee.enabled" style="width:14%; min-width:10rem;">
             <span class="p-column-title">Actif</span>
             Oui
@@ -74,9 +125,9 @@
           <!--            </td>-->
           <td>
             <div class="flex">
-              <button pButton pRipple icon="pi pi-ellipsis-h" class="p-button-rounded p-button-success mr-2"></button>
-              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editProduct(employee)"></button>
-              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteProduct(employee)"></button>
+              <button pButton pRipple icon="pi pi-ellipsis-h" class="p-button-rounded light-blue-custom-btn mr-2" [routerLink]="['/employee', employee.id]"></button>
+              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded light-blue-custom-btn mr-2" (click)="editProduct(employee)"></button>
+              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded red-custom-btn" (click)="deleteEmployee(employee)"></button>
             </div>
           </td>
         </tr>

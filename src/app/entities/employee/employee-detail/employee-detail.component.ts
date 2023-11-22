@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {EmployeeService} from "../../../service/employee/employee.service";
-import {Employee} from "../../../api/employee";
+import {Employee, mapApiDataToEmployee} from "../../../api/employee";
 
 @Component({
   selector: 'app-employee-detail',
@@ -21,15 +21,23 @@ export class EmployeeDetailComponent {
     this.employeeId = this.route.snapshot.paramMap.get('id');
     if (this.employeeId) {
       this.employeeService.getEmployee(this.employeeId)
-        .then(employee => {
-          this.employee = employee;
-          console.log(this.employee);
+        .then(employeeData => {
+          if (employeeData) {
+            this.employee = mapApiDataToEmployee(employeeData);
+            console.log(this.employee);
+          } else {
+            // Aucun employee retourné => messageService => erreur api
+
+          }
         })
         .catch(error => {
-          // erreur api/redirection
+          // messageService => erreur api (=> redirection?)
+
         });
     } else {
-      // Redirection ou erreur
+      // Redirection ou erreur si l'ID de l'employé est manquant (404?)
+
     }
   }
+
 }

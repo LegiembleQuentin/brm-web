@@ -1,4 +1,4 @@
-import {Restaurant} from "./restaurant";
+import {mapRestaurantToApiData, Restaurant} from "./restaurant";
 
 export enum ContractType {
   FULL_TIME = "FULL_TIME",
@@ -62,5 +62,31 @@ export function mapApiDataToEmployee(apiData: any): Employee {
     createdAt: apiData.created_at ? new Date(apiData.created_at) : undefined,
     modifiedAt: apiData.modified_at ? new Date(apiData.modified_at) : undefined,
     restaurant: apiData.restaurant,
+  };
+}
+
+export function mapEmployeeToApiData(employee: Employee): any {
+  return {
+    id: employee.id,
+    email: employee.email,
+    role: employee.role,
+    sexe: employee.sexe,
+    name: employee.name,
+    firstname: employee.firstname,
+    birthdate: employee.birthdate ? employee.birthdate.toISOString() : null,
+    hireDate: employee.hireDate ? employee.hireDate.toISOString() : null,
+    phone: employee.phone,
+    address: employee.address,
+    postalCode: employee.postalCode,
+    socialSecurityNumber: employee.socialSecurityNumber,
+    contractType: employee.contractType,
+    contractEndDate: employee.contractEndDate ? employee.contractEndDate.toISOString() : null,
+    disability: employee.disability,
+    disabilityDesc: employee.disabilityDesc,
+    enabled: employee.enabled,
+    createdAt: employee.createdAt ? employee.createdAt.toISOString() : null,
+    modifiedAt: employee.modifiedAt ? employee.modifiedAt.toISOString() : null,
+
+    restaurant: employee.restaurant ? mapRestaurantToApiData(employee.restaurant) : null,
   };
 }

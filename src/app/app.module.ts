@@ -17,7 +17,7 @@ import { EmployeeModule } from "./entities/employee/employee.module";
     AppRoutingModule,
     AppLayoutModule,
     TableModule,
-    EmployeeModule
+    EmployeeModule,
   ],
   providers: [
     EmployeeService,

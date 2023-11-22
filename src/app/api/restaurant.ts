@@ -29,3 +29,20 @@ export function mapApiDataToRestaurant(apiData: any): Restaurant {
     enabled: apiData.enabled,
   };
 }
+
+export function mapRestaurantToApiData(restaurant: Restaurant): any {
+  return {
+    id: restaurant.id,
+    name: restaurant.name,
+    postal_code: restaurant.postalCode,
+    city: restaurant.city,
+    country: restaurant.country,
+    email: restaurant.email,
+    phone: restaurant.phone,
+    operating_hours: restaurant.operatingHours,
+    rating: restaurant.rating !== undefined ? restaurant.rating.toString() : null,
+    creation_date: restaurant.creationDate ? restaurant.creationDate.toISOString() : null,
+    close_date: restaurant.closeDate ? restaurant.closeDate.toISOString() : null,
+    enabled: restaurant.enabled,
+  };
+}
