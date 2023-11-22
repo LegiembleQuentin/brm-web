@@ -6,6 +6,7 @@ import {ContractType, EmployeeRole, EmployeeSexe, Employee, mapApiDataToEmployee
 import {Restaurant, mapApiDataToRestaurant} from "../../../api/restaurant";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ValidationService} from "../../../service/validation/validation.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-employee-listing',
@@ -18,6 +19,13 @@ export class EmployeeListingComponent {
   deleteEmployeeDialog: boolean = false;
 
   deleteEmployeesDialog: boolean = false;
+
+  filters: any = {
+    search: null,
+    restaurant: null,
+    role: null,
+    contractType: null,
+  };
 
   employees: Employee[] = [];
 
@@ -74,18 +82,17 @@ export class EmployeeListingComponent {
   rowsPerPageOptions = [5, 10, 20];
 
   constructor(
+    private router: Router,
+    private route: ActivatedRoute,
     private employeeService: EmployeeService,
     private restaurantService: RestaurantService,
     private messageService: MessageService) { }
 
   ngOnInit() {
-    this.employeeService.getEmployees().then(response => {
-      this.employees = response.map((employeeData: any) => mapApiDataToEmployee(employeeData));
-    });
+    this.defineRouteParams();
 
-    this.restaurantService.getRestaurants().then(response => {
-      this.restaurants = response.map((restaurantData: any) => mapApiDataToRestaurant(restaurantData));
-    });
+    this.loadEmployees();
+    this.loadRestaurants();
 
     this.cols = [
       { field: 'Employee', header: 'Employee' },
@@ -96,6 +103,18 @@ export class EmployeeListingComponent {
       { field: 'contractType', header: 'ContractType' },
       { field: 'enabled', header: 'enabled' },
     ];
+  }
+
+  loadEmployees() {
+    this.employeeService.getEmployees(this.filters).then(response => {
+      this.employees = response.map((employeeData: any) => mapApiDataToEmployee(employeeData));
+    });
+  }
+
+  loadRestaurants() {
+    this.restaurantService.getRestaurants().then(response => {
+      this.restaurants = response.map((restaurantData: any) => mapApiDataToRestaurant(restaurantData));
+    });
   }
 
   openNew() {
@@ -113,7 +132,7 @@ export class EmployeeListingComponent {
     this.employeeDialog = true;
   }
 
-  deleteProduct(employee: Employee) {
+  deleteEmployee(employee: Employee) {
     this.deleteEmployeeDialog = true;
     this.employee = { ...employee };
   }
@@ -171,6 +190,44 @@ export class EmployeeListingComponent {
           });
       }
     }
+  }
+
+  search() {
+    this.transition();
+  }
+
+  transition() {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: this.filters,
+      queryParamsHandling: '',
+      replaceUrl: true
+    });
+    this.loadEmployees();
+    this.defineRouteParams();
+  }
+
+  defineRouteParams() {
+    this.route.queryParams.subscribe(params => {
+      this.filters = {
+        search: params['search'],
+        contractType: params['contractType'],
+        restaurant: params['restaurant'] ? +params['restaurant'] : null,
+        role: params['role'],
+      }
+    });
+  }
+
+  getRolesWithNoneOption() {
+    return [{ label: '--', value: null }, ...this.employeeRole];
+  }
+
+  getRestaurantsWithNoneOption() {
+    return [{ name: '--', id: null}, ...this.restaurants];
+  }
+
+  getContractTypeWithNoneOption() {
+    return [{ label: '--', value: null}, ...this.contractType];
   }
 
 

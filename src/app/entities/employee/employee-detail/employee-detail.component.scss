@@ -1,0 +1,58 @@
+.employee-detail-container {
+  .first-part
+  {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: stretch;
+    margin-bottom: 2rem;
+    .custom-card{
+      width: 19%;
+    }
+  }
+  .personal-part
+  {
+    margin-bottom: 2rem;
+    .custom-card{
+      width: 100%;
+      .card-content {
+        display: flex;
+        flex-wrap: wrap;
+        align-content: start;
+        gap: 2rem;
+        .card-part {
+          width: 23%;
+          .part-title {
+            font-weight: bold;
+            margin-bottom: .5rem;
+          }
+          .part-content {
+            padding: .2rem .5rem;
+            .part-link {
+              margin-left: 1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+  .third-part
+  {
+    display: flex;
+    justify-content: space-between;
+    .custom-card {
+      width: 31%;
+    }
+    .custom-card-container{
+      display: block;
+      width: 31%;
+      .absences-card
+      {
+        margin-bottom: 1rem;
+      }
+      .custom-card {
+        width: 100%;
+      }
+    }
+  }
+}

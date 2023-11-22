@@ -21,6 +21,7 @@ import {CalendarModule} from "primeng/calendar";
 import {CheckboxModule} from "primeng/checkbox";
 import {InputSwitchModule} from "primeng/inputswitch";
 import { EmployeeDetailComponent } from './employee-detail/employee-detail.component';
+import {RouterLink} from "@angular/router";
 
 
 @NgModule({
@@ -29,27 +30,28 @@ import { EmployeeDetailComponent } from './employee-detail/employee-detail.compo
     ContractTypeDisplayPipe,
     EmployeeDetailComponent
   ],
-    imports: [
-        CommonModule,
-        TableModule,
-        FileUploadModule,
-        FormsModule,
-        ButtonModule,
-        RippleModule,
-        ToastModule,
-        ToolbarModule,
-        RatingModule,
-        InputTextModule,
-        InputTextareaModule,
-        DropdownModule,
-        RadioButtonModule,
-        InputNumberModule,
-        DialogModule,
-        CalendarModule,
-        CheckboxModule,
-        InputSwitchModule,
-        ReactiveFormsModule
-    ],
+  imports: [
+    CommonModule,
+    TableModule,
+    FileUploadModule,
+    FormsModule,
+    ButtonModule,
+    RippleModule,
+    ToastModule,
+    ToolbarModule,
+    RatingModule,
+    InputTextModule,
+    InputTextareaModule,
+    DropdownModule,
+    RadioButtonModule,
+    InputNumberModule,
+    DialogModule,
+    CalendarModule,
+    CheckboxModule,
+    InputSwitchModule,
+    ReactiveFormsModule,
+    RouterLink,
+  ],
   providers: [MessageService]
 })
 export class EmployeeModule { }
