@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppLayoutComponent } from "./layout/app.layout.component";
 import {EmployeeListingComponent} from "./entities/employee/employee-listing/employee-listing.component";
 import {EmployeeDetailComponent} from "./entities/employee/employee-detail/employee-detail.component";
+import {VerifyTokenComponent} from "./verify-token/verify-token.component";
 
 const routes: Routes = [
   {
@@ -14,7 +15,9 @@ const routes: Routes = [
           { path: '', component: EmployeeListingComponent },
           { path: ':id', component: EmployeeDetailComponent }
         ]
-      }
+      },
+      { path: 'verify-token', component: VerifyTokenComponent }
+
     ]
   }
 ];

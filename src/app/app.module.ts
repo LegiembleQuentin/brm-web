@@ -6,11 +6,13 @@ import  { AppLayoutModule } from "./layout/app.layout.module";
 import { EmployeeService } from "./service/employee/employee.service";
 import { TableModule } from "primeng/table";
 import { EmployeeModule } from "./entities/employee/employee.module";
+import { VerifyTokenComponent } from './verify-token/verify-token.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    VerifyTokenComponent,
   ],
   imports: [
     BrowserModule,
