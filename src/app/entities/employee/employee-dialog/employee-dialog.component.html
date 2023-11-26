@@ -1,0 +1,234 @@
+<p-dialog [(visible)]="display" [style]="{width: '70%'}" header="Details de l'employé" [modal]="true" class="p-fluid">
+  <ng-template pTemplate="content">
+    <button (click)="test()"></button>
+    <form [formGroup]="employeeForm" (ngSubmit)="saveEmployee()">
+      <div class="field">
+        <label for="restaurant">Restaurant <span class="requiredStar">*</span></label>
+        <p-dropdown
+          [options]="restaurants"
+          optionLabel="name"
+          placeholder="Sélectionner un restaurant"
+          formControlName="restaurant"
+          id="restaurant"
+          inputId="restaurant">
+        </p-dropdown>
+        <small class="ng-dirty ng-invalid" *ngIf="employeeForm.controls.restaurant.invalid && (employeeForm.controls.restaurant.touched || employeeForm.controls.restaurant.dirty)">
+          Ce champ est obligatoire.
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="name">Nom <span class="requiredStar">*</span></label>
+        <input type="text" pInputText id="name" formControlName="name" required
+               autofocus [ngClass]="{'ng-invalid ng-dirty' : employeeForm.controls.name.invalid && (employeeForm.controls.name.touched || employeeForm.controls.name.dirty)}"
+        />
+        <small class="error-message" *ngIf="employeeForm.controls.name.errors?.required && (employeeForm.controls.name.touched || employeeForm.controls.name.dirty)">
+          Ce champ est obligatoire.
+        </small>
+        <small class="error-message" *ngIf="employeeForm.controls.name.errors?.minlength && (employeeForm.controls.name.touched || employeeForm.controls.name.dirty)">
+          Le nom doit comporter au moins {{ employeeForm.controls.name.errors?.minlength.requiredLength }} caractères.
+        </small>
+        <small class="error-message" *ngIf="employeeForm.controls.name.errors?.maxlength && (employeeForm.controls.name.touched || employeeForm.controls.name.dirty)">
+          Le nom ne doit pas dépasser {{ employeeForm.controls.name.errors?.maxlength.requiredLength }} caractères.
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="firstname">Prénom <span class="requiredStar">*</span></label>
+        <input type="text" pInputText id="firstname" formControlName="firstname" required autofocus
+               [ngClass]="{'ng-invalid ng-dirty': employeeForm.controls.firstname.invalid && (employeeForm.controls.firstname.touched || employeeForm.controls.firstname.dirty)}"
+        />
+        <small class="error-message" *ngIf="employeeForm.controls.firstname.errors?.required && (employeeForm.controls.firstname.touched || employeeForm.controls.firstname.dirty)">
+          Ce champ est obligatoire.
+        </small>
+        <small class="error-message" *ngIf="employeeForm.controls.firstname.errors?.minlength && (employeeForm.controls.firstname.touched || employeeForm.controls.firstname.dirty)">
+          Le prénom doit comporter au moins {{ employeeForm.controls.firstname.errors?.minlength.requiredLength }} caractères.
+        </small>
+        <small class="error-message" *ngIf="employeeForm.controls.firstname.errors?.maxlength && (employeeForm.controls.firstname.touched || employeeForm.controls.firstname.dirty)">
+          Le prénom ne doit pas dépasser {{ employeeForm.controls.firstname.errors?.maxlength.requiredLength }} caractères.
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="email">Email <span class="requiredStar">*</span></label>
+        <input type="email" pInputText id="email" formControlName="email"
+               autofocus [ngClass]="{'ng-invalid ng-dirty': employeeForm.controls.email.invalid && (employeeForm.controls.email.touched || employeeForm.controls.email.dirty)}"
+        />
+        <small class="error-message" *ngIf="employeeForm.controls.email.errors?.required && (employeeForm.controls.email.touched || employeeForm.controls.email.dirty)">
+          Ce champ est obligatoire.
+        </small>
+        <small class="error-message" *ngIf="employeeForm.controls.email.errors?.email && (employeeForm.controls.email.touched || employeeForm.controls.email.dirty)">
+          L'adresse email n'est pas valide.
+        </small>
+        <small class="error-message" *ngIf="employeeForm.controls.email.errors?.minlength && (employeeForm.controls.email.touched || employeeForm.controls.email.dirty)">
+          L'email doit comporter au moins {{ employeeForm.controls.email.errors?.minlength.requiredLength }} caractères.
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="role">Role de l'employé <span class="requiredStar">*</span></label>
+        <p-dropdown
+          inputId="role"
+          id="role"
+          formControlName="role"
+          optionLabel="label"
+          optionValue="value"
+          [options]="employeeRole"
+          placeholder="Sélectionner un rôle"
+          [ngClass]="{'ng-invalid ng-dirty': employeeForm.controls.role.invalid && (employeeForm.controls.role.touched || employeeForm.controls.role.dirty)}"
+        ></p-dropdown>
+        <small class="ng-dirty ng-invalid" *ngIf="employeeForm.controls.role.invalid && (employeeForm.controls.role.touched || employeeForm.controls.role.dirty)">
+          Ce champ est obligatoire.
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="sexe">Sexe <span class="requiredStar">*</span></label>
+        <p-dropdown inputId="sexe"
+                    id="sexe"
+                    formControlName="sexe"
+                    optionLabel="label"
+                    optionValue="value"
+                    [options]="employeeSexe"
+                    placeholder="Sélectionner le sexe"
+                    [ngClass]="{'ng-invalid ng-dirty': employeeForm.controls.sexe.invalid && (employeeForm.controls.sexe.touched || employeeForm.controls.sexe.dirty)}"
+        ></p-dropdown>
+        <small class="ng-dirty ng-invalid" *ngIf="employeeForm.controls.sexe.errors?.['required'] && (employeeForm.controls.sexe.touched || employeeForm.controls.sexe.dirty)">
+          Ce champ est obligatoire.
+        </small>
+        <small class="ng-dirty ng-invalid" *ngIf="employeeForm.controls.sexe.errors?.['invalidDate'] && (employeeForm.controls.sexe.touched || employeeForm.controls.sexe.dirty)">
+          La date n'est pas valide.
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="birthdate">Date de naissance <span class="requiredStar">*</span></label>
+        <p-calendar [showIcon]="true" id="birthdate" formControlName="birthdate" inputId="birthdate"
+                    [ngClass]="{'ng-invalid ng-dirty': employeeForm.controls.birthdate.invalid && (employeeForm.controls.birthdate.touched || employeeForm.controls.birthdate.dirty)}"
+        ></p-calendar>
+        <small class="ng-dirty ng-invalid" *ngIf="employeeForm.controls.birthdate.errors?.['required'] && (employeeForm.controls.birthdate.touched || employeeForm.controls.birthdate.dirty)">
+          Ce champ est obligatoire.
+        </small>
+        <small class="ng-dirty ng-invalid" *ngIf="employeeForm.controls.birthdate.errors?.['invalidDate'] && (employeeForm.controls.birthdate.touched || employeeForm.controls.birthdate.dirty)">
+          La date n'est pas valide.
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="hireDate">Date d'embauche <span class="requiredStar">*</span></label>
+        <p-calendar [showIcon]="true" id="hireDate" formControlName="hireDate" inputId="hireDate"
+                    [ngClass]="{'ng-invalid ng-dirty': employeeForm.controls.hireDate.invalid && (employeeForm.controls.hireDate.touched || employeeForm.controls.hireDate.dirty)}"
+        ></p-calendar>
+        <small class="ng-dirty ng-invalid" *ngIf="employeeForm.controls.hireDate.invalid && (employeeForm.controls.hireDate.touched || employeeForm.controls.hireDate.dirty)">
+          Ce champ est obligatoire.
+        </small>
+        <small class="ng-dirty ng-invalid" *ngIf="employeeForm.controls.hireDate.errors?.['invalidDate'] && (employeeForm.controls.hireDate.touched || employeeForm.controls.hireDate.dirty)">
+          La date n'est pas valide.
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="phone">Téléphone <span class="requiredStar">*</span></label>
+        <input type="text" pInputText id="phone" formControlName="phone" autofocus
+               [ngClass]="{'ng-invalid ng-dirty': employeeForm.controls.phone.invalid && (employeeForm.controls.phone.touched || employeeForm.controls.phone.dirty)}"
+        />
+        <small class="ng-dirty ng-invalid" *ngIf="employeeForm.controls.phone.errors?.['required'] && (employeeForm.controls.phone.touched || employeeForm.controls.phone.dirty)">
+          Ce champ est obligatoire.
+        </small>
+        <small class="ng-dirty ng-invalid" *ngIf="employeeForm.controls.phone.errors?.['pattern'] && (employeeForm.controls.phone.touched || employeeForm.controls.phone.dirty)">
+          Le numéro de téléphone doit être composé de 10 chiffres.
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="address">Adresse</label>
+        <input
+          type="text"
+          pInputText
+          id="address"
+          formControlName="address"
+        />
+        <small *ngIf="employeeForm.controls['address'].errors?.minlength && (employeeForm.controls['address'].touched || employeeForm.controls['address'].dirty)">
+          L'adresse doit comporter au moins {{ employeeForm.controls['address'].errors?.minlength.requiredLength }} caractères.
+        </small>
+        <small *ngIf="employeeForm.controls['address'].errors?.maxlength && (employeeForm.controls['address'].touched || employeeForm.controls['address'].dirty)">
+          L'adresse ne doit pas dépasser {{ employeeForm.controls['address'].errors?.maxlength.requiredLength }} caractères.
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="postalCode">Code Postal</label>
+        <input
+          type="text"
+          pInputText
+          id="postalCode"
+          formControlName="postalCode"
+          [ngClass]="{'ng-invalid ng-dirty': employeeForm.controls.postalCode.invalid && (employeeForm.controls.postalCode.touched || employeeForm.controls.postalCode.dirty)}"
+        />
+        <small class="ng-dirty ng-invalid" *ngIf="employeeForm.controls.postalCode.errors?.['invalidPostalCode'] && (employeeForm.controls.postalCode.touched || employeeForm.controls.postalCode.dirty)">
+          Le code postal doit être un numéro à 5 chiffres.
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="socialSecurityNumber">Numéro de Sécurité Sociale</label>
+        <input type="text" pInputText id="socialSecurityNumber" formControlName="socialSecurityNumber"
+               [ngClass]="{'ng-invalid ng-dirty': employeeForm.controls.socialSecurityNumber.invalid && (employeeForm.controls.socialSecurityNumber.touched || employeeForm.controls.socialSecurityNumber.dirty)}"
+        />
+        <small class="ng-dirty ng-invalid" *ngIf="employeeForm.controls.socialSecurityNumber.errors?.['invalidSocialSecurityNumber'] && (employeeForm.controls.socialSecurityNumber.touched || employeeForm.controls.socialSecurityNumber.dirty)">
+          Le format du numéro de sécurité sociale n'est pas valide.
+        </small>
+      </div>
+
+      <div class="field">
+        <label>Handicap</label>
+        <div>
+          <p-inputSwitch formControlName="disability"></p-inputSwitch>
+        </div>
+      </div>
+
+      <div *ngIf="employeeForm.controls.disability.value" class="field">
+        <label for="disabilityDesc">Description du handicap</label>
+        <textarea id="disabilityDesc" formControlName="disabilityDesc" pInputTextarea rows="3" cols="20"></textarea>
+        <small class="error-message" *ngIf="employeeForm.controls.disabilityDesc.errors?.minlength && (employeeForm.controls.disabilityDesc.touched || employeeForm.controls.disabilityDesc.dirty)">
+          La description doit comporter au moins {{ employeeForm.controls.disabilityDesc.errors?.minlength.requiredLength }} caractères.
+        </small>
+        <small class="error-message" *ngIf="employeeForm.controls.disabilityDesc.errors?.maxlength && (employeeForm.controls.disabilityDesc.touched || employeeForm.controls.disabilityDesc.dirty)">
+          La description ne doit pas dépasser {{ employeeForm.controls.disabilityDesc.errors?.maxlength.requiredLength }} caractères.
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="contractType">Type de contrat <span class="requiredStar">*</span></label>
+        <p-dropdown formControlName="contractType" id="contractType" inputId="contractType" optionLabel="label" optionValue="value" [options]="contractType" placeholder="Sélectionner un type de contrat"
+                    [ngClass]="{'ng-invalid ng-dirty': employeeForm.controls.contractType.invalid && (employeeForm.controls.contractType.touched || employeeForm.controls.contractType.dirty)}"
+        ></p-dropdown>
+        <small class="ng-dirty ng-invalid" *ngIf="employeeForm.controls.contractType.invalid && (employeeForm.controls.contractType.touched || employeeForm.controls.contractType.dirty)">
+          Ce champ est obligatoire.
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="contractEndDate">Date de fin de contrat</label>
+        <p-calendar [showIcon]="true" id="contractEndDate" formControlName="contractEndDate" inputId="contractEndDate"
+                    [ngClass]="{'ng-invalid ng-dirty': employeeForm.controls.contractEndDate.invalid && (employeeForm.controls.contractEndDate.touched || employeeForm.controls.contractEndDate.dirty)}"
+        ></p-calendar>
+        <small class="ng-dirty ng-invalid" *ngIf="employeeForm.controls.contractEndDate.errors?.['invalidDate'] && (employeeForm.controls.hireDate.touched || employeeForm.controls.hireDate.dirty)">
+          La date n'est pas valide.
+        </small>
+      </div>
+
+      <div class="field">
+        <label>Actif</label>
+        <div>
+          <p-inputSwitch formControlName="enabled"></p-inputSwitch>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+    <button pButton pRipple [disabled]="employeeForm.invalid" type="submit" label="Save" icon="pi pi-check" class="p-button-text" (click)="saveEmployee()"></button>
+  </ng-template>
+</p-dialog>

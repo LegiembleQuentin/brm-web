@@ -22,7 +22,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 //form
-.requiredStar {
+.requiredStar, .field > small {
   color: red;
 }
 
@@ -115,6 +115,15 @@ h1, h2, h3, h4, h5, h6 {
         color: black;
       }
     }
+  }
+}
+
+//detail base
+.detail-header {
+  margin-bottom: 2rem;
+  &>div {
+    display: flex;
+    gap: 1rem;
   }
 }
 
@@ -270,6 +279,19 @@ h1, h2, h3, h4, h5, h6 {
     background-color: var(--secondary-light-blue);
   }
 }
+
+button.custom-btn-search {
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--secondary-light-blue);
+  box-shadow: 0 10px 13px -7px #000000, 20px 16px 27px -13px rgba(32,95,122,0.18);
+  transition: .5s all ease;
+  &:hover {
+    box-shadow: initial;
+    cursor: pointer;
+  }
+}
+
 .red-custom-btn {
   color: var(--text-color-secondary);
   background-color: var(--primary-red);

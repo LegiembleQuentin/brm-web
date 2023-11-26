@@ -11,26 +11,20 @@ export class EmployeeService {
 
   constructor(private http: HttpClient) { }
 
-  // getEmployeesSmall() {
-  //   return this.http.get<any>(this.url + '/employees')
-  //     .toPromise()
-  //     .then(res => res.data as Employee[])
-  //     .then(data => data);
+  // deleteEmployee(employee: Employee) :Promise<any> {
+  //   console.log(employee);
+  //   return this.http.delete(this.url + '/employee/' + employee.id, { body: employee.id }).toPromise();
   // }
 
-  deleteEmployee(employee: Employee) {
-    return this.http.delete(this.url + '/employees/' + employee.id, { body: employee.id });
-  }
-
   saveEmployee(employee: Employee) : Promise<any> {
-    console.log(employee);
+    employee = mapEmployeeToApiData(employee);
     return this.http.post(this.url + '/employee', {body: employee}).toPromise();
   }
 
-  // searchEmployees(filter: any): Promise<any> {
-  //   let params = new HttpParams({ fromObject: criteria });
-  //   return this.http.get<Employee[]>(`${this.apiUrl}/search`, { params });
-  // }
+  updateEmployee(employee:Employee):Promise<any>{
+    employee = mapEmployeeToApiData(employee);
+    return this.http.put(this.url + '/employee', {body: employee}).toPromise();
+  }
 
   getEmployees(filters: any): Promise<any> {
     let params = new HttpParams({ fromObject: filters });
@@ -41,18 +35,4 @@ export class EmployeeService {
   getEmployee(id: string): Promise<Employee> {
     return this.http.get<any>(this.url + '/employee/' + id).toPromise()
   }
-
-  // getProductsMixed() {
-  //   return this.http.get<any>('assets/demo/data/products-mixed.json')
-  //     .toPromise()
-  //     .then(res => res.data as Product[])
-  //     .then(data => data);
-  // }
-
-  // getEmployeesWithOrdersSmall() {
-  //   return this.http.get<any>('assets/demo/data/products-orders-small.json')
-  //     .toPromise()
-  //     .then(res => res.data as Employee[])
-  //     .then(data => data);
-  // }
 }

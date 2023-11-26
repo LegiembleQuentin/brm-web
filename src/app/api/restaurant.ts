@@ -41,8 +41,8 @@ export function mapRestaurantToApiData(restaurant: Restaurant): any {
     phone: restaurant.phone,
     operating_hours: restaurant.operatingHours,
     rating: restaurant.rating !== undefined ? restaurant.rating.toString() : null,
-    creation_date: restaurant.creationDate ? restaurant.creationDate.toISOString() : null,
-    close_date: restaurant.closeDate ? restaurant.closeDate.toISOString() : null,
+    creation_date: restaurant.creationDate ? restaurant.creationDate.toISOString().split('.')[0] + '+00:00' : null,
+    close_date: restaurant.closeDate ? restaurant.closeDate.toISOString().split('.')[0] + '+00:00' : null,
     enabled: restaurant.enabled,
   };
 }
