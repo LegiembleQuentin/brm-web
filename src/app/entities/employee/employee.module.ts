@@ -22,36 +22,44 @@ import {CheckboxModule} from "primeng/checkbox";
 import {InputSwitchModule} from "primeng/inputswitch";
 import { EmployeeDetailComponent } from './employee-detail/employee-detail.component';
 import {RouterLink} from "@angular/router";
+import {ToggleButtonModule} from "primeng/togglebutton";
+import { EmployeeDialogComponent } from './employee-dialog/employee-dialog.component';
+import {AgePipe} from "../../pipe/age.pipe";
+import {RolePipe} from "../../pipe/role.pipe";
 
 
 @NgModule({
   declarations: [
     EmployeeListingComponent,
     ContractTypeDisplayPipe,
-    EmployeeDetailComponent
+    AgePipe,
+    RolePipe,
+    EmployeeDetailComponent,
+    EmployeeDialogComponent
   ],
-  imports: [
-    CommonModule,
-    TableModule,
-    FileUploadModule,
-    FormsModule,
-    ButtonModule,
-    RippleModule,
-    ToastModule,
-    ToolbarModule,
-    RatingModule,
-    InputTextModule,
-    InputTextareaModule,
-    DropdownModule,
-    RadioButtonModule,
-    InputNumberModule,
-    DialogModule,
-    CalendarModule,
-    CheckboxModule,
-    InputSwitchModule,
-    ReactiveFormsModule,
-    RouterLink,
-  ],
+    imports: [
+        CommonModule,
+        TableModule,
+        FileUploadModule,
+        FormsModule,
+        ButtonModule,
+        RippleModule,
+        ToastModule,
+        ToolbarModule,
+        RatingModule,
+        InputTextModule,
+        InputTextareaModule,
+        DropdownModule,
+        RadioButtonModule,
+        InputNumberModule,
+        DialogModule,
+        CalendarModule,
+        CheckboxModule,
+        InputSwitchModule,
+        ReactiveFormsModule,
+        RouterLink,
+        ToggleButtonModule,
+    ],
   providers: [MessageService]
 })
 export class EmployeeModule { }

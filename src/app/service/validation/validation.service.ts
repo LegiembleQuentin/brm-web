@@ -11,6 +11,7 @@ export class ValidationService {
       return isNaN(Date.parse(value)) ? { 'invalidDate': true } : null;
     };
   }
+
   static phoneValidator(): ValidatorFn {
     return Validators.pattern(/^\d{10}$/);
   }

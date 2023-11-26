@@ -5,7 +5,13 @@
 
     </div>
 
-    <h2 >{{employee.name + ' ' + employee.firstname}}</h2>
+    <div class="detail-header">
+      <div>
+        <h2 >{{employee.name + ' ' + employee.firstname}}</h2>
+        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded light-blue-custom-btn mr-2" (click)="openEdit()"></button>
+      </div>
+      <small>ID: {{employee.id}}</small>
+    </div>
 
     <div class="employee-detail-container">
       <div class="first-part">
@@ -40,7 +46,7 @@
           <div class="card-header">Role</div>
           <div class="card-content">
             <div>
-              {{employee.role}}
+              {{employee.role! | role}}
             </div>
           </div>
         </div>
@@ -73,6 +79,14 @@
             <div class="card-part">
               <div class="part-title">Sexe: </div>
               <div class="part-content">{{employee.sexe}}</div>
+            </div>
+            <div class="card-part">
+              <div class="part-title">Date de naissance: </div>
+              <div class="part-content">{{employee.birthdate | date: 'dd/MM/yyyy'}}</div>
+            </div>
+            <div class="card-part">
+              <div class="part-title">Age: </div>
+              <div class="part-content">{{employee.birthdate! | age }} ans</div>
             </div>
             <div class="card-part">
               <div class="part-title">Adresse: </div>
@@ -122,6 +136,8 @@
         </div>
       </div>
     </div>
+
+    <app-employee-dialog [employee]="employee" (saveSuccess)="loadEmployee()"></app-employee-dialog>
 
   </div>
 </div>
