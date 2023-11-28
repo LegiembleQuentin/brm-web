@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./verify-token.component.scss']
 })
 export class VerifyTokenComponent  implements OnInit {
-  token: string;
+  token: string |  null = null;
   tokenIsValid: boolean = false;
 
   constructor(private route: ActivatedRoute, private http: HttpClient) { }
@@ -20,9 +20,11 @@ export class VerifyTokenComponent  implements OnInit {
   }
 
   verifyToken(token: string) {
-    this.http.post('/api/verify-token', { token }).subscribe(response => {
+    this.http.post<any>('http://127.0.0.1:8000/api/verify-token', { token }).subscribe(response => {
       // Supposons que la réponse a une propriété 'valid'
       this.tokenIsValid = response.valid;
+    }, error => {
+      console.log('error')
     });
   }
 }
