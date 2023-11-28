@@ -1,1 +1,8 @@
-<p>verify-token works!</p>
+<div *ngIf="tokenIsValid">
+  <div>
+    <p>Veuillez renseigner votre mot de passe</p>
+  </div>
+</div>
+<div *ngIf="!tokenIsValid">
+  <p>Le token est invalide ou a expiré.</p>
+</div>
