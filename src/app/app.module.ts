@@ -7,6 +7,7 @@ import { EmployeeService } from "./service/employee/employee.service";
 import { TableModule } from "primeng/table";
 import { EmployeeModule } from "./entities/employee/employee.module";
 import { VerifyTokenComponent } from './verify-token/verify-token.component';
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -14,13 +15,14 @@ import { VerifyTokenComponent } from './verify-token/verify-token.component';
     AppComponent,
     VerifyTokenComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    AppLayoutModule,
-    TableModule,
-    EmployeeModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        AppLayoutModule,
+        TableModule,
+        EmployeeModule,
+        FormsModule,
+    ],
   providers: [
     EmployeeService,
   ],
