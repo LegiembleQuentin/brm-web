@@ -6,8 +6,7 @@ import  { AppLayoutModule } from "./layout/app.layout.module";
 import { EmployeeService } from "./service/employee/employee.service";
 import { TableModule } from "primeng/table";
 import { EmployeeModule } from "./entities/employee/employee.module";
-import { AgePipe } from './pipe/age.pipe';
-import { RolePipe } from './pipe/role.pipe';
+import {FeedbackModule} from "./entities/feedback/feedback.module";
 
 
 @NgModule({
@@ -20,6 +19,7 @@ import { RolePipe } from './pipe/role.pipe';
     AppLayoutModule,
     TableModule,
     EmployeeModule,
+    FeedbackModule,
   ],
   providers: [
     EmployeeService,

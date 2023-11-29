@@ -40,13 +40,11 @@ import {RolePipe} from "../../pipe/role.pipe";
     imports: [
         CommonModule,
         TableModule,
-        FileUploadModule,
         FormsModule,
         ButtonModule,
         RippleModule,
         ToastModule,
         ToolbarModule,
-        RatingModule,
         InputTextModule,
         InputTextareaModule,
         DropdownModule,

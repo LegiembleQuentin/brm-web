@@ -44,7 +44,7 @@ export class AppMenuComponent implements OnInit {
                 { label: 'Employés', icon: 'pi pi-fw pi-users', routerLink: ['employee'] },
                 { label: 'Absences/retards', icon: 'pi pi-fw pi-users', routerLink: ['/fsqffds'] },
                 { label: 'Planning', icon: 'pi pi-fw pi-users', routerLink: ['/fdsfsdfdf'] },
-                { label: 'Feedback', icon: 'pi pi-fw pi-users', routerLink: ['/fsdfsfsd'] },
+                { label: 'Feedback', icon: 'pi pi-fw pi-users', routerLink: ['/feedback'] },
             ]
           },
           {
