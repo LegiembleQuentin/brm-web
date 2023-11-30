@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { EmployeeService } from "../../../service/employee/employee.service";
 import { RestaurantService } from "../../../service/restaurant/restaurant.service";
-import {ContractType, EmployeeRole, EmployeeSexe, Employee, mapApiDataToEmployee} from "../../../api/employee";
-import {Restaurant, mapApiDataToRestaurant} from "../../../api/restaurant";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {ValidationService} from "../../../service/validation/validation.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import { ContractType, EmployeeRole, EmployeeSexe, Employee, mapApiDataToEmployee } from "../../../api/employee";
+import { Restaurant, mapApiDataToRestaurant } from "../../../api/restaurant";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { ValidationService } from "../../../service/validation/validation.service";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: 'app-employee-listing',
@@ -66,10 +66,10 @@ export class EmployeeListingComponent {
   ];
 
   contractType = [
-    { label: 'Temps complet', value: ContractType.FULL_TIME},
-    { label: 'Temps partiel', value: ContractType.PART_TIME},
-    { label: 'Temporaire', value: ContractType.TEMPORARY},
-    { label: 'Période probatoire', value: ContractType.PROBATION},
+    { label: 'Temps complet', value: ContractType.FULL_TIME },
+    { label: 'Temps partiel', value: ContractType.PART_TIME },
+    { label: 'Temporaire', value: ContractType.TEMPORARY },
+    { label: 'Période probatoire', value: ContractType.PROBATION },
   ]
 
   employeeSexe = [
@@ -223,34 +223,39 @@ export class EmployeeListingComponent {
   }
 
   getRestaurantsWithNoneOption() {
-    return [{ name: '--', id: null}, ...this.restaurants];
+    return [{ name: '--', id: null }, ...this.restaurants];
   }
 
   getContractTypeWithNoneOption() {
-    return [{ label: '--', value: null}, ...this.contractType];
+    return [{ label: '--', value: null }, ...this.contractType];
   }
 
+  selected: string = '--'; // Par défaut, la valeur est 'default'
 
+  onChange(event: any) {
+    console.log('Code avant console.log');
+    console.log('Option sélectionnée :', this.filters.restaurant);
+  }
 
-      // if (this.product.id) {
-      //   // @ts-ignore
-      //   this.product.inventoryStatus = this.product.inventoryStatus.value ? this.product.inventoryStatus.value : this.product.inventoryStatus;
-      //   this.products[this.findIndexById(this.product.id)] = this.product;
-      //   this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
-      // } else {
-      //   this.product.id = this.createId();
-      //   this.product.code = this.createId();
-      //   this.product.image = 'product-placeholder.svg';
-      //   // @ts-ignore
-      //   this.product.inventoryStatus = this.product.inventoryStatus ? this.product.inventoryStatus.value : 'INSTOCK';
-      //   this.products.push(this.product);
-      //   this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Created', life: 3000 });
-      // }
-      //
-      // this.products = [...this.products];
-      // this.productDialog = false;
-      // this.product = {};
-      // }
+  // if (this.product.id) {
+  //   // @ts-ignore
+  //   this.product.inventoryStatus = this.product.inventoryStatus.value ? this.product.inventoryStatus.value : this.product.inventoryStatus;
+  //   this.products[this.findIndexById(this.product.id)] = this.product;
+  //   this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
+  // } else {
+  //   this.product.id = this.createId();
+  //   this.product.code = this.createId();
+  //   this.product.image = 'product-placeholder.svg';
+  //   // @ts-ignore
+  //   this.product.inventoryStatus = this.product.inventoryStatus ? this.product.inventoryStatus.value : 'INSTOCK';
+  //   this.products.push(this.product);
+  //   this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Created', life: 3000 });
+  // }
+  //
+  // this.products = [...this.products];
+  // this.productDialog = false;
+  // this.product = {};
+  // }
 
   // findIndexById(id: string): number {
   //   let index = -1;

@@ -1,0 +1,477 @@
+<div class="grid">
+  <div class="col-12">
+    <p-toast></p-toast>
+    <div class="custom-topbar">
+      <div class="topbar-background">
+        <div class="topbar-container">
+          <div class="custom-dropdown enabled-filter">
+            <label for="enabledFilter">Disponibilité</label>
+            <p-dropdown
+              inputId="enabledFilter"
+              id="enabledFilter"
+              optionLabel="label"
+              optionValue="value"
+              placeholder="Disponibilité"
+              class="p-dropdown-filter"
+            ></p-dropdown>
+          </div>
+          <div class="custom-dropdown">
+            <label for="contractTypeFilter">Contrat</label>
+            <p-dropdown
+              id="contractTypeFilter"
+              inputId="contractTypeFilter"
+              optionLabel="label"
+              optionValue="value"
+              placeholder="Contrat"
+              class="p-dropdown-filter"
+            ></p-dropdown>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p-table
+      #dt
+      [value]="restaurants"
+      [columns]="cols"
+      responsiveLayout="scroll"
+      [rows]="10"
+      [globalFilterFields]="[
+        'name',
+        'country.name',
+        'representative.name',
+        'status'
+      ]"
+      [paginator]="true"
+      [rowsPerPageOptions]="[10, 20, 30]"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      selectionMode="multiple"
+      [rowHover]="true"
+      dataKey="id"
+    >
+      <ng-template pTemplate="caption">
+        <p-toolbar styleClass="mb-4">
+          <h5 class="custom-title">Restaurants</h5>
+          <ng-template pTemplate="right">
+            <div class="my-2 customBtnGrp">
+              <div class="search-bar">
+                <div class="input-search">
+                  <i class="pi pi-search"></i>
+                  <input type="text" placeholder="Rechercher" />
+                </div>
+                <div class="underline-search"></div>
+              </div>
+              <div class="addBtn" (click)="openNew()">
+                <span class="addBtnPlus">+</span>
+                <span>Ajouter</span>
+              </div>
+              <div>
+                <button (click)="search()">test</button>
+              </div>
+              <!--              <span class="block mt-2 md:mt-0 p-input-icon-left">-->
+              <!--                      <i class="pi pi-search"></i>-->
+              <!--                      <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."  class="w-full sm:w-auto"/>-->
+              <!--                    </span>-->
+            </div>
+          </ng-template>
+        </p-toolbar>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th>
+          <th pSortableColumn="name">
+            Nom <p-sortIcon field="name"></p-sortIcon>
+          </th>
+          <th pSortableColumn="adress">
+            Adresse <p-sortIcon field="adress"></p-sortIcon>
+          </th>
+          <th pSortableColumn="city">
+            Ville <p-sortIcon field="city"></p-sortIcon>
+          </th>
+          <th pSortableColumn="phone">
+            Telephone<p-sortIcon field="phone"></p-sortIcon>
+          </th>
+          <th pSortableColumn="rating">
+            Note <p-sortIcon field="rating"></p-sortIcon>
+          </th>
+          <th pSortableColumn="enabled">
+            Actif <p-sortIcon field="enabled"></p-sortIcon>
+          </th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-restaurant>
+        <tr>
+          <td style="width: 14%; min-width: 10rem">
+            <span class="p-column-title">Id</span>
+            {{ restaurant.id }}
+          </td>
+          <td style="width: 14%; min-width: 10rem">
+            <span class="p-column-title">Name</span>
+            {{ restaurant.name }}
+          </td>
+          <td style="width: 14%; min-width: 10rem">
+            <span class="p-column-title">Adresse</span>
+            {{ restaurant.adress }}
+          </td>
+          <td style="width: 14%; min-width: 10rem">
+            <span class="p-column-title">Ville</span>
+            {{ restaurant.city }}
+          </td>
+          <td style="width: 14%; min-width: 10rem">
+            <span class="p-column-title">Tél</span>
+            {{ restaurant.phone }}
+          </td>
+          <td style="width: 14%; min-width: 10rem">
+            <span class="p-column-title">Note</span>
+            {{ restaurant.rating }}
+          </td>
+          <td *ngIf="restaurant.enabled" style="width: 14%; min-width: 10rem">
+            <span class="p-column-title">Actif</span>
+            Oui
+          </td>
+          <td *ngIf="!restaurant.enabled" style="width: 14%; min-width: 10rem">
+            <span class="p-column-title">Actif</span>
+            Non
+          </td>
+          <!--            <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Reviews</span>-->
+          <!--              <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating>-->
+          <!--            </td>-->
+          <!--            <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Status</span>-->
+          <!--              <span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')">{{product.inventoryStatus}}</span>-->
+          <!--            </td>-->
+          <td>
+            <div class="flex">
+              <button
+                pButton
+                pRipple
+                icon="pi pi-ellipsis-h"
+                class="p-button-rounded light-blue-custom-btn mr-2"
+                [routerLink]="['/restaurant', restaurant.id]"
+              ></button>
+              <button
+                pButton
+                pRipple
+                icon="pi pi-pencil"
+                class="p-button-rounded light-blue-custom-btn mr-2"
+                (click)="editRestaurant(restaurant)"
+              ></button>
+              <button
+                pButton
+                pRipple
+                icon="pi pi-trash"
+                class="p-button-rounded red-custom-btn"
+              ></button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <p-dialog
+    [(visible)]="restaurantDialog"
+    [style]="{ width: '450px' }"
+    header="Details de l'employé"
+    [modal]="true"
+    class="p-fluid"
+  >
+    <ng-template pTemplate="content">
+      <form [formGroup]="restaurantForm" (ngSubmit)="saveRestaurant()">
+        <div class="field">
+          <label for="name">Nom <span class="requiredStar">*</span></label>
+          <input
+            type="text"
+            pInputText
+            id="name"
+            formControlName="name"
+            required
+            value="restaurant.name"
+            autofocus
+            [ngModel]="restaurant.name"
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                restaurantForm.controls.name.invalid &&
+                (restaurantForm.controls.name.touched ||
+                  restaurantForm.controls.name.dirty)
+            }"
+          />
+          <small class="ng-dirty ng-invalid"> Ce champ est obligatoire. </small>
+        </div>
+
+        <div class="field">
+          <label for="city">Ville <span class="requiredStar">*</span></label>
+          <input
+            type="text"
+            pInputText
+            [ngModel]="restaurant.city"
+            id="city"
+            formControlName="city"
+          />
+          <small class="ng-dirty ng-invalid"> Ce champ est obligatoire. </small>
+        </div>
+
+        <div class="field">
+          <label for="adress"
+            >Adresse <span class="requiredStar">*</span></label
+          >
+          <input
+            type="text"
+            pInputText
+            [ngModel]="restaurant.adress"
+            id="adress"
+            formControlName="adress"
+          />
+          <small class="ng-dirty ng-invalid"> Ce champ est obligatoire. </small>
+        </div>
+
+        <div class="field">
+          <label for="postalCode">Code Postal</label>
+          <input
+            type="text"
+            pInputText
+            [ngModel]="restaurant.postalCode"
+            id="postalCode"
+            formControlName="postalCode"
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                restaurantForm.controls.postalCode.invalid &&
+                (restaurantForm.controls.postalCode.touched ||
+                  restaurantForm.controls.postalCode.dirty)
+            }"
+          />
+          <small
+            class="ng-dirty ng-invalid"
+            *ngIf="restaurantForm.controls.postalCode.errors?.['invalidPostalCode'] && (restaurantForm.controls.postalCode.touched || restaurantForm.controls.postalCode.dirty)"
+          >
+            Le code postal doit être un numéro à 5 chiffres.
+          </small>
+        </div>
+
+        <div class="field">
+          <label for="country">Pays <span class="requiredStar">*</span></label>
+          <p-dropdown
+            inputId="country"
+            id="country"
+            formControlName="country"
+            optionLabel="label"
+            optionValue="value"
+            [options]="countriesList"
+            placeholder="Sélectionner un Pays"
+          ></p-dropdown>
+          <small class="ng-dirty ng-invalid"> Ce champ est obligatoire. </small>
+        </div>
+
+        <div class="field">
+          <label for="email">Email <span class="requiredStar">*</span></label>
+          <input
+            type="email"
+            pInputText
+            id="email"
+            [ngModel]="restaurant.email"
+            formControlName="email"
+            autofocus
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                restaurantForm.controls.email.invalid &&
+                (restaurantForm.controls.email.touched ||
+                  restaurantForm.controls.email.dirty)
+            }"
+          />
+          <small
+            class="ng-dirty ng-invalid"
+            *ngIf="restaurantForm.controls.email.errors?.['required'] && (restaurantForm.controls.email.touched || restaurantForm.controls.email.dirty)"
+          >
+            Ce champ est obligatoire.
+          </small>
+          <small
+            class="ng-dirty ng-invalid"
+            *ngIf="restaurantForm.controls.email.errors?.['email'] && (restaurantForm.controls.email.touched || restaurantForm.controls.email.dirty)"
+          >
+            L'adresse email n'est pas valide.
+          </small>
+        </div>
+
+        <div class="field">
+          <label for="phone"
+            >Téléphone <span class="requiredStar">*</span></label
+          >
+          <input
+            type="text"
+            pInputText
+            [ngModel]="restaurant.phone"
+            id="phone"
+            formControlName="phone"
+            autofocus
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                restaurantForm.controls.phone.invalid &&
+                (restaurantForm.controls.phone.touched ||
+                  restaurantForm.controls.phone.dirty)
+            }"
+          />
+          <small
+            class="ng-dirty ng-invalid"
+            *ngIf="restaurantForm.controls.phone.errors?.['required'] && (restaurantForm.controls.phone.touched || restaurantForm.controls.phone.dirty)"
+          >
+            Ce champ est obligatoire.
+          </small>
+          <small
+            class="ng-dirty ng-invalid"
+            *ngIf="restaurantForm.controls.phone.errors?.['pattern'] && (restaurantForm.controls.phone.touched || restaurantForm.controls.phone.dirty)"
+          >
+            Le numéro de téléphone doit être composé de 10 chiffres.
+          </small>
+        </div>
+
+        <div class="field">
+          <label for="openDate"
+            >Date d'Ouverture <span class="requiredStar">*</span></label
+          >
+          <p-calendar
+            [showIcon]="true"
+            id="openDate"
+            formControlName="openDate"
+            inputId="openDate"
+            value="restaurant.openDate"
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                restaurantForm.controls.openDate.invalid &&
+                (restaurantForm.controls.openDate.touched ||
+                  restaurantForm.controls.openDate.dirty)
+            }"
+          ></p-calendar>
+          <small
+            class="ng-dirty ng-invalid"
+            *ngIf="
+              restaurantForm.controls.openDate.invalid &&
+              (restaurantForm.controls.openDate.touched ||
+                restaurantForm.controls.openDate.dirty)
+            "
+          >
+            Ce champ est obligatoire.
+          </small>
+          <small
+            class="ng-dirty ng-invalid"
+            *ngIf="restaurantForm.controls.openDate.errors?.['invalidDate'] && (restaurantForm.controls.openDate.touched || restaurantForm.controls.openDate.dirty)"
+          >
+            La date n'est pas valide.
+          </small>
+        </div>
+
+        <div class="field">
+          <label for="operatingHours"
+            >Horraire <span class="requiredStar">*</span></label
+          >
+          <input
+            type="text"
+            pInputText
+            [ngModel]="restaurant.operatingHours"
+            id="operatingHours"
+            formControlName="operatingHours"
+            autofocus
+            placeholder="Format : 00h00-00h00"
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                restaurantForm.controls.rating.invalid &&
+                (restaurantForm.controls.rating.touched ||
+                  restaurantForm.controls.rating.dirty)
+            }"
+          />
+          <small
+            class="ng-dirty ng-invalid"
+            *ngIf="restaurantForm.controls.rating.errors?.['required'] && (restaurantForm.controls.rating.touched || restaurantForm.controls.rating.dirty)"
+          >
+            Ce champ est obligatoire.
+          </small>
+          <small
+            class="ng-dirty ng-invalid"
+            *ngIf="restaurantForm.controls.rating.errors?.['pattern'] && (restaurantForm.controls.rating.touched || restaurantForm.controls.rating.dirty)"
+          >
+            La moyenne doit être composé de 1 chiffres.
+          </small>
+        </div>
+
+        <div class="field">
+          <label for="rating">Note <span class="requiredStar">*</span></label>
+          <input
+            type="number"
+            pInputText
+            [ngModel]="restaurant.rating"
+            id="rating"
+            formControlName="rating"
+            autofocus
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                restaurantForm.controls.rating.invalid &&
+                (restaurantForm.controls.rating.touched ||
+                  restaurantForm.controls.rating.dirty)
+            }"
+          />
+          <small
+            class="ng-dirty ng-invalid"
+            *ngIf="restaurantForm.controls.rating.errors?.['required'] && (restaurantForm.controls.rating.touched || restaurantForm.controls.rating.dirty)"
+          >
+            Ce champ est obligatoire.
+          </small>
+          <small
+            class="ng-dirty ng-invalid"
+            *ngIf="restaurantForm.controls.rating.errors?.['pattern'] && (restaurantForm.controls.rating.touched || restaurantForm.controls.rating.dirty)"
+          >
+            La moyenne doit être composé de 1 chiffres.
+          </small>
+        </div>
+
+        <div class="field">
+          <label>Actif</label>
+          <div>
+            <p-inputSwitch formControlName="enabled"></p-inputSwitch>
+          </div>
+        </div>
+      </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+      <button
+        pButton
+        pRipple
+        label="Cancel"
+        (click)="closeRestaurant()"
+        icon="pi pi-times"
+        class="p-button-text"
+      ></button>
+      <button
+        pButton
+        pRipple
+        type="submit"
+        label="Save"
+        icon="pi pi-check"
+        (click)="saveRestaurant()"
+        [disabled]="restaurantForm.invalid"
+        class="p-button-text"
+      ></button>
+    </ng-template>
+  </p-dialog>
+
+  <p-dialog header="Confirm" [modal]="true" [style]="{ width: '450px' }">
+    <div class="flex align-items-center justify-content-center">
+      <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+      <span>Are you sure you want to delete >?</span>
+    </div>
+    <ng-template pTemplate="footer">
+      <button
+        pButton
+        pRipple
+        icon="pi pi-times"
+        class="p-button-text"
+        label="No"
+      ></button>
+      <button
+        pButton
+        pRipple
+        icon="pi pi-check"
+        class="p-button-text"
+        label="Yes"
+      ></button>
+    </ng-template>
+  </p-dialog>
+</div>

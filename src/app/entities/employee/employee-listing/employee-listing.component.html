@@ -5,19 +5,34 @@
     <div class="custom-topbar">
       <div class="topbar-background">
         <div class="topbar-container">
-          <div class="custom-dropdown restaurant-filter">
+          <div
+            class="custom-dropdown restaurant-filter"
+            [ngClass]="{
+              'custom-dropdown-selected': filters.restaurant,
+              'custom-dropdown-not-selected': !filters.restaurant
+            }"
+          >
             <label for="restaurantFilter">Restaurant</label>
             <p-dropdown
+              (change)="onChange($event)"
               [options]="getRestaurantsWithNoneOption()"
               optionLabel="name"
               optionValue="id"
               placeholder="Restaurant"
               [(ngModel)]="filters.restaurant"
               id="restaurantFilter"
-              inputId="restaurantFilter">
+              inputId="restaurantFilter"
+              class="p-dropdown-filter"
+            >
             </p-dropdown>
           </div>
-          <div class="custom-dropdown role-filter">
+          <div
+            class="role-filter"
+            [ngClass]="{
+              'custom-dropdown-selected': filters.role,
+              'custom-dropdown-not-selected': !filters.role
+            }"
+          >
             <label for="roleFilter">Role</label>
             <p-dropdown
               inputId="roleFilter"
@@ -27,9 +42,16 @@
               optionValue="value"
               [options]="getRolesWithNoneOption()"
               placeholder="Rôle"
+              class="p-dropdown-filter"
             ></p-dropdown>
           </div>
-          <div class="custom-dropdown">
+          <div
+            class="custom-dropdown"
+            [ngClass]="{
+              'custom-dropdown-selected': filters.contractType,
+              'custom-dropdown-not-selected': !filters.contractType
+            }"
+          >
             <label for="contractTypeFilter">Contrat</label>
             <p-dropdown
               [(ngModel)]="filters.contractType"
@@ -39,13 +61,34 @@
               optionValue="value"
               [options]="getContractTypeWithNoneOption()"
               placeholder="Contrat"
+              class="p-dropdown-filter"
             ></p-dropdown>
           </div>
         </div>
       </div>
     </div>
 
-    <p-table #dt [value]="employees" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['name','country.name','representative.name','status']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedEmployees" selectionMode="multiple" [rowHover]="true" dataKey="id">
+    <p-table
+      #dt
+      [value]="employees"
+      [columns]="cols"
+      responsiveLayout="scroll"
+      [rows]="10"
+      [globalFilterFields]="[
+        'name',
+        'country.name',
+        'representative.name',
+        'status'
+      ]"
+      [paginator]="true"
+      [rowsPerPageOptions]="[10, 20, 30]"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [(selection)]="selectedEmployees"
+      selectionMode="multiple"
+      [rowHover]="true"
+      dataKey="id"
+    >
       <ng-template pTemplate="caption">
         <p-toolbar styleClass="mb-4">
           <h5 class="custom-title">Employés</h5>
@@ -54,7 +97,11 @@
               <div class="search-bar">
                 <div class="input-search">
                   <i class="pi pi-search"></i>
-                  <input type="text" [(ngModel)]="filters.search" placeholder="Rechercher">
+                  <input
+                    type="text"
+                    [(ngModel)]="filters.search"
+                    placeholder="Rechercher"
+                  />
                 </div>
                 <div class="underline-search"></div>
               </div>
@@ -64,10 +111,10 @@
               <div>
                 <button (click)="search()">test</button>
               </div>
-<!--              <span class="block mt-2 md:mt-0 p-input-icon-left">-->
-<!--                      <i class="pi pi-search"></i>-->
-<!--                      <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."  class="w-full sm:w-auto"/>-->
-<!--                    </span>-->
+              <!--              <span class="block mt-2 md:mt-0 p-input-icon-left">-->
+              <!--                      <i class="pi pi-search"></i>-->
+              <!--                      <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."  class="w-full sm:w-auto"/>-->
+              <!--                    </span>-->
             </div>
           </ng-template>
         </p-toolbar>
@@ -75,45 +122,58 @@
       <ng-template pTemplate="header">
         <tr>
           <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th>
-          <th pSortableColumn="name">Nom <p-sortIcon field="name"></p-sortIcon></th>
-          <th pSortableColumn="firstname">Prénom <p-sortIcon field="firstname"></p-sortIcon></th>
-          <th pSortableColumn="hireDate">Date d'embauche <p-sortIcon field="hireDate"></p-sortIcon></th>
-          <th pSortableColumn="contractType">Type de contrat <p-sortIcon field="hireDate"></p-sortIcon></th>
-          <th pSortableColumn="restaurant">Restaurant <p-sortIcon field="restaurant"></p-sortIcon></th>
-          <th pSortableColumn="enabled">Actif <p-sortIcon field="enabled"></p-sortIcon></th>
+          <th pSortableColumn="name">
+            Nom <p-sortIcon field="name"></p-sortIcon>
+          </th>
+          <th pSortableColumn="firstname">
+            Prénom <p-sortIcon field="firstname"></p-sortIcon>
+          </th>
+          <th pSortableColumn="hireDate">
+            Date d'embauche <p-sortIcon field="hireDate"></p-sortIcon>
+          </th>
+          <th pSortableColumn="contractType">
+            Type de contrat <p-sortIcon field="hireDate"></p-sortIcon>
+          </th>
+          <th pSortableColumn="restaurant">
+            Restaurant <p-sortIcon field="restaurant"></p-sortIcon>
+          </th>
+          <th pSortableColumn="enabled">
+            Actif <p-sortIcon field="enabled"></p-sortIcon>
+          </th>
           <th></th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-employee>
         <tr>
-          <td style="width:14%; min-width:10rem;"><span class="p-column-title">Id</span>
-            {{employee.id}}
+          <td style="width: 14%; min-width: 10rem">
+            <span class="p-column-title">Id</span>
+            {{ employee.id }}
           </td>
-          <td style="width:14%; min-width:10rem;">
+          <td style="width: 14%; min-width: 10rem">
             <span class="p-column-title">Name</span>
-            {{employee.name}}
+            {{ employee.name }}
           </td>
-          <td style="width:14%; min-width:10rem;">
+          <td style="width: 14%; min-width: 10rem">
             <span class="p-column-title">Prénom</span>
-            {{employee.firstname}}
+            {{ employee.firstname }}
           </td>
-          <td style="width:14%; min-width:10rem;">
+          <td style="width: 14%; min-width: 10rem">
             <span class="p-column-title">Date d'embauche</span>
-            {{ employee.hireDate | date:'dd/MM/yyyy' }}
+            {{ employee.hireDate | date : "dd/MM/yyyy" }}
           </td>
-          <td style="width:14%; min-width:10rem;">
+          <td style="width: 14%; min-width: 10rem">
             <span class="p-column-title">Contract type</span>
             {{ employee.contractType | contractTypeDisplay }}
           </td>
-          <td style="width:14%; min-width:10rem;">
+          <td style="width: 14%; min-width: 10rem">
             <span class="p-column-title">Contract type</span>
             {{ employee.restaurant.name }}
           </td>
-          <td *ngIf="employee.enabled" style="width:14%; min-width:10rem;">
+          <td *ngIf="employee.enabled" style="width: 14%; min-width: 10rem">
             <span class="p-column-title">Actif</span>
             Oui
           </td>
-          <td *ngIf="!employee.enabled" style="width:14%; min-width:10rem;">
+          <td *ngIf="!employee.enabled" style="width: 14%; min-width: 10rem">
             <span class="p-column-title">Actif</span>
             Non
           </td>
@@ -125,9 +185,27 @@
           <!--            </td>-->
           <td>
             <div class="flex">
-              <button pButton pRipple icon="pi pi-ellipsis-h" class="p-button-rounded light-blue-custom-btn mr-2" [routerLink]="['/employee', employee.id]"></button>
-              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded light-blue-custom-btn mr-2" (click)="editProduct(employee)"></button>
-              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded red-custom-btn" (click)="deleteEmployee(employee)"></button>
+              <button
+                pButton
+                pRipple
+                icon="pi pi-ellipsis-h"
+                class="p-button-rounded light-blue-custom-btn mr-2"
+                [routerLink]="['/employee', employee.id]"
+              ></button>
+              <button
+                pButton
+                pRipple
+                icon="pi pi-pencil"
+                class="p-button-rounded light-blue-custom-btn mr-2"
+                (click)="editProduct(employee)"
+              ></button>
+              <button
+                pButton
+                pRipple
+                icon="pi pi-trash"
+                class="p-button-rounded red-custom-btn"
+                (click)="deleteEmployee(employee)"
+              ></button>
             </div>
           </td>
         </tr>
@@ -135,59 +213,131 @@
     </p-table>
   </div>
 
-  <p-dialog [(visible)]="employeeDialog" [style]="{width: '450px'}" header="Details de l'employé" [modal]="true" class="p-fluid">
+  <p-dialog
+    [(visible)]="employeeDialog"
+    [style]="{ width: '450px' }"
+    header="Details de l'employé"
+    [modal]="true"
+    class="p-fluid"
+  >
     <ng-template pTemplate="content">
       <form [formGroup]="employeeForm" (ngSubmit)="saveEmployee()">
         <div class="field">
-          <label for="restaurant">Restaurant <span class="requiredStar">*</span></label>
+          <label for="restaurant"
+            >Restaurant <span class="requiredStar">*</span></label
+          >
           <p-dropdown
             [options]="restaurants"
             optionLabel="name"
             placeholder="Sélectionner un restaurant"
             formControlName="restaurant"
             id="restaurant"
-            inputId="restaurant">
+            inputId="restaurant"
+          >
           </p-dropdown>
-          <small class="ng-dirty ng-invalid" *ngIf="employeeForm.controls.restaurant.invalid && (employeeForm.controls.restaurant.touched || employeeForm.controls.restaurant.dirty)">
+          <small
+            class="ng-dirty ng-invalid"
+            *ngIf="
+              employeeForm.controls.restaurant.invalid &&
+              (employeeForm.controls.restaurant.touched ||
+                employeeForm.controls.restaurant.dirty)
+            "
+          >
             Ce champ est obligatoire.
           </small>
         </div>
 
         <div class="field">
           <label for="name">Nom <span class="requiredStar">*</span></label>
-          <input type="text" pInputText id="name" formControlName="name" required
-                 autofocus [ngClass]="{'ng-invalid ng-dirty' : employeeForm.controls.name.invalid && (employeeForm.controls.name.touched || employeeForm.controls.name.dirty)}"
+          <input
+            type="text"
+            pInputText
+            id="name"
+            formControlName="name"
+            required
+            autofocus
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                employeeForm.controls.name.invalid &&
+                (employeeForm.controls.name.touched ||
+                  employeeForm.controls.name.dirty)
+            }"
           />
-          <small class="ng-dirty ng-invalid" *ngIf="employeeForm.controls.name.invalid && (employeeForm.controls.name.touched || employeeForm.controls.name.dirty)">
+          <small
+            class="ng-dirty ng-invalid"
+            *ngIf="
+              employeeForm.controls.name.invalid &&
+              (employeeForm.controls.name.touched ||
+                employeeForm.controls.name.dirty)
+            "
+          >
             Ce champ est obligatoire.
           </small>
         </div>
 
         <div class="field">
-          <label for="firstname">Prénom <span class="requiredStar">*</span></label>
-          <input type="text" pInputText id="firstname" formControlName="firstname" required autofocus
-                 [ngClass]="{'ng-invalid ng-dirty': employeeForm.controls.firstname.invalid && (employeeForm.controls.firstname.touched || employeeForm.controls.firstname.dirty)}"
+          <label for="firstname"
+            >Prénom <span class="requiredStar">*</span></label
+          >
+          <input
+            type="text"
+            pInputText
+            id="firstname"
+            formControlName="firstname"
+            required
+            autofocus
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                employeeForm.controls.firstname.invalid &&
+                (employeeForm.controls.firstname.touched ||
+                  employeeForm.controls.firstname.dirty)
+            }"
           />
-          <small class="ng-dirty ng-invalid" *ngIf="employeeForm.controls.firstname.invalid && (employeeForm.controls.firstname.touched || employeeForm.controls.firstname.dirty)">
+          <small
+            class="ng-dirty ng-invalid"
+            *ngIf="
+              employeeForm.controls.firstname.invalid &&
+              (employeeForm.controls.firstname.touched ||
+                employeeForm.controls.firstname.dirty)
+            "
+          >
             Ce champ est obligatoire.
           </small>
         </div>
 
         <div class="field">
           <label for="email">Email <span class="requiredStar">*</span></label>
-          <input type="email" pInputText id="email" formControlName="email"
-                 autofocus [ngClass]="{'ng-invalid ng-dirty': employeeForm.controls.email.invalid && (employeeForm.controls.email.touched || employeeForm.controls.email.dirty)}"
+          <input
+            type="email"
+            pInputText
+            id="email"
+            formControlName="email"
+            autofocus
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                employeeForm.controls.email.invalid &&
+                (employeeForm.controls.email.touched ||
+                  employeeForm.controls.email.dirty)
+            }"
           />
-          <small class="ng-dirty ng-invalid" *ngIf="employeeForm.controls.email.errors?.['required'] && (employeeForm.controls.email.touched || employeeForm.controls.email.dirty)">
+          <small
+            class="ng-dirty ng-invalid"
+            *ngIf="employeeForm.controls.email.errors?.['required'] && (employeeForm.controls.email.touched || employeeForm.controls.email.dirty)"
+          >
             Ce champ est obligatoire.
           </small>
-          <small class="ng-dirty ng-invalid" *ngIf="employeeForm.controls.email.errors?.['email'] && (employeeForm.controls.email.touched || employeeForm.controls.email.dirty)">
+          <small
+            class="ng-dirty ng-invalid"
+            *ngIf="employeeForm.controls.email.errors?.['email'] && (employeeForm.controls.email.touched || employeeForm.controls.email.dirty)"
+          >
             L'adresse email n'est pas valide.
           </small>
         </div>
 
         <div class="field">
-          <label for="role">Role de l'employé <span class="requiredStar">*</span></label>
+          <label for="role"
+            >Role de l'employé <span class="requiredStar">*</span></label
+          >
           <p-dropdown
             inputId="role"
             id="role"
@@ -196,67 +346,147 @@
             optionValue="value"
             [options]="employeeRole"
             placeholder="Sélectionner un rôle"
-            [ngClass]="{'ng-invalid ng-dirty': employeeForm.controls.role.invalid && (employeeForm.controls.role.touched || employeeForm.controls.role.dirty)}"
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                employeeForm.controls.role.invalid &&
+                (employeeForm.controls.role.touched ||
+                  employeeForm.controls.role.dirty)
+            }"
           ></p-dropdown>
-          <small class="ng-dirty ng-invalid" *ngIf="employeeForm.controls.role.invalid && (employeeForm.controls.role.touched || employeeForm.controls.role.dirty)">
+          <small
+            class="ng-dirty ng-invalid"
+            *ngIf="
+              employeeForm.controls.role.invalid &&
+              (employeeForm.controls.role.touched ||
+                employeeForm.controls.role.dirty)
+            "
+          >
             Ce champ est obligatoire.
           </small>
         </div>
 
         <div class="field">
           <label for="sexe">Sexe <span class="requiredStar">*</span></label>
-          <p-dropdown inputId="sexe"
-                      id="sexe"
-                      formControlName="sexe"
-                      optionLabel="label"
-                      optionValue="value"
-                      [options]="employeeSexe"
-                      placeholder="Sélectionner le sexe"
-                      [ngClass]="{'ng-invalid ng-dirty': employeeForm.controls.sexe.invalid && (employeeForm.controls.sexe.touched || employeeForm.controls.sexe.dirty)}"
+          <p-dropdown
+            inputId="sexe"
+            id="sexe"
+            formControlName="sexe"
+            optionLabel="label"
+            optionValue="value"
+            [options]="employeeSexe"
+            placeholder="Sélectionner le sexe"
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                employeeForm.controls.sexe.invalid &&
+                (employeeForm.controls.sexe.touched ||
+                  employeeForm.controls.sexe.dirty)
+            }"
           ></p-dropdown>
-          <small class="ng-dirty ng-invalid" *ngIf="employeeForm.controls.birthdate.errors?.['required'] && (employeeForm.controls.birthdate.touched || employeeForm.controls.birthdate.dirty)">
+          <small
+            class="ng-dirty ng-invalid"
+            *ngIf="employeeForm.controls.birthdate.errors?.['required'] && (employeeForm.controls.birthdate.touched || employeeForm.controls.birthdate.dirty)"
+          >
             Ce champ est obligatoire.
           </small>
-          <small class="ng-dirty ng-invalid" *ngIf="employeeForm.controls.birthdate.errors?.['invalidDate'] && (employeeForm.controls.birthdate.touched || employeeForm.controls.birthdate.dirty)">
+          <small
+            class="ng-dirty ng-invalid"
+            *ngIf="employeeForm.controls.birthdate.errors?.['invalidDate'] && (employeeForm.controls.birthdate.touched || employeeForm.controls.birthdate.dirty)"
+          >
             La date n'est pas valide.
           </small>
         </div>
 
         <div class="field">
-          <label for="birthdate">Date de naissance <span class="requiredStar">*</span></label>
-          <p-calendar [showIcon]="true" id="birthdate" formControlName="birthdate" inputId="birthdate"
-                      [ngClass]="{'ng-invalid ng-dirty': employeeForm.controls.birthdate.invalid && (employeeForm.controls.birthdate.touched || employeeForm.controls.birthdate.dirty)}"
+          <label for="birthdate"
+            >Date de naissance <span class="requiredStar">*</span></label
+          >
+          <p-calendar
+            [showIcon]="true"
+            id="birthdate"
+            formControlName="birthdate"
+            inputId="birthdate"
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                employeeForm.controls.birthdate.invalid &&
+                (employeeForm.controls.birthdate.touched ||
+                  employeeForm.controls.birthdate.dirty)
+            }"
           ></p-calendar>
-          <small class="ng-dirty ng-invalid" *ngIf="employeeForm.controls.birthdate.errors?.['required'] && (employeeForm.controls.birthdate.touched || employeeForm.controls.birthdate.dirty)">
+          <small
+            class="ng-dirty ng-invalid"
+            *ngIf="employeeForm.controls.birthdate.errors?.['required'] && (employeeForm.controls.birthdate.touched || employeeForm.controls.birthdate.dirty)"
+          >
             Ce champ est obligatoire.
           </small>
-          <small class="ng-dirty ng-invalid" *ngIf="employeeForm.controls.birthdate.errors?.['invalidDate'] && (employeeForm.controls.birthdate.touched || employeeForm.controls.birthdate.dirty)">
+          <small
+            class="ng-dirty ng-invalid"
+            *ngIf="employeeForm.controls.birthdate.errors?.['invalidDate'] && (employeeForm.controls.birthdate.touched || employeeForm.controls.birthdate.dirty)"
+          >
             La date n'est pas valide.
           </small>
         </div>
 
         <div class="field">
-          <label for="hireDate">Date d'embauche <span class="requiredStar">*</span></label>
-          <p-calendar [showIcon]="true" id="hireDate" formControlName="hireDate" inputId="hireDate"
-                      [ngClass]="{'ng-invalid ng-dirty': employeeForm.controls.hireDate.invalid && (employeeForm.controls.hireDate.touched || employeeForm.controls.hireDate.dirty)}"
+          <label for="hireDate"
+            >Date d'embauche <span class="requiredStar">*</span></label
+          >
+          <p-calendar
+            [showIcon]="true"
+            id="hireDate"
+            formControlName="hireDate"
+            inputId="hireDate"
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                employeeForm.controls.hireDate.invalid &&
+                (employeeForm.controls.hireDate.touched ||
+                  employeeForm.controls.hireDate.dirty)
+            }"
           ></p-calendar>
-          <small class="ng-dirty ng-invalid" *ngIf="employeeForm.controls.hireDate.invalid && (employeeForm.controls.hireDate.touched || employeeForm.controls.hireDate.dirty)">
+          <small
+            class="ng-dirty ng-invalid"
+            *ngIf="
+              employeeForm.controls.hireDate.invalid &&
+              (employeeForm.controls.hireDate.touched ||
+                employeeForm.controls.hireDate.dirty)
+            "
+          >
             Ce champ est obligatoire.
           </small>
-          <small class="ng-dirty ng-invalid" *ngIf="employeeForm.controls.hireDate.errors?.['invalidDate'] && (employeeForm.controls.hireDate.touched || employeeForm.controls.hireDate.dirty)">
+          <small
+            class="ng-dirty ng-invalid"
+            *ngIf="employeeForm.controls.hireDate.errors?.['invalidDate'] && (employeeForm.controls.hireDate.touched || employeeForm.controls.hireDate.dirty)"
+          >
             La date n'est pas valide.
           </small>
         </div>
 
         <div class="field">
-          <label for="phone">Téléphone <span class="requiredStar">*</span></label>
-          <input type="text" pInputText id="phone" formControlName="phone" autofocus
-                 [ngClass]="{'ng-invalid ng-dirty': employeeForm.controls.phone.invalid && (employeeForm.controls.phone.touched || employeeForm.controls.phone.dirty)}"
+          <label for="phone"
+            >Téléphone <span class="requiredStar">*</span></label
+          >
+          <input
+            type="text"
+            pInputText
+            id="phone"
+            formControlName="phone"
+            autofocus
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                employeeForm.controls.phone.invalid &&
+                (employeeForm.controls.phone.touched ||
+                  employeeForm.controls.phone.dirty)
+            }"
           />
-          <small class="ng-dirty ng-invalid" *ngIf="employeeForm.controls.phone.errors?.['required'] && (employeeForm.controls.phone.touched || employeeForm.controls.phone.dirty)">
+          <small
+            class="ng-dirty ng-invalid"
+            *ngIf="employeeForm.controls.phone.errors?.['required'] && (employeeForm.controls.phone.touched || employeeForm.controls.phone.dirty)"
+          >
             Ce champ est obligatoire.
           </small>
-          <small class="ng-dirty ng-invalid" *ngIf="employeeForm.controls.phone.errors?.['pattern'] && (employeeForm.controls.phone.touched || employeeForm.controls.phone.dirty)">
+          <small
+            class="ng-dirty ng-invalid"
+            *ngIf="employeeForm.controls.phone.errors?.['pattern'] && (employeeForm.controls.phone.touched || employeeForm.controls.phone.dirty)"
+          >
             Le numéro de téléphone doit être composé de 10 chiffres.
           </small>
         </div>
@@ -278,19 +508,39 @@
             pInputText
             id="postalCode"
             formControlName="postalCode"
-            [ngClass]="{'ng-invalid ng-dirty': employeeForm.controls.postalCode.invalid && (employeeForm.controls.postalCode.touched || employeeForm.controls.postalCode.dirty)}"
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                employeeForm.controls.postalCode.invalid &&
+                (employeeForm.controls.postalCode.touched ||
+                  employeeForm.controls.postalCode.dirty)
+            }"
           />
-          <small class="ng-dirty ng-invalid" *ngIf="employeeForm.controls.postalCode.errors?.['invalidPostalCode'] && (employeeForm.controls.postalCode.touched || employeeForm.controls.postalCode.dirty)">
+          <small
+            class="ng-dirty ng-invalid"
+            *ngIf="employeeForm.controls.postalCode.errors?.['invalidPostalCode'] && (employeeForm.controls.postalCode.touched || employeeForm.controls.postalCode.dirty)"
+          >
             Le code postal doit être un numéro à 5 chiffres.
           </small>
         </div>
 
         <div class="field">
           <label for="socialSecurityNumber">Numéro de Sécurité Sociale</label>
-          <input type="text" pInputText id="socialSecurityNumber" formControlName="socialSecurityNumber"
-                 [ngClass]="{'ng-invalid ng-dirty': employeeForm.controls.socialSecurityNumber.invalid && (employeeForm.controls.socialSecurityNumber.touched || employeeForm.controls.socialSecurityNumber.dirty)}"
+          <input
+            type="text"
+            pInputText
+            id="socialSecurityNumber"
+            formControlName="socialSecurityNumber"
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                employeeForm.controls.socialSecurityNumber.invalid &&
+                (employeeForm.controls.socialSecurityNumber.touched ||
+                  employeeForm.controls.socialSecurityNumber.dirty)
+            }"
           />
-          <small class="ng-dirty ng-invalid" *ngIf="employeeForm.controls.socialSecurityNumber.errors?.['invalidSocialSecurityNumber'] && (employeeForm.controls.socialSecurityNumber.touched || employeeForm.controls.socialSecurityNumber.dirty)">
+          <small
+            class="ng-dirty ng-invalid"
+            *ngIf="employeeForm.controls.socialSecurityNumber.errors?.['invalidSocialSecurityNumber'] && (employeeForm.controls.socialSecurityNumber.touched || employeeForm.controls.socialSecurityNumber.dirty)"
+          >
             Le format du numéro de sécurité sociale n'est pas valide.
           </small>
         </div>
@@ -304,25 +554,64 @@
 
         <div *ngIf="employeeForm.controls.disability.value" class="field">
           <label for="disabilityDesc">Description du handicap</label>
-          <textarea id="disabilityDesc" formControlName="disabilityDesc" pInputTextarea rows="3" cols="20"></textarea>
+          <textarea
+            id="disabilityDesc"
+            formControlName="disabilityDesc"
+            pInputTextarea
+            rows="3"
+            cols="20"
+          ></textarea>
         </div>
 
         <div class="field">
-          <label for="contractType">Type de contrat <span class="requiredStar">*</span></label>
-          <p-dropdown formControlName="contractType" id="contractType" inputId="contractType" optionLabel="label" optionValue="value" [options]="contractType" placeholder="Sélectionner un type de contrat"
-                      [ngClass]="{'ng-invalid ng-dirty': employeeForm.controls.contractType.invalid && (employeeForm.controls.contractType.touched || employeeForm.controls.contractType.dirty)}"
+          <label for="contractType"
+            >Type de contrat <span class="requiredStar">*</span></label
+          >
+          <p-dropdown
+            formControlName="contractType"
+            id="contractType"
+            inputId="contractType"
+            optionLabel="label"
+            optionValue="value"
+            [options]="contractType"
+            placeholder="Sélectionner un type de contrat"
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                employeeForm.controls.contractType.invalid &&
+                (employeeForm.controls.contractType.touched ||
+                  employeeForm.controls.contractType.dirty)
+            }"
           ></p-dropdown>
-          <small class="ng-dirty ng-invalid" *ngIf="employeeForm.controls.contractType.invalid && (employeeForm.controls.contractType.touched || employeeForm.controls.contractType.dirty)">
+          <small
+            class="ng-dirty ng-invalid"
+            *ngIf="
+              employeeForm.controls.contractType.invalid &&
+              (employeeForm.controls.contractType.touched ||
+                employeeForm.controls.contractType.dirty)
+            "
+          >
             Ce champ est obligatoire.
           </small>
         </div>
 
         <div class="field">
           <label for="contractEndDate">Date de fin de contrat</label>
-          <p-calendar [showIcon]="true" id="contractEndDate" formControlName="contractEndDate" inputId="contractEndDate"
-                      [ngClass]="{'ng-invalid ng-dirty': employeeForm.controls.contractEndDate.invalid && (employeeForm.controls.contractEndDate.touched || employeeForm.controls.contractEndDate.dirty)}"
+          <p-calendar
+            [showIcon]="true"
+            id="contractEndDate"
+            formControlName="contractEndDate"
+            inputId="contractEndDate"
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                employeeForm.controls.contractEndDate.invalid &&
+                (employeeForm.controls.contractEndDate.touched ||
+                  employeeForm.controls.contractEndDate.dirty)
+            }"
           ></p-calendar>
-          <small class="ng-dirty ng-invalid" *ngIf="employeeForm.controls.contractEndDate.errors?.['invalidDate'] && (employeeForm.controls.hireDate.touched || employeeForm.controls.hireDate.dirty)">
+          <small
+            class="ng-dirty ng-invalid"
+            *ngIf="employeeForm.controls.contractEndDate.errors?.['invalidDate'] && (employeeForm.controls.hireDate.touched || employeeForm.controls.hireDate.dirty)"
+          >
             La date n'est pas valide.
           </small>
         </div>
@@ -337,19 +626,58 @@
     </ng-template>
 
     <ng-template pTemplate="footer">
-      <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-      <button pButton pRipple [disabled]="employeeForm.invalid" type="submit" label="Save" icon="pi pi-check" class="p-button-text" (click)="saveEmployee()"></button>
+      <button
+        pButton
+        pRipple
+        label="Cancel"
+        icon="pi pi-times"
+        class="p-button-text"
+        (click)="hideDialog()"
+      ></button>
+      <button
+        pButton
+        pRipple
+        [disabled]="employeeForm.invalid"
+        type="submit"
+        label="Save"
+        icon="pi pi-check"
+        class="p-button-text"
+        (click)="saveEmployee()"
+      ></button>
     </ng-template>
   </p-dialog>
 
-  <p-dialog [(visible)]="deleteEmployeeDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+  <p-dialog
+    [(visible)]="deleteEmployeeDialog"
+    header="Confirm"
+    [modal]="true"
+    [style]="{ width: '450px' }"
+  >
     <div class="flex align-items-center justify-content-center">
       <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-      <span *ngIf="employee">Are you sure you want to delete <b>{{employee.name}} {{employee.firstname}}</b>?</span>
+      <span *ngIf="employee"
+        >Are you sure you want to delete
+        <b>{{ employee.name }} {{ employee.firstname }}</b
+        >?</span
+      >
     </div>
     <ng-template pTemplate="footer">
-      <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteEmployeeDialog = false"></button>
-      <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDelete(employee)"></button>
+      <button
+        pButton
+        pRipple
+        icon="pi pi-times"
+        class="p-button-text"
+        label="No"
+        (click)="deleteEmployeeDialog = false"
+      ></button>
+      <button
+        pButton
+        pRipple
+        icon="pi pi-check"
+        class="p-button-text"
+        label="Yes"
+        (click)="confirmDelete(employee)"
+      ></button>
     </ng-template>
   </p-dialog>
 
