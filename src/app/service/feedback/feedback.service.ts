@@ -11,8 +11,8 @@ export class FeedbackService {
 
   constructor(private http: HttpClient) { }
 
-  getFeedbacks(): Promise<any> {
-    // let params = new HttpParams({});
-    return this.http.get<Feedback[]>(this.url + '/feedbacks', ).toPromise();
+  getFeedbacks(filters: any): Promise<any> {
+    let params = new HttpParams({ fromObject: filters });
+    return this.http.get<Feedback[]>(this.url + '/feedbacks', {params} ).toPromise();
   }
 }

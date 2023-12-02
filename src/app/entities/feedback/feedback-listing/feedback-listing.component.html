@@ -2,6 +2,59 @@
   <div class="col-12">
     <p-toast></p-toast>
 
+    <div class="custom-topbar">
+      <div class="topbar-background">
+        <div>
+          <button (click)="search()" class="light-blue-custom-btn custom-btn-search ml-2">Filtrer</button>
+        </div>
+        <div class="topbar-container">
+          <div class="warning-filter">
+            <div>Avertissements seulement</div>
+            <p-toggleButton
+              onLabel="Oui"
+              offLabel="Non"
+              [(ngModel)]="filters.warning"
+            ></p-toggleButton>
+          </div>
+          <div class="custom-dropdown date-filter">
+            <label for="dateFilter" (change)="test()">Date</label>
+            <p-calendar [showIcon]="true"
+                        id="dateFilter"
+                        [(ngModel)]="filters.date"
+                        inputId="birthdate"
+            ></p-calendar>
+          </div>
+          <div class="custom-dropdown restaurant-filter">
+            <label for="employeeFilter">Employé</label>
+            <p-dropdown
+              [options]="getEmployeeWithNoneOption()"
+              optionLabel="name"
+              optionValue="id"
+              placeholder="Employé"
+              [(ngModel)]="filters.employee"
+              id="employeeFilter"
+              inputId="employeeFilter">
+            </p-dropdown>
+          </div>
+          <div class="custom-dropdown restaurant-filter">
+            <label for="authorFilter">Auteur</label>
+            <p-dropdown
+              [options]="getEmployeeWithNoneOption()"
+              optionLabel="name"
+              optionValue="id"
+              placeholder="Auteur"
+              [(ngModel)]="filters.author"
+              id="authorFilter"
+              inputId="authorFilter">
+            </p-dropdown>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
     <p-table #dt [value]="feedbacks" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['name','country.name','representative.name','status']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" selectionMode="multiple" [rowHover]="true" dataKey="id">
       <ng-template pTemplate="caption">
         <p-toolbar styleClass="mb-4">
@@ -49,7 +102,7 @@
           </td>
           <td style="width:14%; min-width:10rem;">
           <span class="p-column-title">Description</span>
-            {{feedback.content}}
+            {{feedback.content | truncate:20}}
         </td>
           <td style="width:14%; min-width:10rem;">
             <span class="p-column-title">Date</span>
