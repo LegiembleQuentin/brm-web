@@ -1,7 +1,6 @@
 <p-dialog [(visible)]="display" [style]="{width: '70%'}" header="Details de l'employé" [modal]="true" class="p-fluid">
   <ng-template pTemplate="content">
-    <button (click)="test()"></button>
-    <form [formGroup]="employeeForm" (ngSubmit)="saveEmployee()">
+    <form [formGroup]="employeeForm">
       <div class="field">
         <label for="restaurant">Restaurant <span class="requiredStar">*</span></label>
         <p-dropdown

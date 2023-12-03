@@ -68,7 +68,7 @@
 <!--                </div>-->
 <!--                <div class="underline-search"></div>-->
 <!--              </div>-->
-              <div class="addBtn">
+              <div class="addBtn" (click)="openNew()">
                 <span class="addBtnPlus">+</span> <span>Ajouter</span>
               </div>
             </div>
@@ -125,9 +125,8 @@
             <div class="flex">
               <button pButton pRipple icon="pi pi-ellipsis-h" class="p-button-rounded light-blue-custom-btn mr-2"></button>
 <!--              <button pButton pRipple icon="pi pi-ellipsis-h" class="p-button-rounded light-blue-custom-btn mr-2" [routerLink]="['/employee', employee.id]"></button>-->
-              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded light-blue-custom-btn mr-2"></button>
-<!--              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded light-blue-custom-btn mr-2" (click)="openEdit(employee)"></button>-->
-                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded red-custom-btn"></button>
+              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded light-blue-custom-btn mr-2" (click)="openEdit(feedback)"></button>
+              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded red-custom-btn"></button>
 <!--                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded red-custom-btn" (click)="deleteEmployee(employee)"></button>-->
             </div>
           </td>
@@ -135,6 +134,6 @@
       </ng-template>
     </p-table>
 
-
+    <app-feedback-dialog [feedback]="feedback" (saveSuccess)="loadFeedbacks()"></app-feedback-dialog>
   </div>
 </div>

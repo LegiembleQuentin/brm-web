@@ -10,12 +10,18 @@ import {DropdownModule} from "primeng/dropdown";
 import {ToggleButtonModule} from "primeng/togglebutton";
 import {CalendarModule} from "primeng/calendar";
 import {CustomSharedModule} from "../../shared.module";
+import { FeedbackDialogComponent } from './feedback-dialog/feedback-dialog.component';
+import {DialogModule} from "primeng/dialog";
+import {InputSwitchModule} from "primeng/inputswitch";
+import {InputTextModule} from "primeng/inputtext";
+import {InputTextareaModule} from "primeng/inputtextarea";
 
 
 
 @NgModule({
   declarations: [
     FeedbackListingComponent,
+    FeedbackDialogComponent,
   ],
   imports: [
     CustomSharedModule,
@@ -29,6 +35,10 @@ import {CustomSharedModule} from "../../shared.module";
     ToggleButtonModule,
     CalendarModule,
     ReactiveFormsModule,
+    DialogModule,
+    InputSwitchModule,
+    InputTextModule,
+    InputTextareaModule,
   ]
 })
 export class FeedbackModule { }

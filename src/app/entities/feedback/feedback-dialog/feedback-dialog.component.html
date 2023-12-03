@@ -1,0 +1,48 @@
+<p-dialog [(visible)]="display" [style]="{width: '70%'}" header="Details de l'employé" [modal]="true" class="p-fluid">
+  <ng-template pTemplate="content">
+    <form [formGroup]="feedbackForm">
+
+      <div class="field">
+        <label>Avertissement</label>
+        <div>
+          <p-inputSwitch formControlName="warning" (onChange)="updateEmployeeValidators()"></p-inputSwitch>
+        </div>
+      </div>
+
+      <div class="field" *ngIf="feedbackForm.controls.warning.value">
+        <label for="employee">Employé <span class="requiredStar">*</span></label>
+        <p-dropdown
+          [options]="employees"
+          optionLabel="name"
+          placeholder="Sélectionner un employé"
+          formControlName="employee"
+          id="employee"
+          inputId="employee">
+        </p-dropdown>
+        <small class="ng-dirty ng-invalid" *ngIf="feedbackForm.controls.employee.invalid && (feedbackForm.controls.employee.touched || feedbackForm.controls.employee.dirty)">
+          Ce champ est obligatoire.
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="content">Description</label>
+        <textarea id="content" formControlName="content" pInputTextarea rows="3" cols="20"></textarea>
+        <small class="error-message" *ngIf="feedbackForm.controls.content.errors?.required && (feedbackForm.controls.content.touched || feedbackForm.controls.content.dirty)">
+          Ce champ est obligatoire.
+        </small>
+        <small class="error-message" *ngIf="feedbackForm.controls.content.errors?.minlength && (feedbackForm.controls.content.touched || feedbackForm.controls.content.dirty)">
+          La description doit comporter au moins {{ feedbackForm.controls.content.errors?.minlength.requiredLength }} caractères.
+        </small>
+        <small class="error-message" *ngIf="feedbackForm.controls.content.errors?.maxlength && (feedbackForm.controls.content.touched || feedbackForm.controls.content.dirty)">
+          La description ne doit pas dépasser {{ feedbackForm.controls.content.errors?.maxlength.requiredLength }} caractères.
+        </small>
+      </div>
+
+    </form>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+    <button pButton pRipple [disabled]="feedbackForm.invalid" type="submit" label="Save" icon="pi pi-check" class="p-button-text" (click)="saveFeedback()"></button>
+  </ng-template>
+</p-dialog>

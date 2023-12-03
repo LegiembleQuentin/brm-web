@@ -87,7 +87,7 @@ export class EmployeeDialogComponent {
         disability: new FormControl(this.employee.disability),
         disabilityDesc: new FormControl(this.employee.disabilityDesc, [
           Validators.minLength(5),
-          Validators.maxLength(1000)
+          Validators.maxLength(5000)
         ]),
         enabled: new FormControl(this.employee.enabled),
       });
@@ -133,10 +133,6 @@ export class EmployeeDialogComponent {
         enabled: new FormControl(''),
       });
     }
-  }
-
-  test() {
-    console.log(this.employee);
   }
 
   loadRestaurants() {

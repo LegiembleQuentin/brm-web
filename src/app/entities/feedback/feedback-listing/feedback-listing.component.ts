@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {Feedback, mapApiDataToFeedback} from "../../../api/feedback";
 import {Employee, mapApiDataToEmployee} from "../../../api/employee";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -6,6 +6,7 @@ import {EmployeeService} from "../../../service/employee/employee.service";
 import {MessageService} from "primeng/api";
 import {FeedbackService} from "../../../service/feedback/feedback.service";
 import {DateService} from "../../../service/date/date.service";
+import {FeedbackDialogComponent} from "../feedback-dialog/feedback-dialog.component";
 
 @Component({
   selector: 'app-feedback-listing',
@@ -13,8 +14,11 @@ import {DateService} from "../../../service/date/date.service";
   styleUrls: ['./feedback-listing.component.scss']
 })
 export class FeedbackListingComponent {
+  @ViewChild(FeedbackDialogComponent) feedbackDialog!: FeedbackDialogComponent;
 
   feedbacks: Feedback[] = [];
+
+  feedback: Feedback = {};
 
   cols: any[] = [];
 
@@ -112,6 +116,16 @@ export class FeedbackListingComponent {
 
   getEmployeeWithNoneOption() {
     return [{ name: '--', id: null}, ...this.employees];
+  }
+
+  openNew() {
+    this.feedback = {};
+    this.feedbackDialog.showDialog({});
+  }
+
+  openEdit(feedback: Feedback) {
+    this.feedback = feedback;
+    this.feedbackDialog.showDialog(this.feedback);
   }
 
 }

@@ -15,12 +15,6 @@ import {EmployeeDialogComponent} from "../employee-dialog/employee-dialog.compon
 export class EmployeeListingComponent {
   @ViewChild(EmployeeDialogComponent) employeeDialog!: EmployeeDialogComponent;
 
-  // employeeDialog: boolean = false;
-
-  // deleteEmployeeDialog: boolean = false;
-  //
-  // deleteEmployeesDialog: boolean = false;
-
   filters: any = {
     search: null,
     restaurant: null,
