@@ -92,7 +92,28 @@ export class FeedbackDialogComponent {
       };
 
       if (this.feedback.id) {
-        console.log('edit');
+        //seulement pouvoir modifier si on est l'auteur
+
+        console.log(this.feedback.createdAt);
+        console.log(this.feedback);
+        this.feedbackService.updateFeedback(this.feedback)
+          .then(response => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Succès',
+              detail: 'Feedback modifié avec succès.'
+            });
+            this.saveSuccess.emit();
+            this.hideDialog();
+
+          })
+          .catch(error => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Erreur',
+              detail: 'Erreur lors de la modification du feedback: ' + error.message
+            })
+          });
 
       } else {
         this.feedbackService.saveFeedback(this.feedback)

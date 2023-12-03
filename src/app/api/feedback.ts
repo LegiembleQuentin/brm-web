@@ -1,4 +1,4 @@
-import {Employee, mapEmployeeToApiData} from "./employee";
+import {Employee, mapApiDataToEmployee, mapEmployeeToApiData} from "./employee";
 
 export interface Feedback {
   id?: string;
@@ -14,9 +14,9 @@ export function mapApiDataToFeedback(apiData: any): Feedback{
     id: apiData.id,
     warning: apiData.warning,
     content: apiData.content,
-    createdAt: apiData.created_at,
-    employee: apiData.employee,
-    author: apiData.author,
+    createdAt: apiData.created_at ? new Date(apiData.created_at) : undefined,
+    employee: apiData.employee ? mapApiDataToEmployee(apiData.employee) : undefined,
+    author: mapApiDataToEmployee(apiData.author),
   }
 }
 
