@@ -126,8 +126,7 @@
               <button pButton pRipple icon="pi pi-ellipsis-h" class="p-button-rounded light-blue-custom-btn mr-2"></button>
 <!--              <button pButton pRipple icon="pi pi-ellipsis-h" class="p-button-rounded light-blue-custom-btn mr-2" [routerLink]="['/employee', employee.id]"></button>-->
               <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded light-blue-custom-btn mr-2" (click)="openEdit(feedback)"></button>
-              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded red-custom-btn"></button>
-<!--                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded red-custom-btn" (click)="deleteEmployee(employee)"></button>-->
+              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded red-custom-btn" (click)="deleteFeedback(feedback)"></button>
             </div>
           </td>
         </tr>
@@ -135,5 +134,16 @@
     </p-table>
 
     <app-feedback-dialog [feedback]="feedback" (saveSuccess)="loadFeedbacks()"></app-feedback-dialog>
+
+    <p-dialog [(visible)]="deleteFeedbackDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+      <div class="flex align-items-center justify-content-center">
+        <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+        <span *ngIf="feedback">Êtes vous sûr de vouloir supprimer le feedback <b>{{feedback.id}}</b> de <b>{{feedback.author?.name}} {{feedback.author?.firstname}}</b>?</span>
+      </div>
+      <ng-template pTemplate="footer">
+        <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteFeedbackDialog = false"></button>
+        <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDelete(feedback)"></button>
+      </ng-template>
+    </p-dialog>
   </div>
 </div>

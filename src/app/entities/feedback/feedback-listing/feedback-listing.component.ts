@@ -16,6 +16,8 @@ import {FeedbackDialogComponent} from "../feedback-dialog/feedback-dialog.compon
 export class FeedbackListingComponent {
   @ViewChild(FeedbackDialogComponent) feedbackDialog!: FeedbackDialogComponent;
 
+  deleteFeedbackDialog = false;
+
   feedbacks: Feedback[] = [];
 
   feedback: Feedback = {};
@@ -84,6 +86,32 @@ export class FeedbackListingComponent {
         detail: 'Erreur lors du chargement des employés '
       });
     }
+  }
+
+  deleteFeedback(feedback: Feedback) {
+    this.deleteFeedbackDialog = true;
+    this.feedback = { ...feedback };
+  }
+
+  confirmDelete(feedback: Feedback) {
+    this.feedbackService.deleteFeedback(feedback)
+      .then(response => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Succès',
+          detail: 'Feedback supprimé avec succès.'
+        });
+        this.deleteFeedbackDialog = false;
+        this.feedback = {};
+        this.loadFeedbacks();
+      })
+      .catch(error => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erreur',
+          detail: 'Erreur lors de la suppression du feedback: ' + error.message
+        })
+      });
   }
 
   search() {

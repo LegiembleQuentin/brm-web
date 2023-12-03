@@ -26,4 +26,8 @@ export class FeedbackService {
     feedback = mapFeedbackToApiData(feedback);
     return this.http.put(this.url + '/feedback', {body: feedback}).toPromise();
   }
+
+  deleteFeedback(feedback: Feedback) :Promise<any> {
+      return this.http.delete(this.url + '/feedback/' + feedback.id, { body: feedback.id }).toPromise();
+    }
 }
