@@ -1,7 +1,6 @@
 <p-dialog [(visible)]="display" [style]="{width: '70%'}" header="Details de l'employé" [modal]="true" class="p-fluid">
   <ng-template pTemplate="content">
-    <button (click)="test()"></button>
-    <form [formGroup]="employeeForm" (ngSubmit)="saveEmployee()">
+    <form [formGroup]="employeeForm">
       <div class="field">
         <label for="restaurant">Restaurant <span class="requiredStar">*</span></label>
         <p-dropdown
@@ -95,9 +94,6 @@
         ></p-dropdown>
         <small class="ng-dirty ng-invalid" *ngIf="employeeForm.controls.sexe.errors?.['required'] && (employeeForm.controls.sexe.touched || employeeForm.controls.sexe.dirty)">
           Ce champ est obligatoire.
-        </small>
-        <small class="ng-dirty ng-invalid" *ngIf="employeeForm.controls.sexe.errors?.['invalidDate'] && (employeeForm.controls.sexe.touched || employeeForm.controls.sexe.dirty)">
-          La date n'est pas valide.
         </small>
       </div>
 
