@@ -18,6 +18,8 @@ export class FeedbackListingComponent {
 
   deleteFeedbackDialog = false;
 
+  feedbackDetailDialog : boolean = false;
+
   feedbacks: Feedback[] = [];
 
   feedback: Feedback = {};
@@ -88,9 +90,21 @@ export class FeedbackListingComponent {
     }
   }
 
-  deleteFeedback(feedback: Feedback) {
-    this.deleteFeedbackDialog = true;
+  openDetail(feedback: Feedback) : void
+  {
     this.feedback = { ...feedback };
+    this.feedbackDetailDialog = true;
+  }
+
+  closeDetail(): void
+  {
+    this.feedbackDetailDialog = false;
+    this.feedback = {};
+  }
+
+  deleteFeedback(feedback: Feedback) {
+    this.feedback = { ...feedback };
+    this.deleteFeedbackDialog = true;
   }
 
   confirmDelete(feedback: Feedback) {

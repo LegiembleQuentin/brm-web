@@ -15,6 +15,7 @@ import {DialogModule} from "primeng/dialog";
 import {InputSwitchModule} from "primeng/inputswitch";
 import {InputTextModule} from "primeng/inputtext";
 import {InputTextareaModule} from "primeng/inputtextarea";
+import {RouterLink} from "@angular/router";
 
 
 
@@ -39,6 +40,7 @@ import {InputTextareaModule} from "primeng/inputtextarea";
     InputSwitchModule,
     InputTextModule,
     InputTextareaModule,
+    RouterLink,
   ]
 })
 export class FeedbackModule { }

@@ -123,8 +123,7 @@
 
           <td>
             <div class="flex">
-              <button pButton pRipple icon="pi pi-ellipsis-h" class="p-button-rounded light-blue-custom-btn mr-2"></button>
-<!--              <button pButton pRipple icon="pi pi-ellipsis-h" class="p-button-rounded light-blue-custom-btn mr-2" [routerLink]="['/employee', employee.id]"></button>-->
+              <button pButton pRipple icon="pi pi-ellipsis-h" class="p-button-rounded light-blue-custom-btn mr-2" (click)="openDetail(feedback)"></button>
               <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded light-blue-custom-btn mr-2" (click)="openEdit(feedback)"></button>
               <button pButton pRipple icon="pi pi-trash" class="p-button-rounded red-custom-btn" (click)="deleteFeedback(feedback)"></button>
             </div>
@@ -134,6 +133,33 @@
     </p-table>
 
     <app-feedback-dialog [feedback]="feedback" (saveSuccess)="loadFeedbacks()"></app-feedback-dialog>
+    <p-dialog [(visible)]="feedbackDetailDialog" [modal]="true" [style]="{width:'450px'}" [header]="'Feedback ' + feedback?.id">
+      <div class="custom-modal-content">
+        <div>
+          <span class="detail-attribut">Avertissement: </span>
+          <span *ngIf="feedback.warning">Oui</span>
+          <span *ngIf="!feedback.warning">Non</span>
+        </div>
+
+        <div *ngIf="feedback.warning">
+          <span class="detail-attribut">Employé concerné: </span>
+          <a [routerLink]="['/employee', feedback.employee?.id]">{{feedback.employee?.name}} {{feedback.employee?.firstname}}</a>
+        </div>
+
+        <div>
+          <span class="detail-attribut">Description: </span>
+          <span>{{feedback.content}}</span>
+        </div>
+
+        <div>
+          <span class="detail-attribut">Auteur: </span>
+          <a [routerLink]="['/employee', feedback.author?.id]">{{feedback.author?.name}} {{feedback.author?.firstname}}</a>
+        </div>
+      </div>
+      <ng-template pTemplate="footer">
+        <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Ok" (click)="closeDetail()"></button>
+      </ng-template>
+    </p-dialog>
 
     <p-dialog [(visible)]="deleteFeedbackDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
       <div class="flex align-items-center justify-content-center">
