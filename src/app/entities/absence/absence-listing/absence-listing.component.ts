@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-import {Feedback, mapApiDataToFeedback} from "../../../api/feedback";
 import {Employee, mapApiDataToEmployee} from "../../../api/employee";
 import {ActivatedRoute, Router} from "@angular/router";
-import {FeedbackService} from "../../../service/feedback/feedback.service";
 import {EmployeeService} from "../../../service/employee/employee.service";
 import {MessageService} from "primeng/api";
 import {Absence, mapApiDataToAbsence} from "../../../api/absence";
@@ -43,7 +41,7 @@ export class AbsenceListingComponent {
   ngOnInit() {
     this.defineRouteParams();
 
-    Promise.all([this.loadEmployees(),this.loadRestaurants, this.loadAbsences()]).then(() => {
+    Promise.all([this.loadEmployees(),this.loadRestaurants(), this.loadAbsences()]).then(() => {
       this.defineRouteParams();
     });
 
@@ -96,6 +94,14 @@ export class AbsenceListingComponent {
     }
   }
 
+  getEmployeeWithNoneOption() {
+    return [{ name: '--', id: null}, ...this.employees];
+  }
+
+  getRestaurantsWithNoneOption() {
+    return [{ name: '--', id: null}, ...this.restaurants];
+  }
+
   defineRouteParams() {
     this.route.queryParams.subscribe(params => {
       let urlDateString = params['date'] ? DateService.formatDDMMYYYYToDate(params['date']) : null;
@@ -105,5 +111,21 @@ export class AbsenceListingComponent {
         restaurant: params['restaurant'] ? +params['restaurant'] : null,
       }
     });
+  }
+
+  search() {
+    this.transition();
+  }
+
+  transition() {
+    this.loadAbsences();
+    this.filters.date = DateService.formatDateToDDMMYYYY(this.filters.date);
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: this.filters,
+      queryParamsHandling: '',
+      replaceUrl: true
+    });
+    this.defineRouteParams();
   }
 }

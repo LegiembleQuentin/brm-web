@@ -1,8 +1,47 @@
 <div class="grid">
   <div class="col-12">
     <p-toast></p-toast>
-
-
+    <div class="custom-topbar">
+      <div class="topbar-background">
+        <div>
+          <button (click)="search()" class="light-blue-custom-btn custom-btn-search ml-2">Filtrer</button>
+        </div>
+        <div class="topbar-container">
+          <div class="custom-dropdown date-filter">
+            <label for="dateFilter">Date</label>
+            <p-calendar [showIcon]="true"
+                        id="dateFilter"
+                        [(ngModel)]="filters.date"
+                        inputId="birthdate"
+            ></p-calendar>
+          </div>
+          <div class="custom-dropdown employee-filter">
+            <label for="employeeFilter">Employé</label>
+            <p-dropdown
+              [options]="getEmployeeWithNoneOption()"
+              optionLabel="name"
+              optionValue="id"
+              placeholder="Employé"
+              [(ngModel)]="filters.employee"
+              id="employeeFilter"
+              inputId="employeeFilter">
+            </p-dropdown>
+          </div>
+          <div class="custom-dropdown restaurant-filter">
+            <label for="restaurantFilter">Restaurant</label>
+            <p-dropdown
+              [options]="getRestaurantsWithNoneOption()"
+              optionLabel="name"
+              optionValue="id"
+              placeholder="Restaurant"
+              [(ngModel)]="filters.restaurant"
+              id="restaurantFilter"
+              inputId="restaurantFilter">
+            </p-dropdown>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
     <p-table #dt [value]="absences" [columns]="cols" responsiveLayout="scroll" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" selectionMode="multiple" [rowHover]="true" dataKey="id">
