@@ -4,6 +4,7 @@ import { AppLayoutComponent } from "./layout/app.layout.component";
 import {EmployeeListingComponent} from "./entities/employee/employee-listing/employee-listing.component";
 import {EmployeeDetailComponent} from "./entities/employee/employee-detail/employee-detail.component";
 import {VerifyTokenComponent} from "./verify-token/verify-token.component";
+import {LoginComponent} from "./login/login.component";
 
 const routes: Routes = [
   {
@@ -16,7 +17,8 @@ const routes: Routes = [
           { path: ':id', component: EmployeeDetailComponent }
         ]
       },
-      { path: 'verify-token', component: VerifyTokenComponent }
+      { path: 'verify-token', component: VerifyTokenComponent },
+      { path: 'login', component: LoginComponent }
 
     ]
   }
