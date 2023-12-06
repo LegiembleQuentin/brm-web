@@ -1,15 +1,17 @@
-import { Component, OnDestroy, Renderer2, ViewChild } from '@angular/core';
+import { Component, OnDestroy, Renderer2, ViewChild,OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter, Subscription } from 'rxjs';
 import { LayoutService } from "./service/app.layout.service";
 import { AppSidebarComponent } from "./app.sidebar.component";
 import { AppTopBarComponent } from './app.topbar.component';
+import {AuthService} from "../auth.service";
+
 
 @Component({
     selector: 'app-layout',
     templateUrl: './app.layout.component.html'
 })
-export class AppLayoutComponent implements OnDestroy {
+export class AppLayoutComponent implements OnDestroy, OnInit {
 
     overlayMenuOpenSubscription: Subscription;
 
@@ -21,7 +23,7 @@ export class AppLayoutComponent implements OnDestroy {
 
     @ViewChild(AppTopBarComponent) appTopbar!: AppTopBarComponent;
 
-    constructor(public layoutService: LayoutService, public renderer: Renderer2, public router: Router) {
+    constructor(public layoutService: LayoutService, public renderer: Renderer2, public router: Router, private auth : AuthService) {
         this.overlayMenuOpenSubscription = this.layoutService.overlayOpen$.subscribe(() => {
             if (!this.menuOutsideClickListener) {
                 this.menuOutsideClickListener = this.renderer.listen('document', 'click', event => {
@@ -108,7 +110,15 @@ export class AppLayoutComponent implements OnDestroy {
             'p-ripple-disabled': !this.layoutService.config.ripple
         }
     }
+  isLog(): boolean {
+     return  this.auth.isLog()
+  }
+  ngOnInit() {
+    if (!this.auth.isLog()) {
+      //this.router.navigate([''])
 
+    }
+}
     ngOnDestroy() {
         if (this.overlayMenuOpenSubscription) {
             this.overlayMenuOpenSubscription.unsubscribe();

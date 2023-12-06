@@ -2,39 +2,29 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AppLayoutModule } from "./layout/app.layout.module";
+import  { AppLayoutModule } from "./layout/app.layout.module";
 import { EmployeeService } from "./service/employee/employee.service";
+import { TableModule } from "primeng/table";
 import { EmployeeModule } from "./entities/employee/employee.module";
-import { FeedbackModule } from "./entities/feedback/feedback.module";
-import { RestaurantModule } from "./entities/restaurant/restaurant.module";
-import { CustomSharedModule } from "./shared.module";
-import { AbsenceModule } from "./entities/absence/absence.module";
-import { StockModule } from "./entities/stock/stock.module";
-import { NotFoundModule } from "./not-found/not-found.module";
-import { ProductModule } from "./entities/product/product.module";
-import { RestaurantService } from './service/restaurant/restaurant.service';
+import { VerifyTokenComponent } from './verify-token/verify-token.component';
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    VerifyTokenComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    AppLayoutModule,
-    EmployeeModule,
-    FeedbackModule,
-    RestaurantModule,
-    AbsenceModule,
-    StockModule,
-    ProductModule,
-    NotFoundModule,
-    CustomSharedModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        AppLayoutModule,
+        TableModule,
+        EmployeeModule,
+        FormsModule,
+    ],
   providers: [
     EmployeeService,
-    RestaurantService,
   ],
   bootstrap: [AppComponent]
 })
