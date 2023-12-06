@@ -14,4 +14,8 @@ export class RestaurantService {
     return this.http.get<any>(this.url + '/restaurants').toPromise();
   }
 
+  getRestaurantsSmall() {
+    return this.http.get<any>(this.url + '/restaurants-small').toPromise();
+  }
+
 }

@@ -17,7 +17,7 @@
             ></p-toggleButton>
           </div>
           <div class="custom-dropdown date-filter">
-            <label for="dateFilter" (change)="test()">Date</label>
+            <label for="dateFilter">Date</label>
             <p-calendar [showIcon]="true"
                         id="dateFilter"
                         [(ngModel)]="filters.date"
@@ -61,13 +61,6 @@
           <h5 class="custom-title">Feedbacks</h5>
           <ng-template pTemplate="right">
             <div class="my-2 customBtnGrp">
-<!--              <div class="search-bar">-->
-<!--                <div class="input-search">-->
-<!--                  <i class="pi pi-search"></i>-->
-<!--                  <input type="text" [(ngModel)]="filters.search" (keyup.enter)="search()" (blur)="search()" placeholder="Rechercher">-->
-<!--                </div>-->
-<!--                <div class="underline-search"></div>-->
-<!--              </div>-->
               <div class="addBtn" (click)="openNew()">
                 <span class="addBtnPlus">+</span> <span>Ajouter</span>
               </div>

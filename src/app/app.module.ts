@@ -8,6 +8,7 @@ import { EmployeeModule } from "./entities/employee/employee.module";
 import {FeedbackModule} from "./entities/feedback/feedback.module";
 import {RestaurantModule} from "./entities/restaurant/restaurant.module";
 import {CustomSharedModule} from "./shared.module";
+import {AbsenceModule} from "./entities/absence/absence.module";
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import {CustomSharedModule} from "./shared.module";
     EmployeeModule,
     FeedbackModule,
     RestaurantModule,
+    AbsenceModule,
     CustomSharedModule
   ],
   providers: [
