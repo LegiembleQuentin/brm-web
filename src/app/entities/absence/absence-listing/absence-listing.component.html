@@ -50,9 +50,9 @@
           <h5 class="custom-title">Feedbacks</h5>
           <ng-template pTemplate="right">
             <div class="my-2 customBtnGrp">
-<!--              <div class="addBtn" (click)="openNew()">-->
-<!--                <span class="addBtnPlus">+</span> <span>Ajouter</span>-->
-<!--              </div>-->
+              <div class="addBtn" (click)="openNew()">
+                <span class="addBtnPlus">+</span> <span>Ajouter</span>
+              </div>
             </div>
           </ng-template>
         </p-toolbar>
@@ -94,12 +94,12 @@
             {{absence.employee.name}} {{absence.employee.firstname}}
           </td>
 
+          <app-absence-dialog [absence]="absence" (saveSuccess)="loadAbsences()"></app-absence-dialog>
+
           <td>
             <div class="flex">
 <!--              <button pButton pRipple icon="pi pi-ellipsis-h" class="p-button-rounded light-blue-custom-btn mr-2" (click)="openDetail(feedback)"></button>-->
-              <button pButton pRipple icon="pi pi-ellipsis-h" class="p-button-rounded light-blue-custom-btn mr-2"></button>
-<!--              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded light-blue-custom-btn mr-2" (click)="openEdit(feedback)"></button>-->
-              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded light-blue-custom-btn mr-2"></button>
+              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded light-blue-custom-btn mr-2" (click)="openEdit(absence)"></button>
 <!--              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded red-custom-btn" (click)="deleteFeedback(feedback)"></button>-->
               <button pButton pRipple icon="pi pi-trash" class="p-button-rounded red-custom-btn"></button>
             </div>

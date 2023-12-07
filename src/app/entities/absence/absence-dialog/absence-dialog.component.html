@@ -1,0 +1,91 @@
+<p-dialog [(visible)]="display" [style]="{width: '600px'}" header="Ajout/modification de l'absence" [modal]="true" class="p-fluid">
+  <ng-template pTemplate="content">
+    <form [formGroup]="absenceForm">
+
+
+      <div class="field">
+        <label for="employee">Employé <span class="requiredStar">*</span></label>
+        <p-dropdown
+          [options]="employees"
+          optionLabel="name"
+          placeholder="Sélectionner un employé"
+          formControlName="employee"
+          id="employee"
+          inputId="employee">
+        </p-dropdown>
+        <small class="ng-dirty ng-invalid" *ngIf="absenceForm.controls.employee.invalid && (absenceForm.controls.employee.touched || absenceForm.controls.employee.dirty)">
+          Ce champ est obligatoire.
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="startDate">Du <span class="requiredStar">*</span></label>
+        <p-calendar [showIcon]="true" id="startDate" formControlName="startDate" inputId="startDate"
+                    [ngClass]="{'ng-invalid ng-dirty': absenceForm.controls.startDate.invalid && (absenceForm.controls.startDate.touched || absenceForm.controls.startDate.dirty)}"
+        ></p-calendar>
+        <small class="ng-dirty ng-invalid" *ngIf="absenceForm.controls.startDate.errors?.['required'] && (absenceForm.controls.startDate.touched || absenceForm.controls.startDate.dirty)">
+          Ce champ est obligatoire.
+        </small>
+        <small class="ng-dirty ng-invalid" *ngIf="absenceForm.controls.startDate.errors?.['invalidDate'] && (absenceForm.controls.startDate.touched || absenceForm.controls.startDate.dirty)">
+          La date n'est pas valide.
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="endDate">Au <span class="requiredStar">*</span></label>
+        <p-calendar [showIcon]="true" id="endDate" formControlName="endDate" inputId="endDate"
+                    [ngClass]="{'ng-invalid ng-dirty': absenceForm.controls.endDate.invalid && (absenceForm.controls.endDate.touched || absenceForm.controls.endDate.dirty)}"
+        ></p-calendar>
+        <small class="ng-dirty ng-invalid" *ngIf="absenceForm.controls.endDate.errors?.['required'] && (absenceForm.controls.endDate.touched || absenceForm.controls.endDate.dirty)">
+          Ce champ est obligatoire.
+        </small>
+        <small class="ng-dirty ng-invalid" *ngIf="absenceForm.controls.endDate.errors?.['invalidDate'] && (absenceForm.controls.endDate.touched || absenceForm.controls.endDate.dirty)">
+          La date n'est pas valide.
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="reason">Raison </label>
+        <input type="text" pInputText id="reason" formControlName="reason" autofocus
+               [ngClass]="{'ng-invalid ng-dirty': absenceForm.controls.reason.invalid && (absenceForm.controls.reason.touched || absenceForm.controls.reason.dirty)}"
+        />
+        <small class="error-message" *ngIf="absenceForm.controls.reason.errors?.minlength && (absenceForm.controls.reason.touched || absenceForm.controls.reason.dirty)">
+          La raison doit comporter au moins {{ absenceForm.controls.reason.errors?.minlength.requiredLength }} caractères.
+        </small>
+        <small class="error-message" *ngIf="absenceForm.controls.reason.errors?.maxlength && (absenceForm.controls.reason.touched || absenceForm.controls.reason.dirty)">
+          La raison ne doit pas dépasser {{ absenceForm.controls.reason.errors?.maxlength.requiredLength }} caractères.
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="type">Type </label>
+        <input type="text" pInputText id="type" formControlName="type" required autofocus
+               [ngClass]="{'ng-invalid ng-dirty': absenceForm.controls.type.invalid && (absenceForm.controls.type.touched || absenceForm.controls.type.dirty)}"
+        />
+        <small class="ng-dirty ng-invalid" *ngIf="absenceForm.controls.type.errors?.['required'] && (absenceForm.controls.type.touched || absenceForm.controls.type.dirty)">
+          Ce champ est obligatoire.
+        </small>
+        <small class="error-message" *ngIf="absenceForm.controls.type.errors?.minlength && (absenceForm.controls.type.touched || absenceForm.controls.type.dirty)">
+          Le type doit comporter au moins {{ absenceForm.controls.type.errors?.minlength.requiredLength }} caractères.
+        </small>
+        <small class="error-message" *ngIf="absenceForm.controls.type.errors?.maxlength && (absenceForm.controls.type.touched || absenceForm.controls.type.dirty)">
+          Le type ne doit pas dépasser {{ absenceForm.controls.type.errors?.maxlength.requiredLength }} caractères.
+        </small>
+      </div>
+
+      <div class="field">
+        <label>Autorisée</label>
+        <div>
+          <p-inputSwitch formControlName="approved"></p-inputSwitch>
+        </div>
+      </div>
+
+    </form>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+    <button pButton pRipple [disabled]="absenceForm.invalid" type="submit" label="Save" icon="pi pi-check" class="p-button-text" (click)="saveAbsence()"></button>
+  </ng-template>
+</p-dialog>
+

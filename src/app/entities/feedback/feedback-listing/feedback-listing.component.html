@@ -126,6 +126,7 @@
     </p-table>
 
     <app-feedback-dialog [feedback]="feedback" (saveSuccess)="loadFeedbacks()"></app-feedback-dialog>
+
     <p-dialog [(visible)]="feedbackDetailDialog" [modal]="true" [style]="{width:'600px'}" [header]="'Feedback ' + feedback?.id">
       <div class="custom-modal-content">
         <div>

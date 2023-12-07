@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {Employee, mapApiDataToEmployee} from "../../../api/employee";
 import {ActivatedRoute, Router} from "@angular/router";
 import {EmployeeService} from "../../../service/employee/employee.service";
@@ -8,6 +8,7 @@ import {mapApiDataToRestaurant, Restaurant} from "../../../api/restaurant";
 import {DateService} from "../../../service/date/date.service";
 import {RestaurantService} from "../../../service/restaurant/restaurant.service";
 import {AbsenceService} from "../../../service/absence/absence.service";
+import {AbsenceDialogComponent} from "../absence-dialog/absence-dialog.component";
 
 @Component({
   selector: 'app-absence-listing',
@@ -15,6 +16,7 @@ import {AbsenceService} from "../../../service/absence/absence.service";
   styleUrls: ['./absence-listing.component.scss']
 })
 export class AbsenceListingComponent {
+  @ViewChild(AbsenceDialogComponent) absenceDialog!: AbsenceDialogComponent;
 
   absences: Absence[] = [];
   absence: Absence = {};
@@ -127,5 +129,15 @@ export class AbsenceListingComponent {
       replaceUrl: true
     });
     this.defineRouteParams();
+  }
+
+  openNew() {
+    this.absence = {};
+    this.absenceDialog.showDialog({});
+  }
+
+  openEdit(absence: Absence) {
+    this.absence = absence;
+    this.absenceDialog.showDialog(this.absence);
   }
 }

@@ -1,4 +1,5 @@
 import {Employee, mapApiDataToEmployee, mapEmployeeToApiData} from "./employee";
+import {DateService} from "../service/date/date.service";
 
 export interface Feedback {
   id?: string;
@@ -25,7 +26,7 @@ export function mapFeedbackToApiData(feedback: Feedback): any {
     id: feedback.id,
     warning: feedback.warning,
     content: feedback.content,
-    created_at: feedback.createdAt ? feedback.createdAt.toISOString().split('.')[0] + '+00:00' : null,
+    created_at: DateService.formatDateToApiFormat(feedback.createdAt),
 
     employee: feedback.employee ? mapEmployeeToApiData(feedback.employee) : null,
     author: feedback.author ? mapEmployeeToApiData(feedback.author) : null,
