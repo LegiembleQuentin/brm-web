@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {Feedback, mapFeedbackToApiData} from "../../api/feedback";
 import {Absence, mapAbsenceToApiData} from "../../api/absence";
 
 @Injectable({
@@ -20,5 +19,10 @@ export class AbsenceService {
   saveAbsence(absence: Absence) : Promise<any> {
     absence = mapAbsenceToApiData(absence);
     return this.http.post(this.url + '/absence', {body: absence}).toPromise();
+  }
+
+  updateAbsence(absence:Absence):Promise<any>{
+    absence = mapAbsenceToApiData(absence);
+    return this.http.put(this.url + '/absence', {body: absence}).toPromise();
   }
 }

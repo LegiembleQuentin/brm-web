@@ -30,7 +30,7 @@ export class AbsenceDialogComponent {
     private messageService: MessageService) { }
 
   ngOnInit(){
-    this.loadEmployees();
+
   }
 
   async loadEmployees() {
@@ -57,7 +57,24 @@ export class AbsenceDialogComponent {
       };
 
       if (this.absence.id) {
-        //update
+        this.absenceService.updateAbsence(this.absence)
+          .then(response => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Succès',
+              detail: 'Absence modifié avec succès.'
+            });
+            this.saveSuccess.emit();
+            this.hideDialog();
+
+          })
+          .catch(error => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Erreur',
+              detail: 'Erreur lors de la modification de l\'absence: ' + error.message
+            })
+          });
 
       } else {
         this.absenceService.saveAbsence(this.absence)
@@ -133,6 +150,7 @@ export class AbsenceDialogComponent {
   showDialog(absence: Absence) {
     this.display = true;
     this.absence = absence;
+    this.loadEmployees();
     this.initForm();
   }
 
