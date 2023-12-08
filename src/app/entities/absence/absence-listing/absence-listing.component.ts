@@ -9,6 +9,7 @@ import {DateService} from "../../../service/date/date.service";
 import {RestaurantService} from "../../../service/restaurant/restaurant.service";
 import {AbsenceService} from "../../../service/absence/absence.service";
 import {AbsenceDialogComponent} from "../absence-dialog/absence-dialog.component";
+import {Feedback} from "../../../api/feedback";
 
 @Component({
   selector: 'app-absence-listing',
@@ -17,6 +18,10 @@ import {AbsenceDialogComponent} from "../absence-dialog/absence-dialog.component
 })
 export class AbsenceListingComponent {
   @ViewChild(AbsenceDialogComponent) absenceDialog!: AbsenceDialogComponent;
+
+  deleteAbsenceDialog = false;
+  isDeleting: boolean = false;
+  isLoading: boolean = false;
 
   absences: Absence[] = [];
   absence: Absence = {};
@@ -58,15 +63,18 @@ export class AbsenceListingComponent {
   }
 
   async loadAbsences() {
+    this.isLoading = true;
     try {
       const response = await this.absenceService.getAbsences(this.filters);
       this.absences = response.map((absenceData: any) => mapApiDataToAbsence(absenceData));
+      this.isLoading = false;
     } catch (error) {
       this.messageService.add({
         severity: 'error',
         summary: 'Erreur',
         detail: 'Erreur lors du chargement des feedbacks '
       });
+      this.isLoading = false;
     }
   }
 
@@ -113,6 +121,35 @@ export class AbsenceListingComponent {
         restaurant: params['restaurant'] ? +params['restaurant'] : null,
       }
     });
+  }
+
+  deleteAbsence(absence: Absence) {
+    this.absence = { ...absence };
+    this.deleteAbsenceDialog = true;
+  }
+
+  confirmDelete(absence: Absence) {
+    this.isDeleting = true;
+    this.absenceService.deleteAbsence(absence)
+      .then(response => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Succès',
+          detail: 'Absence supprimé avec succès.'
+        });
+        this.deleteAbsenceDialog = false;
+        this.isDeleting = false;
+        this.absence = {};
+        this.loadAbsences();
+      })
+      .catch(error => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erreur',
+          detail: 'Erreur lors de la suppression du absence: ' + error.message
+        })
+        this.isDeleting = false;
+      });
   }
 
   search() {

@@ -4,7 +4,7 @@
     <div class="custom-topbar">
       <div class="topbar-background">
         <div>
-          <button (click)="search()" class="light-blue-custom-btn custom-btn-search ml-2">Filtrer</button>
+          <button (click)="search()" class="light-blue-custom-btn custom-btn-search ml-2" [disabled]="isLoading">Filtrer</button>
         </div>
         <div class="topbar-container">
           <div class="custom-dropdown date-filter">
@@ -93,19 +93,28 @@
             <span class="p-column-title">Employé</span>
             {{absence.employee.name}} {{absence.employee.firstname}}
           </td>
-
-          <app-absence-dialog [absence]="absence" (saveSuccess)="loadAbsences()"></app-absence-dialog>
-
           <td>
             <div class="flex">
 <!--              <button pButton pRipple icon="pi pi-ellipsis-h" class="p-button-rounded light-blue-custom-btn mr-2" (click)="openDetail(feedback)"></button>-->
               <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded light-blue-custom-btn mr-2" (click)="openEdit(absence)"></button>
-<!--              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded red-custom-btn" (click)="deleteFeedback(feedback)"></button>-->
-              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded red-custom-btn"></button>
+              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded red-custom-btn" (click)="deleteAbsence(absence)"></button>
             </div>
           </td>
         </tr>
       </ng-template>
     </p-table>
+
+    <app-absence-dialog [absence]="absence" (saveSuccess)="loadAbsences()"></app-absence-dialog>
+
+    <p-dialog [(visible)]="deleteAbsenceDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+      <div class="flex align-items-center justify-content-center">
+        <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+        <span *ngIf="absence">Êtes vous sûr de vouloir supprimer l'absence <b>{{absence.id}}</b> de <b>{{absence.id}}</b>?</span>
+      </div>
+      <ng-template pTemplate="footer">
+        <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteAbsenceDialog = false"></button>
+        <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" [disabled]="isDeleting" (click)="confirmDelete(absence)"></button>
+      </ng-template>
+    </p-dialog>
   </div>
 </div>
