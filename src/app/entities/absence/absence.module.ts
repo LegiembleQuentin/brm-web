@@ -16,11 +16,13 @@ import {InputTextModule} from "primeng/inputtext";
 import {InputTextareaModule} from "primeng/inputtextarea";
 import {RouterLink} from "@angular/router";
 import { AbsenceDialogComponent } from './absence-dialog/absence-dialog.component';
+import { AbsenceDetailComponent } from './absence-detail/absence-detail.component';
 
 @NgModule({
   declarations: [
     AbsenceListingComponent,
-    AbsenceDialogComponent
+    AbsenceDialogComponent,
+    AbsenceDetailComponent
   ],
   imports: [
     CustomSharedModule,

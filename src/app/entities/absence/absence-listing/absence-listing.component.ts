@@ -10,6 +10,7 @@ import {RestaurantService} from "../../../service/restaurant/restaurant.service"
 import {AbsenceService} from "../../../service/absence/absence.service";
 import {AbsenceDialogComponent} from "../absence-dialog/absence-dialog.component";
 import {Feedback} from "../../../api/feedback";
+import {AbsenceDetailComponent} from "../absence-detail/absence-detail.component";
 
 @Component({
   selector: 'app-absence-listing',
@@ -18,6 +19,7 @@ import {Feedback} from "../../../api/feedback";
 })
 export class AbsenceListingComponent {
   @ViewChild(AbsenceDialogComponent) absenceDialog!: AbsenceDialogComponent;
+  @ViewChild(AbsenceDetailComponent) absenceDetail!: AbsenceDetailComponent;
 
   deleteAbsenceDialog = false;
   isDeleting: boolean = false;
@@ -176,5 +178,11 @@ export class AbsenceListingComponent {
   openEdit(absence: Absence) {
     this.absence = absence;
     this.absenceDialog.showDialog(this.absence);
+  }
+
+  openDetail(absence: Absence) : void
+  {
+    this.absence = absence;
+    this.absenceDetail.showDetail(this.absence);
   }
 }

@@ -29,9 +29,6 @@ export class AbsenceDialogComponent {
     private absenceService: AbsenceService,
     private messageService: MessageService) { }
 
-  ngOnInit(){
-
-  }
 
   async loadEmployees() {
     try {
@@ -137,14 +134,6 @@ export class AbsenceDialogComponent {
         employee: new FormControl('')
       });
     }
-  }
-
-  saveFeedback(){
-    this.submitted = true;
-
-
-    this.saveSuccess.emit();
-    this.hideDialog();
   }
 
   showDialog(absence: Absence) {

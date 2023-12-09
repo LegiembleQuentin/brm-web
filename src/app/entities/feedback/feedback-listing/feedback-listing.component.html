@@ -149,6 +149,11 @@
           <span class="detail-attribut">Auteur: </span>
           <a [routerLink]="['/employee', feedback.author?.id]">{{feedback.author?.name}} {{feedback.author?.firstname}}</a>
         </div>
+
+        <div>
+          <span class="detail-attribut">Le: </span>
+          <span>{{feedback.createdAt |  date:'dd/MM/yyyy' }}</span>
+        </div>
       </div>
       <ng-template pTemplate="footer">
         <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Ok" (click)="closeDetail()"></button>

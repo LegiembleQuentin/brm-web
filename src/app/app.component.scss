@@ -26,6 +26,16 @@ h1, h2, h3, h4, h5, h6 {
   color: red;
 }
 
+//detail modale
+.custom-modal-content{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  .detail-attribut{
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+}
 
 //header
 .layout-topbar {
@@ -54,7 +64,9 @@ h1, h2, h3, h4, h5, h6 {
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
     position: absolute;
-    display: inline-block;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
     top: 7rem;
     right: 0;
     height: 5rem;
