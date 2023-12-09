@@ -42,7 +42,7 @@ export class AppMenuComponent implements OnInit {
             label: 'Management',
             items: [
                 { label: 'Employés', icon: 'pi pi-fw pi-users', routerLink: ['employee'] },
-                { label: 'Absences/retards', icon: 'pi pi-fw pi-users', routerLink: ['/fsqffds'] },
+                { label: 'Absences', icon: 'pi pi-fw pi-users', routerLink: ['/absence'] },
                 { label: 'Planning', icon: 'pi pi-fw pi-users', routerLink: ['/fdsfsdfdf'] },
                 { label: 'Feedback', icon: 'pi pi-fw pi-users', routerLink: ['/feedback'] },
             ]

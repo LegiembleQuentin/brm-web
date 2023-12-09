@@ -42,10 +42,6 @@ export class FeedbackListingComponent {
     author: null,
   };
 
-  test(){
-    console.log(this.filters.date);
-  }
-
   ngOnInit() {
     this.defineRouteParams();
 

@@ -1,0 +1,31 @@
+<p-dialog [(visible)]="display" [modal]="true" [style]="{width:'600px'}" [header]="'Absence ' + absence?.id">
+  <div class="custom-modal-content">
+    <div>
+      <span class="detail-attribut">Employé concerné: </span>
+      <a [routerLink]="['/employee', absence.employee?.id]">{{absence.employee?.name}} {{absence.employee?.firstname}}</a>
+    </div>
+
+    <div>
+      <span class="detail-attribut">Du: </span>
+      <span>{{absence.startDate |  date:'dd/MM/yyyy' }}</span>
+    </div>
+
+    <div>
+      <span class="detail-attribut">Au: </span>
+      <span>{{absence.endDate |  date:'dd/MM/yyyy' }}</span>
+    </div>
+
+    <div>
+      <span class="detail-attribut">Raison: </span>
+      <span>{{absence.reason}}</span>
+    </div>
+
+    <div>
+      <span class="detail-attribut">Type: </span>
+      <span>{{absence.type}}</span>
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Ok" (click)="hideDetail()"></button>
+  </ng-template>
+</p-dialog>

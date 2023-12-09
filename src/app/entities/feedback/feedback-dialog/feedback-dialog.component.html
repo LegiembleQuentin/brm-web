@@ -1,4 +1,4 @@
-<p-dialog [(visible)]="display" [style]="{width: '70%'}" header="Details de l'employé" [modal]="true" class="p-fluid">
+<p-dialog [(visible)]="display" [style]="{width: '600px'}" header="Ajout/modification du feedback" [modal]="true" class="p-fluid">
   <ng-template pTemplate="content">
     <form [formGroup]="feedbackForm">
 
@@ -37,7 +37,6 @@
           La description ne doit pas dépasser {{ feedbackForm.controls.content.errors?.maxlength.requiredLength }} caractères.
         </small>
       </div>
-
     </form>
   </ng-template>
 

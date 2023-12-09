@@ -4,6 +4,7 @@ import { AppLayoutComponent } from "./layout/app.layout.component";
 import {EmployeeListingComponent} from "./entities/employee/employee-listing/employee-listing.component";
 import {EmployeeDetailComponent} from "./entities/employee/employee-detail/employee-detail.component";
 import {FeedbackListingComponent} from "./entities/feedback/feedback-listing/feedback-listing.component";
+import {AbsenceListingComponent} from "./entities/absence/absence-listing/absence-listing.component";
 
 const routes: Routes = [
   {
@@ -20,6 +21,12 @@ const routes: Routes = [
         path: 'feedback',
         children: [
           {path: '', component: FeedbackListingComponent},
+        ]
+      },
+      {
+        path: 'absence',
+        children: [
+          {path: '', component: AbsenceListingComponent},
         ]
       }
     ]

@@ -17,7 +17,7 @@
             ></p-toggleButton>
           </div>
           <div class="custom-dropdown date-filter">
-            <label for="dateFilter" (change)="test()">Date</label>
+            <label for="dateFilter">Date</label>
             <p-calendar [showIcon]="true"
                         id="dateFilter"
                         [(ngModel)]="filters.date"
@@ -61,13 +61,6 @@
           <h5 class="custom-title">Feedbacks</h5>
           <ng-template pTemplate="right">
             <div class="my-2 customBtnGrp">
-<!--              <div class="search-bar">-->
-<!--                <div class="input-search">-->
-<!--                  <i class="pi pi-search"></i>-->
-<!--                  <input type="text" [(ngModel)]="filters.search" (keyup.enter)="search()" (blur)="search()" placeholder="Rechercher">-->
-<!--                </div>-->
-<!--                <div class="underline-search"></div>-->
-<!--              </div>-->
               <div class="addBtn" (click)="openNew()">
                 <span class="addBtnPlus">+</span> <span>Ajouter</span>
               </div>
@@ -133,7 +126,8 @@
     </p-table>
 
     <app-feedback-dialog [feedback]="feedback" (saveSuccess)="loadFeedbacks()"></app-feedback-dialog>
-    <p-dialog [(visible)]="feedbackDetailDialog" [modal]="true" [style]="{width:'450px'}" [header]="'Feedback ' + feedback?.id">
+
+    <p-dialog [(visible)]="feedbackDetailDialog" [modal]="true" [style]="{width:'600px'}" [header]="'Feedback ' + feedback?.id">
       <div class="custom-modal-content">
         <div>
           <span class="detail-attribut">Avertissement: </span>
@@ -154,6 +148,11 @@
         <div>
           <span class="detail-attribut">Auteur: </span>
           <a [routerLink]="['/employee', feedback.author?.id]">{{feedback.author?.name}} {{feedback.author?.firstname}}</a>
+        </div>
+
+        <div>
+          <span class="detail-attribut">Le: </span>
+          <span>{{feedback.createdAt |  date:'dd/MM/yyyy' }}</span>
         </div>
       </div>
       <ng-template pTemplate="footer">

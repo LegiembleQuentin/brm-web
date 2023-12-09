@@ -36,7 +36,7 @@ export class EmployeeService {
     return this.http.get<any>(this.url + '/employee/' + id).toPromise()
   }
 
-  async getEmployeesSmall() {
+  getEmployeesSmall() {
     return this.http.get<any>(this.url + '/employees-small').toPromise();
   }
 }

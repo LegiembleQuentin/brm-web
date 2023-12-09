@@ -92,8 +92,6 @@ export class FeedbackDialogComponent {
       };
 
       if (this.feedback.id) {
-        //seulement pouvoir modifier si on est l'auteur
-
         this.feedbackService.updateFeedback(this.feedback)
           .then(response => {
             this.messageService.add({

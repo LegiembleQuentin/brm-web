@@ -30,4 +30,15 @@ export class DateService {
 
     return new Date(year, month, day);
   }
+
+  static formatDateToApiFormat(date: Date | null | undefined) {
+    if (!date) {
+      return null;
+    }
+
+    const offset = date.getTimezoneOffset() * 60000;
+    const adjustedDate = new Date(date.getTime() - offset);
+
+    return adjustedDate.toISOString().split('.')[0] + '+00:00';
+  }
 }
