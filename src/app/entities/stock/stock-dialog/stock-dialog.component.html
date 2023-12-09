@@ -1,0 +1,87 @@
+<p-dialog [(visible)]="display" [style]="{width: '600px'}" header="Ajout/modification du stock" [modal]="true" class="p-fluid">
+    <ng-template pTemplate="content">
+        <form [formGroup]="stockForm">
+            <div class="field">
+                <label for="restaurant">Restaurant <span class="requiredStar">*</span></label>
+                <p-dropdown
+                        [options]="restaurants"
+                        optionLabel="name"
+                        placeholder="Sélectionner un restaurant"
+                        formControlName="restaurant"
+                        id="restaurant"
+                        inputId="restaurant">
+                </p-dropdown>
+                <small class="ng-dirty ng-invalid" *ngIf="stockForm.controls.restaurant.invalid && (stockForm.controls.restaurant.touched || stockForm.controls.restaurant.dirty)">
+                    Ce champ est obligatoire.
+                </small>
+            </div>
+
+            <div class="field">
+                <label for="name">Nom <span class="requiredStar">*</span></label>
+                <input type="text" pInputText id="name" formControlName="name" required
+                       autofocus [ngClass]="{'ng-invalid ng-dirty' : stockForm.controls.name.invalid && (stockForm.controls.name.touched || stockForm.controls.name.dirty)}"
+                />
+                <small class="error-message" *ngIf="stockForm.controls.name.errors?.required && (stockForm.controls.name.touched || stockForm.controls.name.dirty)">
+                    Ce champ est obligatoire.
+                </small>
+                <small class="error-message" *ngIf="stockForm.controls.name.errors?.minlength && (stockForm.controls.name.touched || stockForm.controls.name.dirty)">
+                    Le nom doit comporter au moins {{ stockForm.controls.name.errors?.minlength.requiredLength }} caractères.
+                </small>
+                <small class="error-message" *ngIf="stockForm.controls.name.errors?.maxlength && (stockForm.controls.name.touched || stockForm.controls.name.dirty)">
+                    Le nom ne doit pas dépasser {{ stockForm.controls.name.errors?.maxlength.requiredLength }} caractères.
+                </small>
+            </div>
+
+            <div class="field">
+                <label for="quantity">Quantité <span class="requiredStar">*</span></label>
+                <input type="number" pInputText id="quantity" formControlName="quantity" required
+                       autofocus [ngClass]="{'ng-invalid ng-dirty' : stockForm.controls.quantity.invalid && (stockForm.controls.quantity.touched || stockForm.controls.quantity.dirty)}"
+                />
+                <small class="error-message" *ngIf="stockForm.controls.quantity.errors?.required && (stockForm.controls.quantity.touched || stockForm.controls.quantity.dirty)">
+                    Ce champ est obligatoire.
+                </small>
+                <small class="error-message" *ngIf="stockForm.controls.quantity.errors?.maxlength && (stockForm.controls.quantity.touched || stockForm.controls.quantity.dirty)">
+                    Le nom ne doit pas dépasser {{ stockForm.controls.quantity.errors?.maxlength.requiredLength }} caractères.
+                </small>
+            </div>
+
+            <div class="field">
+                <label for="unit">Unité <span class="requiredStar">*</span></label>
+                <input type="text" pInputText id="unit" formControlName="unit" required
+                       autofocus [ngClass]="{'ng-invalid ng-dirty' : stockForm.controls.unit.invalid && (stockForm.controls.unit.touched || stockForm.controls.unit.dirty)}"
+                />
+                <small class="error-message" *ngIf="stockForm.controls.unit.errors?.required && (stockForm.controls.unit.touched || stockForm.controls.unit.dirty)">
+                    Ce champ est obligatoire.
+                </small>
+            </div>
+
+            <div class="field">
+                <label for="lastRestockDate">Date du dernier restock <span class="requiredStar">*</span></label>
+                <p-calendar [showIcon]="true" id="lastRestockDate" formControlName="lastRestockDate" inputId="lastRestockDate"
+                            [ngClass]="{'ng-invalid ng-dirty': stockForm.controls.lastRestockDate.invalid && (stockForm.controls.lastRestockDate.touched || stockForm.controls.lastRestockDate.dirty)}"
+                ></p-calendar>
+                <small class="ng-dirty ng-invalid" *ngIf="stockForm.controls.lastRestockDate.invalid && (stockForm.controls.lastRestockDate.touched || stockForm.controls.lastRestockDate.dirty)">
+                    Ce champ est obligatoire.
+                </small>
+                <small class="ng-dirty ng-invalid" *ngIf="stockForm.controls.lastRestockDate.errors?.['invalidDate'] && (stockForm.controls.lastRestockDate.touched || stockForm.controls.lastRestockDate.dirty)">
+                    La date n'est pas valide.
+                </small>
+            </div>
+
+            <div class="field">
+                <label for="stockLevelAlert">Alerte (quantité minimale) <span class="requiredStar">*</span></label>
+                <input type="number" pInputText id="stockLevelAlert" formControlName="stockLevelAlert" required
+                       autofocus [ngClass]="{'ng-invalid ng-dirty' : stockForm.controls.stockLevelAlert.invalid && (stockForm.controls.stockLevelAlert.touched || stockForm.controls.stockLevelAlert.dirty)}"
+                />
+                <small class="error-message" *ngIf="stockForm.controls.stockLevelAlert.errors?.maxlength && (stockForm.controls.stockLevelAlert.touched || stockForm.controls.stockLevelAlert.dirty)">
+                    Le nom ne doit pas dépasser {{ stockForm.controls.stockLevelAlert.errors?.maxlength.requiredLength }} caractères.
+                </small>
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple [disabled]="stockForm.invalid" type="submit" label="Enregistrer" icon="pi pi-check" class="p-button-text" (click)="saveStock()"></button>
+    </ng-template>
+</p-dialog>

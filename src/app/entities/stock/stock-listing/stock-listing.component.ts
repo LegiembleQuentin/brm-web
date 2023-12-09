@@ -1,14 +1,11 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {mapApiDataToStock, Stock} from "../../../api/stock";
 import {ActivatedRoute, Router} from "@angular/router";
-import {EmployeeService} from "../../../service/employee/employee.service";
-import {AbsenceService} from "../../../service/absence/absence.service";
 import {RestaurantService} from "../../../service/restaurant/restaurant.service";
 import {MessageService} from "primeng/api";
 import {StockService} from "../../../service/stock/stock.service";
 import {mapApiDataToRestaurant, Restaurant} from "../../../api/restaurant";
-import {mapApiDataToAbsence} from "../../../api/absence";
-import {DateService} from "../../../service/date/date.service";
+import {StockDialogComponent} from "../stock-dialog/stock-dialog.component";
 
 @Component({
   selector: 'app-stock-listing',
@@ -16,6 +13,7 @@ import {DateService} from "../../../service/date/date.service";
   styleUrls: ['./stock-listing.component.scss']
 })
 export class StockListingComponent {
+  @ViewChild(StockDialogComponent) stockDialog!: StockDialogComponent;
 
   isLoading: boolean = false;
 
@@ -112,5 +110,15 @@ export class StockListingComponent {
       replaceUrl: true
     });
     this.defineRouteParams();
+  }
+
+  openNew() {
+    this.stock = {};
+    this.stockDialog.showDialog({});
+  }
+
+  openEdit(stock: Stock) {
+    this.stock = stock;
+    this.stockDialog.showDialog(this.stock);
   }
 }

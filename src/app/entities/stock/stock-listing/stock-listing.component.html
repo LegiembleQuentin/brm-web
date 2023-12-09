@@ -47,9 +47,9 @@
                                 </div>
                                 <div class="underline-search"></div>
                             </div>
-<!--                            <div class="addBtn" (click)="openNew()">-->
-<!--                                <span class="addBtnPlus">+</span> <span>Ajouter</span>-->
-<!--                            </div>-->
+                            <div class="addBtn" (click)="openNew()">
+                                <span class="addBtnPlus">+</span> <span>Ajouter</span>
+                            </div>
                         </div>
                     </ng-template>
                 </p-toolbar>
@@ -95,8 +95,7 @@
                         <div class="flex">
 <!--                            <button pButton pRipple icon="pi pi-ellipsis-h" class="p-button-rounded light-blue-custom-btn mr-2" (click)="openDetail(absence)"></button>-->
                             <button pButton pRipple icon="pi pi-ellipsis-h" class="p-button-rounded light-blue-custom-btn mr-2"></button>
-<!--                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded light-blue-custom-btn mr-2" (click)="openEdit(absence)"></button>-->
-                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded light-blue-custom-btn mr-2"></button>
+                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded light-blue-custom-btn mr-2" (click)="openEdit(stock)"></button>
                             <button pButton pRipple icon="pi pi-trash" class="p-button-rounded red-custom-btn" ></button>
 <!--                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded red-custom-btn" (click)="deleteAbsence(absence)"></button>-->
                         </div>
@@ -105,7 +104,7 @@
             </ng-template>
         </p-table>
 
-<!--        <app-absence-dialog [absence]="absence" (saveSuccess)="loadAbsences()"></app-absence-dialog>-->
+        <app-stock-dialog [stock]="stock" (saveSuccess)="loadStocks()"></app-stock-dialog>
 <!--        <app-absence-detail [absence]="absence"></app-absence-detail>-->
 
 <!--        <p-dialog [(visible)]="deleteAbsenceDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">-->
