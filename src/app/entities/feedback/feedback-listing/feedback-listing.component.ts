@@ -17,6 +17,7 @@ export class FeedbackListingComponent {
   @ViewChild(FeedbackDialogComponent) feedbackDialog!: FeedbackDialogComponent;
 
   deleteFeedbackDialog = false;
+  isDeleting: boolean = false;
 
   feedbackDetailDialog : boolean = false;
 
@@ -104,6 +105,7 @@ export class FeedbackListingComponent {
   }
 
   confirmDelete(feedback: Feedback) {
+    this.isDeleting = true;
     this.feedbackService.deleteFeedback(feedback)
       .then(response => {
         this.messageService.add({
@@ -112,6 +114,7 @@ export class FeedbackListingComponent {
           detail: 'Feedback supprimé avec succès.'
         });
         this.deleteFeedbackDialog = false;
+        this.isDeleting = false;
         this.feedback = {};
         this.loadFeedbacks();
       })
@@ -121,6 +124,7 @@ export class FeedbackListingComponent {
           summary: 'Erreur',
           detail: 'Erreur lors de la suppression du feedback: ' + error.message
         })
+        this.isDeleting = false;
       });
   }
 

@@ -5,6 +5,9 @@ import {EmployeeListingComponent} from "./entities/employee/employee-listing/emp
 import {EmployeeDetailComponent} from "./entities/employee/employee-detail/employee-detail.component";
 import {FeedbackListingComponent} from "./entities/feedback/feedback-listing/feedback-listing.component";
 import {AbsenceListingComponent} from "./entities/absence/absence-listing/absence-listing.component";
+import {StockListingComponent} from "./entities/stock/stock-listing/stock-listing.component";
+import {StockDetailComponent} from "./entities/stock/stock-detail/stock-detail.component";
+import {NotFoundComponent} from "./not-found/not-found/not-found.component";
 
 const routes: Routes = [
   {
@@ -28,7 +31,20 @@ const routes: Routes = [
         children: [
           {path: '', component: AbsenceListingComponent},
         ]
-      }
+      },
+      {
+        path: 'stock',
+        children: [
+          { path: '', component: StockListingComponent },
+          { path: ':id', component: StockDetailComponent }
+        ]
+      },
+
+
+
+
+      { path: '404', component: NotFoundComponent },
+      { path: '**', redirectTo: '/404' }
     ]
   }
 ];

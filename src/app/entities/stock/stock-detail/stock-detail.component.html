@@ -1,0 +1,74 @@
+<div class="grid">
+    <div class="col-12" *ngIf="stock">
+        <p-toast></p-toast>
+
+        <div class="detail-header">
+            <div>
+                <h2 >{{stock.name}}</h2>
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded light-blue-custom-btn mr-2" (click)="openEdit()"></button>
+            </div>
+            <small>ID: {{stock.id}}</small>
+        </div>
+
+        <div class="stock-detail-container">
+            <div class="first-part">
+                <div class="custom-card">
+                    <div class="card-header">Quantité</div>
+                    <div class="card-content">
+                        <div>
+                            {{ stock.quantity }}
+                        </div>
+                    </div>
+                </div>
+                <div class="custom-card">
+                    <div class="card-header">Dernier restock</div>
+                    <div class="card-content">
+                        <div *ngIf="stock.lastRestockDate">
+                            {{ stock.lastRestockDate | date: 'dd/MM/yyyy' }}
+                        </div>
+                        <div *ngIf="!stock.lastRestockDate">
+                            --
+                        </div>
+                    </div>
+                </div>
+                <div class="custom-card">
+                    <div class="card-header">Alerte (qté minimum)</div>
+                    <div class="card-content">
+                        <div>
+                            <span *ngIf="stock.stockLevelAlert">{{ stock.stockLevelAlert}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="custom-card">
+                    <div class="card-header">Restaurant</div>
+                    <div class="card-content">
+                        <div>
+                            {{stock.restaurant?.name}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="second-part">
+                <div class="custom-card">
+                    <div class="card-header product-card">Produits liés</div>
+                    <div class="card-content"></div>
+                </div>
+                <div class="custom-card">
+                    <div class="card-header order-card">Commandes liées</div>
+                    <div class="card-content"></div>
+                </div>
+                <div class="custom-card-container">
+                    <div class="custom-card absences-card">
+                        <div class="card-header">Pourcentage de pertes</div>
+                        <div class="card-content"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <app-stock-dialog [stock]="stock" (saveSuccess)="loadStock()"></app-stock-dialog>
+
+    </div>
+</div>
+

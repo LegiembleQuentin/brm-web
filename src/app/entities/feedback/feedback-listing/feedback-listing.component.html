@@ -167,7 +167,7 @@
       </div>
       <ng-template pTemplate="footer">
         <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteFeedbackDialog = false"></button>
-        <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDelete(feedback)"></button>
+        <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" [disabled]="isDeleting" (click)="confirmDelete(feedback)"></button>
       </ng-template>
     </p-dialog>
   </div>
