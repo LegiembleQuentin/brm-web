@@ -18,8 +18,6 @@ import { RestaurantService } from './service/restaurant/restaurant.service';
 @NgModule({
   declarations: [
     AppComponent,
-    RestaurantListingComponent,
-    RestaurantDetailComponent
   ],
   imports: [
     BrowserModule,

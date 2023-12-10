@@ -24,7 +24,6 @@
           <div class="custom-dropdown restaurant-filter">
             <label for="restaurantFilter">Restaurant</label>
             <p-dropdown
-              (change)="onChange($event)"
               [options]="getRestaurantsWithNoneOption()"
               optionLabel="name"
               optionValue="id"

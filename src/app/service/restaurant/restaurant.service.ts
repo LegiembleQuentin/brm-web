@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { Restaurant } from 'src/app/api/restaurant';
+import { Restaurant, mapRestaurantToApiData } from "../../api/restaurant";
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +22,9 @@ export class RestaurantService {
   saveRestaurant(restaurant: Restaurant): Promise<any> {
     console.log(restaurant);
     return this.http.post(this.url + '/restaurant', { body: restaurant }).toPromise();
+  }
+  updateRestaurant(restaurant: Restaurant): Promise<any> {
+    restaurant = mapRestaurantToApiData(restaurant);
+    return this.http.put(this.url + '/restaurant', { body: restaurant }).toPromise();
   }
 }
