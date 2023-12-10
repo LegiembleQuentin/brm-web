@@ -6,6 +6,7 @@ import {MessageService} from "primeng/api";
 import {StockService} from "../../../service/stock/stock.service";
 import {mapApiDataToRestaurant, Restaurant} from "../../../api/restaurant";
 import {StockDialogComponent} from "../stock-dialog/stock-dialog.component";
+import {Feedback} from "../../../api/feedback";
 
 @Component({
   selector: 'app-stock-listing',
@@ -15,6 +16,8 @@ import {StockDialogComponent} from "../stock-dialog/stock-dialog.component";
 export class StockListingComponent {
   @ViewChild(StockDialogComponent) stockDialog!: StockDialogComponent;
 
+  deleteStockDialog: boolean = false;
+  isDeleting: boolean = false;
   isLoading: boolean = false;
 
   stocks: Stock[] = [];
@@ -110,6 +113,35 @@ export class StockListingComponent {
       replaceUrl: true
     });
     this.defineRouteParams();
+  }
+
+  deleteStock(stock: Stock) {
+    this.stock = { ...stock };
+    this.deleteStockDialog = true;
+  }
+
+  confirmDelete(stock: Stock) {
+    this.isDeleting = true;
+    this.stockService.deleteStock(stock)
+        .then(response => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Succès',
+            detail: 'Stock supprimé avec succès.'
+          });
+          this.deleteStockDialog = false;
+          this.isDeleting = false;
+          this.stock = {};
+          this.loadStocks();
+        })
+        .catch(error => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Erreur',
+            detail: 'Erreur lors de la suppression du stock: ' + error.message
+          })
+          this.isDeleting = false;
+        });
   }
 
   openNew() {

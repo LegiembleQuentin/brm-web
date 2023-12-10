@@ -33,7 +33,6 @@
             </div>
         </div>
 
-
         <p-table #dt [value]="stocks" [columns]="cols" responsiveLayout="scroll" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" selectionMode="multiple" [rowHover]="true" dataKey="id">
             <ng-template pTemplate="caption">
                 <p-toolbar styleClass="mb-4">
@@ -95,8 +94,7 @@
                         <div class="flex">
                             <button pButton pRipple icon="pi pi-ellipsis-h" class="p-button-rounded light-blue-custom-btn mr-2" [routerLink]="['/stock', stock.id]"></button>
                             <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded light-blue-custom-btn mr-2" (click)="openEdit(stock)"></button>
-                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded red-custom-btn" ></button>
-<!--                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded red-custom-btn" (click)="deleteAbsence(absence)"></button>-->
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded red-custom-btn" (click)="deleteStock(stock)"></button>
                         </div>
                     </td>
                 </tr>
@@ -104,17 +102,16 @@
         </p-table>
 
         <app-stock-dialog [stock]="stock" (saveSuccess)="loadStocks()"></app-stock-dialog>
-<!--        <app-absence-detail [absence]="absence"></app-absence-detail>-->
 
-<!--        <p-dialog [(visible)]="deleteAbsenceDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">-->
-<!--            <div class="flex align-items-center justify-content-center">-->
-<!--                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>-->
-<!--                <span *ngIf="absence">Êtes vous sûr de vouloir supprimer l'absence <b>{{absence.id}}</b> de <b>{{absence.id}}</b>?</span>-->
-<!--            </div>-->
-<!--            <ng-template pTemplate="footer">-->
-<!--                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteAbsenceDialog = false"></button>-->
-<!--                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" [disabled]="isDeleting" (click)="confirmDelete(absence)"></button>-->
-<!--            </ng-template>-->
-<!--        </p-dialog>-->
+        <p-dialog [(visible)]="deleteStockDialog" header="Confirmer" [modal]="true" [style]="{width:'450px'}">
+            <div class="flex align-items-center justify-content-center">
+                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+                <span *ngIf="stock">Êtes vous sûr de vouloir supprimer le stock <b>{{stock.id}} ({{stock.name}})</b>?</span>
+            </div>
+            <ng-template pTemplate="footer">
+                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteStockDialog = false"></button>
+                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" [disabled]="isDeleting" (click)="confirmDelete(stock)"></button>
+            </ng-template>
+        </p-dialog>
     </div>
 </div>
