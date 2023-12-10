@@ -93,8 +93,7 @@
                     </td>
                     <td>
                         <div class="flex">
-<!--                            <button pButton pRipple icon="pi pi-ellipsis-h" class="p-button-rounded light-blue-custom-btn mr-2" (click)="openDetail(absence)"></button>-->
-                            <button pButton pRipple icon="pi pi-ellipsis-h" class="p-button-rounded light-blue-custom-btn mr-2"></button>
+                            <button pButton pRipple icon="pi pi-ellipsis-h" class="p-button-rounded light-blue-custom-btn mr-2" [routerLink]="['/stock', stock.id]"></button>
                             <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded light-blue-custom-btn mr-2" (click)="openEdit(stock)"></button>
                             <button pButton pRipple icon="pi pi-trash" class="p-button-rounded red-custom-btn" ></button>
 <!--                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded red-custom-btn" (click)="deleteAbsence(absence)"></button>-->

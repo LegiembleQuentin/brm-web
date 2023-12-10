@@ -13,6 +13,7 @@ import {ToolbarModule} from "primeng/toolbar";
 import {DropdownModule} from "primeng/dropdown";
 import {ToggleButtonModule} from "primeng/togglebutton";
 import {CalendarModule} from "primeng/calendar";
+import {RouterLink, RouterModule} from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -27,6 +28,8 @@ import {CalendarModule} from "primeng/calendar";
     FormsModule,
     RippleModule,
     TableModule,
+    RouterModule,
+    RouterLink,
     ToolbarModule,
     DropdownModule,
     ToggleButtonModule,
@@ -44,6 +47,8 @@ import {CalendarModule} from "primeng/calendar";
     FormsModule,
     RippleModule,
     TableModule,
+    RouterModule,
+    RouterLink,
     ToolbarModule,
     DropdownModule,
     ToggleButtonModule,

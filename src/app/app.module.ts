@@ -10,6 +10,7 @@ import {RestaurantModule} from "./entities/restaurant/restaurant.module";
 import {CustomSharedModule} from "./shared.module";
 import {AbsenceModule} from "./entities/absence/absence.module";
 import {StockModule} from "./entities/stock/stock.module";
+import {NotFoundModule} from "./not-found/not-found.module";
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import {StockModule} from "./entities/stock/stock.module";
     RestaurantModule,
     AbsenceModule,
     StockModule,
+    NotFoundModule,
     CustomSharedModule
   ],
   providers: [

@@ -29,6 +29,10 @@ export class StockDialogComponent {
       private stockService: StockService,
       private messageService: MessageService) { }
 
+  ngOnInit() {
+    this.loadRestaurants();
+  }
+
   loadRestaurants() {
     this.restaurantService.getRestaurantsSmall()
         .then(response => {
@@ -86,7 +90,7 @@ export class StockDialogComponent {
           ValidationService.dateValidator()
         ]),
         stockLevelAlert: new FormControl(''),
-        restaurant: new FormControl(this.restaurants.find(r => r.id === this.stock.restaurant?.id) ?? '')
+        restaurant: new FormControl('', Validators.required),
       });
     }
   }
@@ -150,11 +154,10 @@ export class StockDialogComponent {
     this.display = true;
     this.stock = stock;
     this.initForm();
-    this.loadRestaurants();
   }
 
   hideDialog() {
-    this.display = false;
     this.stockForm.reset();
+    this.display = false;
   }
 }

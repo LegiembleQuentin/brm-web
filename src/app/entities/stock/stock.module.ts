@@ -16,13 +16,15 @@ import {InputTextModule} from "primeng/inputtext";
 import {InputTextareaModule} from "primeng/inputtextarea";
 import {RouterLink} from "@angular/router";
 import { StockDialogComponent } from './stock-dialog/stock-dialog.component';
+import { StockDetailComponent } from './stock-detail/stock-detail.component';
 
 
 
 @NgModule({
   declarations: [
     StockListingComponent,
-    StockDialogComponent
+    StockDialogComponent,
+    StockDetailComponent
   ],
   imports: [
     CustomSharedModule,
