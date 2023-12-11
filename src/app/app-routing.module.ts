@@ -19,6 +19,7 @@ const routes: Routes = [
           { path: ':id', component: EmployeeDetailComponent }
         ]
       },
+
       { path: 'verify-token', component: VerifyTokenComponent },
       { path: 'login', component: LoginComponent }
     ]
