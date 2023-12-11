@@ -1,0 +1,14 @@
+<div *ngIf="tokenIsValid">
+  <div>
+    <p>Veuillez renseigner votre mot de passe</p>
+  </div>
+  <form (ngSubmit)="setPassword()">
+    <input type="password" [(ngModel)]="Password" name="newPassword" placeholder="Nouveau mot de passe">
+
+    <input type="password" [(ngModel)]="confirmPassword" name="confirmPassword" placeholder="Confirmer le mot de passe">
+    <button type="submit">Envoyer</button>
+  </form>
+</div>
+<div *ngIf="!tokenIsValid">
+  <p>Le token est invalide ou a expiré.</p>
+</div>
