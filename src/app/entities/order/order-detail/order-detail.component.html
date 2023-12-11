@@ -1,0 +1,34 @@
+<p-dialog [(visible)]="display" [modal]="true" [style]="{width:'600px'}" [header]="'Commande ' + order?.id">
+  <div class="custom-modal-content">
+    <div>
+      <span class="detail-attribut">Date: </span>
+      <span>{{order.date |  date:'dd/MM/yyyy' }}</span>
+    </div>
+
+    <div>
+      <span class="detail-attribut">Prix: </span>
+      <span>{{order.price |  currency:"EUR"}}</span>
+    </div>
+
+    <div>
+      <span class="detail-attribut">Status: </span>
+      <span>{{order.status}}</span>
+    </div>
+
+    <div>
+      <span class="detail-attribut">Client: </span>
+      <span *ngIf="order.customer">{{order.customer.lastname}} {{order.customer.firstname}}</span>
+    </div>
+
+    <div>
+      <span class="detail-attribut">Produits: </span>
+      <div *ngFor="let orderProduct of order.orderProducts; let i = index">
+        <span *ngIf="orderProduct"> <a [routerLink]="['/product', orderProduct.product?.id]">{{orderProduct.product?.name}}</a> x {{orderProduct.quantity}}</span>
+        <span *ngIf="orderProduct">{{ getProductPrice(orderProduct) | currency: "EUR" }}</span>
+      </div>
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Ok" (click)="hideDetail()"></button>
+  </ng-template>
+</p-dialog>

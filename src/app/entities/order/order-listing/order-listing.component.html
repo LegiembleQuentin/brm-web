@@ -1,0 +1,117 @@
+<div class="grid">
+  <div class="col-12">
+    <p-toast></p-toast>
+    <div class="custom-topbar">
+      <div class="topbar-background">
+        <div>
+          <button (click)="search()" class="light-blue-custom-btn custom-btn-search ml-2" [disabled]="isLoading">Filtrer</button>
+        </div>
+        <div class="topbar-container">
+          <div class="custom-dropdown date-filter">
+            <label for="dateFilter">Date</label>
+            <p-calendar [showIcon]="true"
+                        id="dateFilter"
+                        [(ngModel)]="filters.date"
+                        inputId="birthdate"
+            ></p-calendar>
+          </div>
+<!--          <div class="custom-dropdown customer-filter">-->
+<!--            <label for="customerFilter">Client</label>-->
+<!--            <p-dropdown-->
+<!--              [options]="getCustomersWithNoneOption()"-->
+<!--              optionLabel="name"-->
+<!--              optionValue="id"-->
+<!--              placeholder="Client"-->
+<!--              [(ngModel)]="filters.customer"-->
+<!--              id="customerFilter"-->
+<!--              inputId="customerFilter">-->
+<!--            </p-dropdown>-->
+<!--          </div>-->
+          <div class="custom-dropdown restaurant-filter">
+            <label for="restaurantFilter">Restaurant</label>
+            <p-dropdown
+              [options]="getRestaurantsWithNoneOption()"
+              optionLabel="name"
+              optionValue="id"
+              placeholder="Restaurant"
+              [(ngModel)]="filters.restaurant"
+              id="restaurantFilter"
+              inputId="restaurantFilter">
+            </p-dropdown>
+          </div>
+          <div class="custom-dropdown product-filter">
+            <label for="productFilter">Produit</label>
+            <p-dropdown
+              [options]="getProductsWithNoneOption()"
+              optionLabel="name"
+              optionValue="id"
+              placeholder="Produit"
+              [(ngModel)]="filters.product"
+              id="productFilter"
+              inputId="productFilter">
+            </p-dropdown>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p-table #dt [value]="orders" [columns]="cols" responsiveLayout="scroll" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" selectionMode="multiple" [rowHover]="true" dataKey="id">
+      <ng-template pTemplate="caption">
+        <p-toolbar styleClass="mb-4">
+          <h5 class="custom-title">Produits</h5>
+          <ng-template pTemplate="right">
+            <div class="my-2 customBtnGrp">
+
+            </div>
+          </ng-template>
+        </p-toolbar>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="id">Id <p-sortIcon field="id"></p-sortIcon></th>
+          <th pSortableColumn="date">Date <p-sortIcon field="date"></p-sortIcon></th>
+          <th pSortableColumn="price">Prix <p-sortIcon field="price"></p-sortIcon></th>
+          <th pSortableColumn="status">Statut <p-sortIcon field="status"></p-sortIcon></th>
+          <th pSortableColumn="customer">Client <p-sortIcon field="customer"></p-sortIcon></th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-order>
+        <tr>
+          <td style="width:16%; min-width:10rem;">
+            <span class="p-column-title">ID</span>
+            {{order.id}}
+          </td>
+          <td style="width:16%; min-width:10rem;">
+            <span class="p-column-title">Date</span>
+            {{order.date | date:'dd/MM/yyyy'  }}
+          </td>
+          <td style="width:16%; min-width:10rem;">
+            <span class="p-column-title">Prix</span>
+            {{ order.price | currency:'EUR' }}
+          </td>
+          <td style="width:16%; min-width:10rem;">
+            <span class="p-column-title">Statut</span>
+            {{order.status}}
+          </td>
+          <td style="width:20%; min-width:10rem;" *ngIf="order.customer">
+            <span class="p-column-title">Client</span>
+            {{order.customer.lastname}} {{order.customer.firstname}}
+          </td>
+          <td style="width:20%; min-width:10rem;" *ngIf="!order.customer">
+            <span class="p-column-title">Client</span>
+            --
+          </td>
+          <td>
+            <div class="flex">
+              <button pButton pRipple icon="pi pi-ellipsis-h" class="p-button-rounded light-blue-custom-btn mr-2" (click)="openDetail(order)"></button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+    <app-order-detail [order]="order"></app-order-detail>
+
+  </div>
+</div>
