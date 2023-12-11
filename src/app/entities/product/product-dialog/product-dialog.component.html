@@ -1,0 +1,83 @@
+<p-dialog [(visible)]="display" [style]="{width: '600px'}" header="Ajout/modification du produit" [modal]="true" class="p-fluid">
+  <ng-template pTemplate="content">
+    <form [formGroup]="productForm">
+
+      <div class="field">
+        <label for="name">Nom <span class="requiredStar">*</span></label>
+        <input type="text" pInputText id="name" formControlName="name" required
+               autofocus [ngClass]="{'ng-invalid ng-dirty' : productForm.controls.name.invalid && (productForm.controls.name.touched || productForm.controls.name.dirty)}"
+        />
+        <small class="error-message" *ngIf="productForm.controls.name.errors?.required && (productForm.controls.name.touched || productForm.controls.name.dirty)">
+          Ce champ est obligatoire.
+        </small>
+        <small class="error-message" *ngIf="productForm.controls.name.errors?.minlength && (productForm.controls.name.touched || productForm.controls.name.dirty)">
+          Le nom doit comporter au moins {{ productForm.controls.name.errors?.minlength.requiredLength }} caractères.
+        </small>
+        <small class="error-message" *ngIf="productForm.controls.name.errors?.maxlength && (productForm.controls.name.touched || productForm.controls.name.dirty)">
+          Le nom ne doit pas dépasser {{ productForm.controls.name.errors?.maxlength.requiredLength }} caractères.
+        </small>
+      </div>
+
+
+      <div formArrayName="productStocks">
+        <div *ngFor="let stockGroup of productStocks.controls; let i = index;" [formGroupName]="i" class="p-field p-grid">
+
+          <div class="p-col">
+            <label for="stock-{{i}}">Stock</label>
+            <p-dropdown
+              [options]="stocks"
+              optionLabel="name"
+              placeholder="Select a stock"
+              formControlName="stock"
+              [id]="'stock-' + i"
+              [inputId]="'stock-' + i">
+            </p-dropdown>
+            <small class="ng-dirty ng-invalid" *ngIf="stockGroup.get('stock')?.invalid && (stockGroup.get('stock')?.touched || stockGroup.get('stock')?.dirty)">
+              Ce champ est obligatoire.
+            </small>
+          </div>
+
+          <div class="p-col">
+            <label for="stock_quantity-{{i}}">Stock Quantity</label>
+            <input id="stock_quantity-{{i}}" formControlName="stock_quantity" type="number" pInputText />
+            <small class="ng-dirty ng-invalid" *ngIf="stockGroup.get('stock_quantity')?.invalid && (stockGroup.get('stock_quantity')?.touched || stockGroup.get('stock_quantity')?.dirty)">
+              Quantity is required.
+            </small>
+          </div>
+
+          <div class="p-col">
+            <button type="button" pButton icon="pi pi-minus" (click)="removeStock(i)"></button>
+          </div>
+
+        </div>
+        <button type="button" (click)="addStock()">Ajouter un Ingredient</button>
+      </div>
+
+      <div class="field">
+        <label for="description">Description</label>
+        <textarea id="description" formControlName="description" pInputTextarea rows="3" cols="20"></textarea>
+        <small class="error-message" *ngIf="productForm.controls.description.errors?.minlength && (productForm.controls.description.touched || productForm.controls.description.dirty)">
+          La description doit comporter au moins {{ productForm.controls.description.errors?.minlength.requiredLength }} caractères.
+        </small>
+        <small class="error-message" *ngIf="productForm.controls.description.errors?.maxlength && (productForm.controls.description.touched || productForm.controls.description.dirty)">
+          La description ne doit pas dépasser {{ productForm.controls.description.errors?.maxlength.requiredLength }} caractères.
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="price">Prix<span class="requiredStar">*</span></label>
+        <input type="number" pInputText id="price" formControlName="price" required
+               autofocus [ngClass]="{'ng-invalid ng-dirty' : productForm.controls.price.invalid && (productForm.controls.price.touched || productForm.controls.price.dirty)}"
+        />
+        <small class="error-message" *ngIf="productForm.controls.price.errors?.maxlength && (productForm.controls.price.touched || productForm.controls.price.dirty)">
+          Le nom ne doit pas dépasser {{ productForm.controls.price.errors?.maxlength.requiredLength }} caractères.
+        </small>
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+    <button pButton pRipple [disabled]="productForm.invalid" type="submit" label="Enregistrer" icon="pi pi-check" class="p-button-text" (click)="saveStock()"></button>
+  </ng-template>
+</p-dialog>

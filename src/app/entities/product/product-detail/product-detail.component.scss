@@ -1,0 +1,29 @@
+.stock-detail-container {
+  .first-part
+  {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: stretch;
+    margin-bottom: 2rem;
+    .custom-card{
+      width: 32%;
+    }
+  }
+
+  .second-part
+  {
+    display: flex;
+    justify-content: space-between;
+    .custom-card {
+      width: 49%;
+    }
+    .custom-card-container{
+      display: block;
+      width: 49%;
+      .custom-card {
+        width: 100%;
+      }
+    }
+  }
+}
