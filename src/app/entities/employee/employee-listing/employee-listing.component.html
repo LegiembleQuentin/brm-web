@@ -5,7 +5,12 @@
     <div class="custom-topbar">
       <div class="topbar-background">
         <div>
-          <button (click)="search()" class="light-blue-custom-btn custom-btn-search ml-2">Filtrer</button>
+          <button
+            (click)="search()"
+            class="light-blue-custom-btn custom-btn-search ml-2"
+          >
+            Filtrer
+          </button>
         </div>
         <div class="topbar-container">
           <div class="enabled-filter">
@@ -25,10 +30,18 @@
               placeholder="Restaurant"
               [(ngModel)]="filters.restaurant"
               id="restaurantFilter"
-              inputId="restaurantFilter">
+              inputId="restaurantFilter"
+              class="p-dropdown-filter"
+            >
             </p-dropdown>
           </div>
-          <div class="custom-dropdown role-filter">
+          <div
+            class="role-filter"
+            [ngClass]="{
+              'custom-dropdown-selected': filters.role,
+              'custom-dropdown-not-selected': !filters.role
+            }"
+          >
             <label for="roleFilter">Role</label>
             <p-dropdown
               inputId="roleFilter"
@@ -38,9 +51,16 @@
               optionValue="value"
               [options]="getRolesWithNoneOption()"
               placeholder="Rôle"
+              class="p-dropdown-filter"
             ></p-dropdown>
           </div>
-          <div class="custom-dropdown">
+          <div
+            class="custom-dropdown"
+            [ngClass]="{
+              'custom-dropdown-selected': filters.contractType,
+              'custom-dropdown-not-selected': !filters.contractType
+            }"
+          >
             <label for="contractTypeFilter">Contrat</label>
             <p-dropdown
               [(ngModel)]="filters.contractType"
@@ -50,13 +70,34 @@
               optionValue="value"
               [options]="getContractTypeWithNoneOption()"
               placeholder="Contrat"
+              class="p-dropdown-filter"
             ></p-dropdown>
           </div>
         </div>
       </div>
     </div>
 
-    <p-table #dt [value]="employees" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['name','country.name','representative.name','status']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedEmployees" selectionMode="multiple" [rowHover]="true" dataKey="id">
+    <p-table
+      #dt
+      [value]="employees"
+      [columns]="cols"
+      responsiveLayout="scroll"
+      [rows]="10"
+      [globalFilterFields]="[
+        'name',
+        'country.name',
+        'representative.name',
+        'status'
+      ]"
+      [paginator]="true"
+      [rowsPerPageOptions]="[10, 20, 30]"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [(selection)]="selectedEmployees"
+      selectionMode="multiple"
+      [rowHover]="true"
+      dataKey="id"
+    >
       <ng-template pTemplate="caption">
         <p-toolbar styleClass="mb-4">
           <h5 class="custom-title">Employés</h5>
@@ -65,7 +106,13 @@
               <div class="search-bar">
                 <div class="input-search">
                   <i class="pi pi-search"></i>
-                  <input type="text" [(ngModel)]="filters.search" (keyup.enter)="search()" (blur)="search()" placeholder="Rechercher">
+                  <input
+                    type="text"
+                    [(ngModel)]="filters.search"
+                    (keyup.enter)="search()"
+                    (blur)="search()"
+                    placeholder="Rechercher"
+                  />
                 </div>
                 <div class="underline-search"></div>
               </div>
@@ -78,55 +125,78 @@
       </ng-template>
       <ng-template pTemplate="header">
         <tr>
-          <th pSortableColumn="name">Nom <p-sortIcon field="name"></p-sortIcon></th>
-          <th pSortableColumn="firstname">Prénom <p-sortIcon field="firstname"></p-sortIcon></th>
-          <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
-          <th pSortableColumn="hireDate">Date d'embauche <p-sortIcon field="hireDate"></p-sortIcon></th>
-          <th pSortableColumn="contractType">Type de contrat <p-sortIcon field="contractType"></p-sortIcon></th>
-          <th pSortableColumn="restaurant.name">Restaurant <p-sortIcon field="restaurant.name"></p-sortIcon></th>
-          <th pSortableColumn="enabled">Actif <p-sortIcon field="enabled"></p-sortIcon></th>
+          <th pSortableColumn="name">
+            Nom <p-sortIcon field="name"></p-sortIcon>
+          </th>
+          <th pSortableColumn="firstname">
+            Prénom <p-sortIcon field="firstname"></p-sortIcon>
+          </th>
+          <th pSortableColumn="hireDate">
+            Date d'embauche <p-sortIcon field="hireDate"></p-sortIcon>
+          </th>
+          <th pSortableColumn="contractType">
+            Type de contrat <p-sortIcon field="contractType"></p-sortIcon>
+          </th>
+          <th pSortableColumn="restaurant.name">
+            Restaurant <p-sortIcon field="restaurant.name"></p-sortIcon>
+          </th>
+          <th pSortableColumn="enabled">
+            Actif <p-sortIcon field="enabled"></p-sortIcon>
+          </th>
           <th></th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-employee>
         <tr>
-          <td style="width:14%; min-width:10rem;">
+          <td style="width: 14%; min-width: 10rem">
             <span class="p-column-title">Nom</span>
-            {{employee.name}}
+            {{ employee.name }}
           </td>
-          <td style="width:14%; min-width:10rem;">
+          <td style="width: 14%; min-width: 10rem">
             <span class="p-column-title">Prénom</span>
-            {{employee.firstname}}
+            {{ employee.firstname }}
           </td>
-          <td style="width:14%; min-width:10rem;">
+          <td style="width: 14%; min-width: 10rem">
             <span class="p-column-title">Email</span>
-            {{employee.email}}
+            {{ employee.email }}
           </td>
-          <td style="width:14%; min-width:10rem;">
+          <td style="width: 14%; min-width: 10rem">
             <span class="p-column-title">Date d'embauche</span>
-            {{ employee.hireDate | date:'dd/MM/yyyy' }}
+            {{ employee.hireDate | date : "dd/MM/yyyy" }}
           </td>
-          <td style="width:14%; min-width:10rem;">
+          <td style="width: 14%; min-width: 10rem">
             <span class="p-column-title">Contract type</span>
             {{ employee.contractType | contractTypeDisplay }}
           </td>
-          <td style="width:14%; min-width:10rem;">
+          <td style="width: 14%; min-width: 10rem">
             <span class="p-column-title">Contract type</span>
             {{ employee.restaurant.name }}
           </td>
-          <td *ngIf="employee.enabled" style="width:14%; min-width:10rem;">
+          <td *ngIf="employee.enabled" style="width: 14%; min-width: 10rem">
             <span class="p-column-title">Actif</span>
             Oui
           </td>
-          <td *ngIf="!employee.enabled" style="width:14%; min-width:10rem;">
+          <td *ngIf="!employee.enabled" style="width: 14%; min-width: 10rem">
             <span class="p-column-title">Actif</span>
             Non
           </td>
           <td>
             <div class="flex">
-              <button pButton pRipple icon="pi pi-ellipsis-h" class="p-button-rounded light-blue-custom-btn mr-2" [routerLink]="['/employee', employee.id]"></button>
-              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded light-blue-custom-btn mr-2" (click)="openEdit(employee)"></button>
-<!--              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded red-custom-btn" (click)="deleteEmployee(employee)"></button>-->
+              <button
+                pButton
+                pRipple
+                icon="pi pi-ellipsis-h"
+                class="p-button-rounded light-blue-custom-btn mr-2"
+                [routerLink]="['/employee', employee.id]"
+              ></button>
+              <button
+                pButton
+                pRipple
+                icon="pi pi-pencil"
+                class="p-button-rounded light-blue-custom-btn mr-2"
+                (click)="openEdit(employee)"
+              ></button>
+              <!--              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded red-custom-btn" (click)="deleteEmployee(employee)"></button>-->
             </div>
           </td>
         </tr>
@@ -134,16 +204,19 @@
     </p-table>
   </div>
 
-  <app-employee-dialog [employee]="employee" (saveSuccess)="loadEmployees()"></app-employee-dialog>
+  <app-employee-dialog
+    [employee]="employee"
+    (saveSuccess)="loadEmployees()"
+  ></app-employee-dialog>
 
-<!--  <p-dialog [(visible)]="deleteEmployeeDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">-->
-<!--    <div class="flex align-items-center justify-content-center">-->
-<!--      <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>-->
-<!--      <span *ngIf="employee">Are you sure you want to delete <b>{{employee.name}} {{employee.firstname}}</b>?</span>-->
-<!--    </div>-->
-<!--    <ng-template pTemplate="footer">-->
-<!--      <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteEmployeeDialog = false"></button>-->
-<!--      <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDelete(employee)"></button>-->
-<!--    </ng-template>-->
-<!--  </p-dialog>-->
+  <!--  <p-dialog [(visible)]="deleteEmployeeDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">-->
+  <!--    <div class="flex align-items-center justify-content-center">-->
+  <!--      <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>-->
+  <!--      <span *ngIf="employee">Are you sure you want to delete <b>{{employee.name}} {{employee.firstname}}</b>?</span>-->
+  <!--    </div>-->
+  <!--    <ng-template pTemplate="footer">-->
+  <!--      <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteEmployeeDialog = false"></button>-->
+  <!--      <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDelete(employee)"></button>-->
+  <!--    </ng-template>-->
+  <!--  </p-dialog>-->
 </div>

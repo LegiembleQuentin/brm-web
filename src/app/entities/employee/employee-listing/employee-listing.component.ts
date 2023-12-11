@@ -1,11 +1,11 @@
-import {Component, ViewChild} from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { EmployeeService } from "../../../service/employee/employee.service";
 import { RestaurantService } from "../../../service/restaurant/restaurant.service";
-import {ContractType, EmployeeRole, EmployeeSexe, Employee, mapApiDataToEmployee} from "../../../api/employee";
-import {Restaurant, mapApiDataToRestaurant} from "../../../api/restaurant";
-import {ActivatedRoute, Router} from "@angular/router";
-import {EmployeeDialogComponent} from "../employee-dialog/employee-dialog.component";
+import { ContractType, EmployeeRole, EmployeeSexe, Employee, mapApiDataToEmployee } from "../../../api/employee";
+import { Restaurant, mapApiDataToRestaurant } from "../../../api/restaurant";
+import { ActivatedRoute, Router } from "@angular/router";
+import { EmployeeDialogComponent } from "../employee-dialog/employee-dialog.component";
 
 @Component({
   selector: 'app-employee-listing',
@@ -40,10 +40,10 @@ export class EmployeeListingComponent {
   ];
 
   contractType = [
-    { label: 'Temps complet', value: ContractType.FULL_TIME},
-    { label: 'Temps partiel', value: ContractType.PART_TIME},
-    { label: 'Temporaire', value: ContractType.TEMPORARY},
-    { label: 'Période probatoire', value: ContractType.PROBATION},
+    { label: 'Temps complet', value: ContractType.FULL_TIME },
+    { label: 'Temps partiel', value: ContractType.PART_TIME },
+    { label: 'Temporaire', value: ContractType.TEMPORARY },
+    { label: 'Période probatoire', value: ContractType.PROBATION },
   ]
 
   employeeSexe = [
@@ -160,10 +160,10 @@ export class EmployeeListingComponent {
   }
 
   getRestaurantsWithNoneOption() {
-    return [{ name: '--', id: null}, ...this.restaurants];
+    return [{ name: '--', id: null }, ...this.restaurants];
   }
 
   getContractTypeWithNoneOption() {
-    return [{ label: '--', value: null}, ...this.contractType];
+    return [{ label: '--', value: null }, ...this.contractType];
   }
 }
