@@ -12,12 +12,17 @@ import {ToastModule} from "primeng/toast";
 import {ToggleButtonModule} from "primeng/togglebutton";
 import {ToolbarModule} from "primeng/toolbar";
 import {CustomSharedModule} from "../../shared.module";
+import { ProductDialogComponent } from './product-dialog/product-dialog.component';
+import {ReactiveFormsModule} from "@angular/forms";
+import {InputTextModule} from "primeng/inputtext";
+import {InputTextareaModule} from "primeng/inputtextarea";
 
 
 
 @NgModule({
   declarations: [
-    ProductListingComponent
+    ProductListingComponent,
+    ProductDialogComponent
   ],
   imports: [
     CommonModule,
@@ -31,7 +36,10 @@ import {CustomSharedModule} from "../../shared.module";
     ToastModule,
     ToggleButtonModule,
     ToolbarModule,
-    CustomSharedModule
+    CustomSharedModule,
+    ReactiveFormsModule,
+    InputTextModule,
+    InputTextareaModule
   ]
 })
 export class ProductModule { }

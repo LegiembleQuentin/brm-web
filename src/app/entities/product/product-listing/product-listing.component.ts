@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {MessageService} from "primeng/api";
 import {ProductService} from "../../../service/product/product.service";
 import {mapApiDataToProduct, Product} from "../../../api/product";
+import {ProductDialogComponent} from "../product-dialog/product-dialog.component";
 
 @Component({
   selector: 'app-product-listing',
@@ -10,6 +11,7 @@ import {mapApiDataToProduct, Product} from "../../../api/product";
   styleUrls: ['./product-listing.component.scss']
 })
 export class ProductListingComponent {
+  @ViewChild(ProductDialogComponent) productDialog!: ProductDialogComponent;
 
   // deleteProductDialog: boolean = false;
   // isDeleting: boolean = false;
@@ -87,14 +89,14 @@ export class ProductListingComponent {
     this.defineRouteParams();
   }
 
-  // openNew() {
-  //   this.product = {};
-  //   this.productDialog.showDialog({});
-  // }
-  //
-  // openEdit(product: Product) {
-  //   this.product = product;
-  //   this.productDialog.showDialog(this.product);
-  // }
+  openNew() {
+    this.product = {};
+    this.productDialog.showDialog({});
+  }
+
+  openEdit(product: Product) {
+    this.product = product;
+    this.productDialog.showDialog(this.product);
+  }
 }
 
