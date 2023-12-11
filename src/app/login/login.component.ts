@@ -15,12 +15,16 @@ password : string = '';
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private auth: AuthService) { }
   login() {
-    this.http.post<any>('http://127.0.0.1:8000/api/login_check', { username: this.username, password: this.password })
+    this.http.post<any>('http://127.0.0.1:8000/api/login', { username: this.username, password: this.password })
       .subscribe(response => {
         // Le JWT est dans la réponse, stockez-le dans un cookie
         const jwt = response.token
         if (jwt) {
           this.auth.storeToken(jwt);
+        }else {
+          if (response.error){
+          const errorMess = response.error;
+          }
         }
       }, error  => {
         console.error('Erreur lors de la connexion:', error);

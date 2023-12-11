@@ -114,10 +114,13 @@ export class AppLayoutComponent implements OnDestroy, OnInit {
      return  this.auth.isLog()
   }
   ngOnInit() {
-    if (!this.auth.isLog()) {
-      //this.router.navigate([''])
-
+    const currentUrl = this.router.url;
+    if (!this.auth.isLog() && currentUrl !== '/verify-token') {
+      this.router.navigate(['/login']);
+    }else {
+      this.router.navigate(['/'])
     }
+
 }
     ngOnDestroy() {
         if (this.overlayMenuOpenSubscription) {
