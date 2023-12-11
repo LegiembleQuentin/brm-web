@@ -1,11 +1,11 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {ValidationService} from "../../../service/validation/validation.service";
-import {ContractType, Employee, EmployeeRole, EmployeeSexe} from "../../../api/employee";
-import {EmployeeService} from "../../../service/employee/employee.service";
-import {MessageService} from "primeng/api";
-import {mapApiDataToRestaurant, Restaurant} from "../../../api/restaurant";
-import {RestaurantService} from "../../../service/restaurant/restaurant.service";
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { ValidationService } from "../../../service/validation/validation.service";
+import { ContractType, Employee, EmployeeRole, EmployeeSexe } from "../../../api/employee";
+import { EmployeeService } from "../../../service/employee/employee.service";
+import { MessageService } from "primeng/api";
+import { mapApiDataToRestaurant, Restaurant } from "../../../api/restaurant";
+import { RestaurantService } from "../../../service/restaurant/restaurant.service";
 
 @Component({
   selector: 'app-employee-dialog',
@@ -34,10 +34,10 @@ export class EmployeeDialogComponent {
   ];
 
   contractType = [
-    { label: 'Temps complet', value: ContractType.FULL_TIME},
-    { label: 'Temps partiel', value: ContractType.PART_TIME},
-    { label: 'Temporaire', value: ContractType.TEMPORARY},
-    { label: 'Période probatoire', value: ContractType.PROBATION},
+    { label: 'Temps complet', value: ContractType.FULL_TIME },
+    { label: 'Temps partiel', value: ContractType.PART_TIME },
+    { label: 'Temporaire', value: ContractType.TEMPORARY },
+    { label: 'Période probatoire', value: ContractType.PROBATION },
   ];
 
   employeeForm: any;
@@ -45,14 +45,15 @@ export class EmployeeDialogComponent {
   constructor(
     private employeeService: EmployeeService,
     private messageService: MessageService,
-    private restaurantService: RestaurantService) { }
+    private restaurantService: RestaurantService
+  ) { }
 
   ngOnInit() {
     this.loadRestaurants();
   }
 
   initForm() {
-    if (this.employee.id){
+    if (this.employee.id) {
       this.employeeForm = new FormGroup({
         restaurant: new FormControl(this.restaurants.find(r => r.id === this.employee.restaurant!.id), Validators.required),
         name: new FormControl(this.employee.name, [
@@ -93,7 +94,7 @@ export class EmployeeDialogComponent {
       });
 
 
-    }else {
+    } else {
       this.employeeForm = new FormGroup({
         restaurant: new FormControl('', Validators.required),
         name: new FormControl('', [
@@ -126,7 +127,7 @@ export class EmployeeDialogComponent {
         contractType: new FormControl('', Validators.required),
         contractEndDate: new FormControl('', [ValidationService.dateValidator()]),
         disability: new FormControl(''),
-        disabilityDesc: new FormControl('',[
+        disabilityDesc: new FormControl('', [
           Validators.minLength(5),
           Validators.maxLength(5000)
         ]),
@@ -212,5 +213,7 @@ export class EmployeeDialogComponent {
     this.display = false;
     this.employeeForm.reset();
   }
+
+
 
 }

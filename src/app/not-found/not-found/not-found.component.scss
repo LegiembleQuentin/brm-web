@@ -1,0 +1,27 @@
+:host {
+  font-family: 'Arial', sans-serif;
+}
+
+.not-found-container {
+  text-align: center;
+}
+
+.not-found-title {
+  font-size: 3rem;
+  color: #ff6347;
+}
+
+.not-found-text {
+  font-size: 1.5rem;
+  margin-top: 20px;
+}
+
+a {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+}
+
+a:hover {
+  color: #0056b3;
+}

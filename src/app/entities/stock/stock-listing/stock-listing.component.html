@@ -1,0 +1,117 @@
+<div class="grid">
+    <div class="col-12">
+        <p-toast></p-toast>
+        <div class="custom-topbar">
+            <div class="topbar-background">
+                <div>
+                    <button (click)="search()" class="light-blue-custom-btn custom-btn-search ml-2" [disabled]="isLoading">Filtrer</button>
+                </div>
+                <div class="topbar-container">
+                    <div class="topbar-container">
+                        <div class="warning-filter">
+                            <div>Alertes uniquement</div>
+                            <p-toggleButton
+                                    onLabel="Oui"
+                                    offLabel="Non"
+                                    [(ngModel)]="filters.alert"
+                            ></p-toggleButton>
+                        </div>
+                        <div class="custom-dropdown restaurant-filter">
+                            <label for="restaurantFilter">Restaurant</label>
+                            <p-dropdown
+                                    [options]="getRestaurantsWithNoneOption()"
+                                    optionLabel="name"
+                                    optionValue="id"
+                                    placeholder="Restaurant"
+                                    [(ngModel)]="filters.restaurant"
+                                    id="restaurantFilter"
+                                    inputId="restaurantFilter">
+                            </p-dropdown>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p-table #dt [value]="stocks" [columns]="cols" responsiveLayout="scroll" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" selectionMode="multiple" [rowHover]="true" dataKey="id">
+            <ng-template pTemplate="caption">
+                <p-toolbar styleClass="mb-4">
+                    <h5 class="custom-title">Stocks</h5>
+                    <ng-template pTemplate="right">
+                        <div class="my-2 customBtnGrp">
+                            <div class="search-bar">
+                                <div class="input-search">
+                                    <i class="pi pi-search"></i>
+                                    <input type="text" [(ngModel)]="filters.search" (keyup.enter)="search()" (blur)="search()" placeholder="Rechercher">
+                                </div>
+                                <div class="underline-search"></div>
+                            </div>
+                            <div class="addBtn" (click)="openNew()">
+                                <span class="addBtnPlus">+</span> <span>Ajouter</span>
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-toolbar>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="id">Id <p-sortIcon field="id"></p-sortIcon></th>
+                    <th pSortableColumn="name">Nom <p-sortIcon field="name"></p-sortIcon></th>
+                    <th pSortableColumn="quantity">Quantité <p-sortIcon field="quantity"></p-sortIcon></th>
+                    <th pSortableColumn="unit">Unité <p-sortIcon field="quantity"></p-sortIcon></th>
+                    <th pSortableColumn="lastRestockDate">Dernier restock <p-sortIcon field="lastRestockDate"></p-sortIcon></th>
+                    <th pSortableColumn="restaurant">Restaurant <p-sortIcon field="restaurant"></p-sortIcon></th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-stock>
+                <tr>
+                    <td style="width:14%; min-width:10rem;">
+                        <span class="p-column-title">ID</span>
+                        {{stock.id}}
+                    </td>
+                    <td style="width:14%; min-width:10rem;">
+                        <span class="p-column-title">Nom</span>
+                        {{stock.name}}
+                    </td>
+                    <td style="width:14%; min-width:10rem;">
+                        <span class="p-column-title">Quantité</span>
+                        {{stock.quantity}}
+                    </td>
+                    <td style="width:14%; min-width:10rem;">
+                        <span class="p-column-title">Unité</span>
+                        {{stock.unit}}
+                    </td>
+                    <td style="width:14%; min-width:10rem;">
+                        <span class="p-column-title">Dernier restock</span>
+                        {{stock.lastRestockDate | date:'dd/MM/yyyy'  }}
+                    </td>
+                    <td style="width:14%; min-width:10rem;">
+                        <span class="p-column-title">Restaurant</span>
+                        {{stock.restaurant.name}}
+                    </td>
+                    <td>
+                        <div class="flex">
+                            <button pButton pRipple icon="pi pi-ellipsis-h" class="p-button-rounded light-blue-custom-btn mr-2" [routerLink]="['/stock', stock.id]"></button>
+                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded light-blue-custom-btn mr-2" (click)="openEdit(stock)"></button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded red-custom-btn" (click)="deleteStock(stock)"></button>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+        <app-stock-dialog [stock]="stock" (saveSuccess)="loadStocks()"></app-stock-dialog>
+
+        <p-dialog [(visible)]="deleteStockDialog" header="Confirmer" [modal]="true" [style]="{width:'450px'}">
+            <div class="flex align-items-center justify-content-center">
+                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+                <span *ngIf="stock">Êtes vous sûr de vouloir supprimer le stock <b>{{stock.id}} ({{stock.name}})</b>?</span>
+            </div>
+            <ng-template pTemplate="footer">
+                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteStockDialog = false"></button>
+                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" [disabled]="isDeleting" (click)="confirmDelete(stock)"></button>
+            </ng-template>
+        </p-dialog>
+    </div>
+</div>

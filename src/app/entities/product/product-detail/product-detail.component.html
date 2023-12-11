@@ -1,0 +1,60 @@
+<div class="grid">
+  <div class="col-12" *ngIf="product">
+    <p-toast></p-toast>
+
+    <div class="detail-header">
+      <div>
+        <h2 >{{product.name}}</h2>
+        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded light-blue-custom-btn mr-2" (click)="openEdit()"></button>
+      </div>
+      <small>ID: {{product.id}}</small>
+    </div>
+
+    <div class="stock-detail-container">
+      <div class="first-part">
+        <div class="custom-card">
+          <div class="card-header">Description</div>
+          <div class="card-content">
+            <div *ngIf="product.description">
+              {{ product.description }}
+            </div>
+          </div>
+        </div>
+        <div class="custom-card">
+          <div class="card-header">Prix</div>
+          <div class="card-content">
+            <div>
+              {{ product.price }}
+            </div>
+          </div>
+        </div>
+        <div class="custom-card">
+          <div class="card-header">Ajouté le</div>
+          <div class="card-content">
+            <div>
+              <span *ngIf="product.createdAt">{{product.createdAt | date: 'dd/MM/yyyy'}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="second-part">
+        <div class="custom-card">
+          <div class="card-header product-card">Ingrédients</div>
+          <div class="card-content">
+            <div class="card-content-part"  *ngFor="let productStock of product.productStocks; let i = index">
+              <div>
+                <span>{{productStock.stock.name}}</span>
+                <span>{{productStock.stock_quantity}} {{productStock.unit}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <app-product-dialog [product]="product" (saveSuccess)="loadProduct()"></app-product-dialog>
+
+  </div>
+</div>
+

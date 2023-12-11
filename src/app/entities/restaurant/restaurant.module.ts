@@ -11,11 +11,17 @@ import { CheckboxModule } from "primeng/checkbox";
 import { InputSwitchModule } from "primeng/inputswitch";
 import { RouterLink } from "@angular/router";
 import { ToggleButtonModule } from "primeng/togglebutton";
-import {CustomSharedModule} from "../../shared.module";
+import { CustomSharedModule } from "../../shared.module";
+import { RestaurantListingComponent } from './restaurant-listing/restaurant-listing.component';
+import { RestaurantDetailComponent } from './restaurant-detail/restaurant-detail.component';
+import { RestaurantDialogComponent } from './restaurant-dialog/restaurant-dialog.component';
 
 
 @NgModule({
   declarations: [
+    RestaurantListingComponent,
+    RestaurantDetailComponent,
+    RestaurantDialogComponent
   ],
   imports: [
     CustomSharedModule,

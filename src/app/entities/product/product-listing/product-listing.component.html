@@ -1,0 +1,90 @@
+<div class="grid">
+  <div class="col-12">
+    <p-toast></p-toast>
+    <div class="custom-topbar">
+      <div class="topbar-background">
+        <div>
+        </div>
+        <div class="topbar-container">
+          <div class="topbar-container">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p-table #dt [value]="products" [columns]="cols" responsiveLayout="scroll" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" selectionMode="multiple" [rowHover]="true" dataKey="id">
+      <ng-template pTemplate="caption">
+        <p-toolbar styleClass="mb-4">
+          <h5 class="custom-title">Produits</h5>
+          <ng-template pTemplate="right">
+            <div class="my-2 customBtnGrp">
+              <div class="search-bar">
+                <div class="input-search">
+                  <i class="pi pi-search"></i>
+                  <input type="text" [(ngModel)]="filters.search" (keyup.enter)="search()" (blur)="search()" placeholder="Rechercher">
+                </div>
+                <div class="underline-search"></div>
+              </div>
+              <div class="addBtn" (click)="openNew()">
+                <span class="addBtnPlus">+</span> <span>Ajouter</span>
+              </div>
+            </div>
+          </ng-template>
+        </p-toolbar>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="id">Id <p-sortIcon field="id"></p-sortIcon></th>
+          <th pSortableColumn="name">Nom <p-sortIcon field="name"></p-sortIcon></th>
+          <th pSortableColumn="description">Description <p-sortIcon field="description"></p-sortIcon></th>
+          <th pSortableColumn="price">Prix <p-sortIcon field="price"></p-sortIcon></th>
+          <th pSortableColumn="createdAt">Ajouté le <p-sortIcon field="createdAt"></p-sortIcon></th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-product>
+        <tr>
+          <td style="width:14%; min-width:10rem;">
+            <span class="p-column-title">ID</span>
+            {{product.id}}
+          </td>
+          <td style="width:14%; min-width:10rem;">
+            <span class="p-column-title">Nom</span>
+            {{product.name}}
+          </td>
+          <td style="width:25%; min-width:10rem;">
+            <span class="p-column-title">Description</span>
+            {{product.description | truncate:30}}
+          </td>
+          <td style="width:14%; min-width:10rem;">
+            <span class="p-column-title">Prix</span>
+            {{product.price}}
+          </td>
+          <td style="width:14%; min-width:10rem;">
+            <span class="p-column-title">Ajouté le</span>
+            {{product.createdAt | date:'dd/MM/yyyy'  }}
+          </td>
+          <td>
+            <div class="flex">
+              <button pButton pRipple icon="pi pi-ellipsis-h" class="p-button-rounded light-blue-custom-btn mr-2" [routerLink]="['/product', product.id]"></button>
+              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded light-blue-custom-btn mr-2" (click)="openEdit(product)"></button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+    <app-product-dialog [product]="product" (saveSuccess)="loadProducts()"></app-product-dialog>
+
+<!--    <p-dialog [(visible)]="deleteStockDialog" header="Confirmer" [modal]="true" [style]="{width:'450px'}">-->
+<!--      <div class="flex align-items-center justify-content-center">-->
+<!--        <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>-->
+<!--        <span *ngIf="stock">Êtes vous sûr de vouloir supprimer le stock <b>{{stock.id}} ({{stock.name}})</b>?</span>-->
+<!--      </div>-->
+<!--      <ng-template pTemplate="footer">-->
+<!--        <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteStockDialog = false"></button>-->
+<!--        <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" [disabled]="isDeleting" (click)="confirmDelete(stock)"></button>-->
+<!--      </ng-template>-->
+<!--    </p-dialog>-->
+  </div>
+</div>

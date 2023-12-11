@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {EmployeeService} from "../../../service/employee/employee.service";
 import {Employee, mapApiDataToEmployee} from "../../../api/employee";
 import {EmployeeDialogComponent} from "../employee-dialog/employee-dialog.component";
@@ -17,7 +17,8 @@ export class EmployeeDetailComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private employeeService: EmployeeService
+    private employeeService: EmployeeService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -32,17 +33,14 @@ export class EmployeeDetailComponent {
           if (employeeData) {
             this.employee = mapApiDataToEmployee(employeeData);
           } else {
-            // Aucun employee retourné => messageService => erreur api
-
+            this.router.navigate(['/404']);
           }
         })
         .catch(error => {
-          // messageService => erreur api (=> redirection?)
-
+          this.router.navigate(['/404']);
         });
     } else {
-      // Redirection ou erreur si l'ID de l'employé est manquant (404?)
-
+      this.router.navigate(['/404']);
     }
   }
 
