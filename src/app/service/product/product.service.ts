@@ -29,4 +29,8 @@ export class ProductService {
   getProduct(id: string): Promise<Product> {
     return this.http.get<any>(this.url + '/product/' + id).toPromise()
   }
+
+  getProductsSmall() {
+    return this.http.get<any>(this.url + '/products-small').toPromise();
+  }
 }

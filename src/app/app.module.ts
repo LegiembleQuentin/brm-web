@@ -1,9 +1,4 @@
-
-
 import { LoginComponent } from './login/login.component';
-
-
-
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -19,6 +14,7 @@ import { StockModule } from "./entities/stock/stock.module";
 import { NotFoundModule } from "./not-found/not-found.module";
 import { ProductModule } from "./entities/product/product.module";
 import { RestaurantService } from './service/restaurant/restaurant.service';
+import {OrderModule} from "./entities/order/order.module";
 import {VerifyTokenComponent} from "./verify-token/verify-token.component";
 
 
@@ -38,6 +34,7 @@ import {VerifyTokenComponent} from "./verify-token/verify-token.component";
     AbsenceModule,
     StockModule,
     ProductModule,
+    OrderModule,
     NotFoundModule,
     CustomSharedModule
   ],
