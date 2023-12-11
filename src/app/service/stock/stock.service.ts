@@ -33,4 +33,8 @@ export class StockService {
     getStock(id: string): Promise<Stock> {
         return this.http.get<any>(this.url + '/stock/' + id).toPromise()
     }
+
+  getStocksSmall() {
+    return this.http.get<any>(this.url + '/stocks-small').toPromise();
+  }
 }
