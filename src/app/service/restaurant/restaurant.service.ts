@@ -14,13 +14,14 @@ export class RestaurantService {
   getRestaurants(): Promise<any> {
     return this.http.get<any>(this.url + '/restaurants').toPromise();
   }
-
   getRestaurant(id: string): Promise<Restaurant> {
     return this.http.get<any>(this.url + '/restaurant/' + id).toPromise()
   }
-
+  getRestaurantsSmall() {
+    return this.http.get<any>(this.url + '/restaurants-small').toPromise();
+  }
   saveRestaurant(restaurant: Restaurant): Promise<any> {
-    console.log(restaurant);
+    restaurant = mapRestaurantToApiData(restaurant);
     return this.http.post(this.url + '/restaurant', { body: restaurant }).toPromise();
   }
   updateRestaurant(restaurant: Restaurant): Promise<any> {

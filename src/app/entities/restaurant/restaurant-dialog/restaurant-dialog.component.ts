@@ -47,12 +47,25 @@ export class RestaurantDialogComponent {
   initForm() {
     if (this.restaurant.id) {
       this.restaurantForm = new FormGroup({
-        name: new FormControl(this.restaurant.name, Validators.required),
-        adress: new FormControl(this.restaurant.adress, Validators.required),
+        name: new FormControl(this.restaurant.name, [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(255)
+        ]),
+        adress: new FormControl(this.restaurant.adress, [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(1000)
+        ]),
         postalCode: new FormControl(this.restaurant.postalCode, [Validators.required, ValidationService.postalCodeValidator()]),
         city: new FormControl(this.restaurant.city, Validators.required),
         country: new FormControl(this.restaurant.country, Validators.required),
-        email: new FormControl(this.restaurant.email, [Validators.required, Validators.email]),
+        email: new FormControl(this.restaurant.email, [
+          Validators.required,
+          Validators.email,
+          Validators.minLength(2),
+          Validators.maxLength(255)
+        ]),
         phone: new FormControl(this.restaurant.phone, [Validators.required, ValidationService.phoneValidator()]),
         operatingHours: new FormControl(this.restaurant.operatingHours, Validators.required),
         rating: new FormControl(this.restaurant.rating),
@@ -62,12 +75,25 @@ export class RestaurantDialogComponent {
 
     } else {
       this.restaurantForm = new FormGroup({
-        name: new FormControl('', Validators.required),
-        adress: new FormControl('', Validators.required),
+        name: new FormControl('', [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(255)
+        ]),
+        adress: new FormControl('', [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(1000)
+        ]),
         postalCode: new FormControl('', [Validators.required, ValidationService.postalCodeValidator()]),
         city: new FormControl('', Validators.required),
         country: new FormControl('', Validators.required),
-        email: new FormControl('', [Validators.required, Validators.email]),
+        email: new FormControl('', [
+          Validators.required,
+          Validators.email,
+          Validators.minLength(2),
+          Validators.maxLength(255)
+        ]),
         phone: new FormControl('', [Validators.required, ValidationService.phoneValidator()]),
         operatingHours: new FormControl('', Validators.required),
         rating: new FormControl(''),
@@ -83,6 +109,8 @@ export class RestaurantDialogComponent {
     this.restaurantDialog = true;
   }
 
+  test() { console.log(this.restaurantForm) }
+
   saveRestaurant() {
     this.submitted = true;
 
@@ -94,12 +122,13 @@ export class RestaurantDialogComponent {
       };
 
       if (this.restaurant.id) {
+
         this.restaurantService.updateRestaurant(this.restaurant)
           .then(response => {
             this.messageService.add({
               severity: 'success',
               summary: 'Succès',
-              detail: 'Employé modifié avec succès.'
+              detail: 'Restaurant modifié avec succès.'
             });
             this.saveSuccess.emit();
             this.hideDialog();
@@ -109,10 +138,9 @@ export class RestaurantDialogComponent {
             this.messageService.add({
               severity: 'error',
               summary: 'Erreur',
-              detail: 'Erreur lors de la modification du Restaurant: ' + error.message
+              detail: 'Erreur lors de la modification du restaurant: ' + error.message
             })
           });
-
 
       } else {
         this.restaurantService.saveRestaurant(this.restaurant)
@@ -122,10 +150,13 @@ export class RestaurantDialogComponent {
               summary: 'Succès',
               detail: 'Restaurant enregistré avec succès.'
             });
-
+            this.saveSuccess.emit();
+            this.submitted = false;
+            this.hideDialog();
 
           })
           .catch(error => {
+            this.submitted = false;
             this.messageService.add({
               severity: 'error',
               summary: 'Erreur',

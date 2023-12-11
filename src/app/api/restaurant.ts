@@ -106,6 +106,4 @@ export function mapRestaurantToApiData(restaurant: Restaurant): any {
     close_date: restaurant.closeDate ? restaurant.closeDate.toISOString().split('.')[0] + '+00:00' : null,
     enabled: restaurant.enabled,
   };
-
-
 }

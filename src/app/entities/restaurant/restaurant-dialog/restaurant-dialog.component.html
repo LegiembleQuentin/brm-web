@@ -25,7 +25,40 @@
                 restaurantForm.controls.name.dirty)
           }"
         />
-        <small class="ng-dirty ng-invalid"> Ce champ est obligatoire. </small>
+        <small
+          class="error-message"
+          *ngIf="
+            restaurantForm.controls.name.errors?.required &&
+            (restaurantForm.controls.name.touched ||
+              restaurantForm.controls.name.dirty)
+          "
+        >
+          Ce champ est obligatoire.
+        </small>
+        <small
+          class="error-message"
+          *ngIf="
+            restaurantForm.controls.name.errors?.minlength &&
+            (restaurantForm.controls.name.touched ||
+              restaurantForm.controls.name.dirty)
+          "
+        >
+          Le nom doit comporter au moins
+          {{ restaurantForm.controls.name.errors?.minlength.requiredLength }}
+          caractères.
+        </small>
+        <small
+          class="error-message"
+          *ngIf="
+            restaurantForm.controls.name.errors?.maxlength &&
+            (restaurantForm.controls.name.touched ||
+              restaurantForm.controls.name.dirty)
+          "
+        >
+          Le nom ne doit pas dépasser
+          {{ restaurantForm.controls.name.errors?.maxlength.requiredLength }}
+          caractères.
+        </small>
       </div>
 
       <div class="field">
@@ -37,7 +70,12 @@
           id="city"
           formControlName="city"
         />
-        <small class="ng-dirty ng-invalid"> Ce champ est obligatoire. </small>
+        <small
+          class="ng-dirty ng-invalid"
+          *ngIf="restaurantForm.controls.city.errors?.['required'] && (restaurantForm.controls.city.touched || restaurantForm.controls.city.dirty)"
+        >
+          Ce champ est obligatoire.
+        </small>
       </div>
 
       <div class="field">
@@ -49,7 +87,32 @@
           id="adress"
           formControlName="adress"
         />
-        <small class="ng-dirty ng-invalid"> Ce champ est obligatoire. </small>
+        <small
+          *ngIf="
+            restaurantForm.controls['adress'].errors?.minlength &&
+            (restaurantForm.controls['adress'].touched ||
+              restaurantForm.controls['adress'].dirty)
+          "
+        >
+          L'adresse doit comporter au moins
+          {{
+            restaurantForm.controls["adress"].errors?.minlength.requiredLength
+          }}
+          caractères.
+        </small>
+        <small
+          *ngIf="
+            restaurantForm.controls['adress'].errors?.maxlength &&
+            (restaurantForm.controls['adress'].touched ||
+              restaurantForm.controls['adress'].dirty)
+          "
+        >
+          L'adresse ne doit pas dépasser
+          {{
+            restaurantForm.controls["adress"].errors?.maxlength.requiredLength
+          }}
+          caractères.
+        </small>
       </div>
 
       <div class="field">
@@ -86,7 +149,32 @@
           [options]="countriesList"
           placeholder="Sélectionner un Pays"
         ></p-dropdown>
-        <small class="ng-dirty ng-invalid"> Ce champ est obligatoire. </small>
+        <small
+          *ngIf="
+            restaurantForm.controls['country'].errors?.minlength &&
+            (restaurantForm.controls['country'].touched ||
+              restaurantForm.controls['country'].dirty)
+          "
+        >
+          L'adresse doit comporter au moins
+          {{
+            restaurantForm.controls["country"].errors?.minlength.requiredLength
+          }}
+          caractères.
+        </small>
+        <small
+          *ngIf="
+            restaurantForm.controls['country'].errors?.maxlength &&
+            (restaurantForm.controls['country'].touched ||
+              restaurantForm.controls['country'].dirty)
+          "
+        >
+          L'adresse ne doit pas dépasser
+          {{
+            restaurantForm.controls["country"].errors?.maxlength.requiredLength
+          }}
+          caractères.
+        </small>
       </div>
 
       <div class="field">
@@ -265,6 +353,7 @@
       icon="pi pi-times"
       class="p-button-text"
     ></button>
+    <button (click)="test()">test</button>
     <button
       pButton
       pRipple
@@ -274,29 +363,6 @@
       (click)="saveRestaurant()"
       [disabled]="restaurantForm.invalid"
       class="p-button-text"
-    ></button>
-  </ng-template>
-</p-dialog>
-
-<p-dialog header="Confirm" [modal]="true" [style]="{ width: '450px' }">
-  <div class="flex align-items-center justify-content-center">
-    <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-    <span>Are you sure you want to delete >?</span>
-  </div>
-  <ng-template pTemplate="footer">
-    <button
-      pButton
-      pRipple
-      icon="pi pi-times"
-      class="p-button-text"
-      label="No"
-    ></button>
-    <button
-      pButton
-      pRipple
-      icon="pi pi-check"
-      class="p-button-text"
-      label="Yes"
     ></button>
   </ng-template>
 </p-dialog>

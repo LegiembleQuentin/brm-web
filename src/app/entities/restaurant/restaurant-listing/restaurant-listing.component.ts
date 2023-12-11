@@ -87,7 +87,6 @@ export class RestaurantListingComponent {
 
   openNew() {
     this.restaurant = {};
-    this.submitted = false;
     this.restaurantDialog.showDialog({});
   }
 

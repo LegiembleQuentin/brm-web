@@ -65,13 +65,16 @@
                 <span class="addBtnPlus">+</span>
                 <span>Ajouter</span>
               </div>
-              <div>
-                <button (click)="search()">test</button>
-              </div>
-              <!--              <span class="block mt-2 md:mt-0 p-input-icon-left">-->
-              <!--                      <i class="pi pi-search"></i>-->
-              <!--                      <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."  class="w-full sm:w-auto"/>-->
-              <!--                    </span>-->
+
+              <!-- <span class="block mt-2 md:mt-0 p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input
+                  pInputText
+                  type="text"
+                  placeholder="Search..."
+                  class="w-full sm:w-auto"
+                />
+              </span> -->
             </div>
           </ng-template>
         </p-toolbar>
@@ -155,12 +158,6 @@
                 icon="pi pi-pencil"
                 class="p-button-rounded light-blue-custom-btn mr-2"
                 (click)="openEdit(restaurant)"
-              ></button>
-              <button
-                pButton
-                pRipple
-                icon="pi pi-trash"
-                class="p-button-rounded red-custom-btn"
               ></button>
             </div>
           </td>
