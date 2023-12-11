@@ -16,13 +16,15 @@ import { ProductDialogComponent } from './product-dialog/product-dialog.componen
 import {ReactiveFormsModule} from "@angular/forms";
 import {InputTextModule} from "primeng/inputtext";
 import {InputTextareaModule} from "primeng/inputtextarea";
+import { ProductDetailComponent } from './product-detail/product-detail.component';
 
 
 
 @NgModule({
   declarations: [
     ProductListingComponent,
-    ProductDialogComponent
+    ProductDialogComponent,
+    ProductDetailComponent
   ],
   imports: [
     CommonModule,

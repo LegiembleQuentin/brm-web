@@ -26,7 +26,7 @@ export function mapApiDataToProduct(apiData: any): Product {
     price: apiData.price,
     createdAt: apiData.created_at ? new Date(apiData.created_at) : undefined,
     stock: apiData.productStocks ? apiData.productStocks.map((productStock: any) => productStock.stock) : [],
-    productStocks: apiData.productStocks ? apiData.productStocks.map((productStock: any) => ({
+    productStocks: apiData.product_stocks ? apiData.product_stocks.map((productStock: any) => ({
       id: productStock.id,
       stock_quantity: parseFloat(productStock.stock_quantity),
       unit: productStock.unit,

@@ -9,6 +9,7 @@ import {StockListingComponent} from "./entities/stock/stock-listing/stock-listin
 import {StockDetailComponent} from "./entities/stock/stock-detail/stock-detail.component";
 import {NotFoundComponent} from "./not-found/not-found/not-found.component";
 import {ProductListingComponent} from "./entities/product/product-listing/product-listing.component";
+import {ProductDetailComponent} from "./entities/product/product-detail/product-detail.component";
 
 const routes: Routes = [
   {
@@ -44,6 +45,7 @@ const routes: Routes = [
         path: 'product',
         children: [
           {path: '', component: ProductListingComponent},
+          {path: ':id', component: ProductDetailComponent},
         ]
       },
 

@@ -38,7 +38,6 @@ export class ProductListingComponent {
 
     Promise.all([this.loadProducts()]).then(() => {
       this.defineRouteParams();
-      console.log(this.products);
     });
 
     this.cols = [
