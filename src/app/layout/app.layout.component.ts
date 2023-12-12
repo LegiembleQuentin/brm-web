@@ -4,7 +4,7 @@ import { filter, Subscription } from 'rxjs';
 import { LayoutService } from "./service/app.layout.service";
 import { AppSidebarComponent } from "./app.sidebar.component";
 import { AppTopBarComponent } from './app.topbar.component';
-import {AuthService} from "../auth.service";
+import {AuthService} from "../service/auth/auth.service";
 
 
 @Component({
@@ -111,16 +111,18 @@ export class AppLayoutComponent implements OnDestroy, OnInit {
         }
     }
   isLog(): boolean {
+    console.log(this.auth.isLog())
      return  this.auth.isLog()
   }
   ngOnInit() {
+    console.log(`${this.auth.getToken()}`);
     const currentUrl = this.router.url;
     if (!this.auth.isLog() && currentUrl !== '/verify-token') {
       this.router.navigate(['/login']);
-    }else {
-      this.router.navigate(['/'])
     }
-
+    if (this.auth.isLog() && currentUrl == '/login'){
+      this.router.navigate(['/employee']);
+    }
 }
     ngOnDestroy() {
         if (this.overlayMenuOpenSubscription) {

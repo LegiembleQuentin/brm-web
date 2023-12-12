@@ -10,6 +10,14 @@ export class AuthService {
     const jwt = sessionStorage.getItem('JWT');
     return !!jwt;
   }
+  getToken() {
+    const jwt = sessionStorage.getItem('JWT')
+    if (jwt) {
+      return jwt
+    } else {
+      return 'utilisateur non connecté';
+    }
+  }
   storeToken(jwt: string) {
     sessionStorage.setItem('JWT', jwt);
   }

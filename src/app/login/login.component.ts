@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import {AuthService} from "../auth.service";
+import {AuthService} from "../service/auth/auth.service";
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -23,7 +23,7 @@ password : string = '';
           this.auth.storeToken(jwt);
         }else {
           if (response.error){
-          const errorMess = response.error;
+            console.log('error')
           }
         }
       }, error  => {
