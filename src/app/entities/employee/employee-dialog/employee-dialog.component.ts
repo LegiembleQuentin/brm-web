@@ -20,6 +20,8 @@ export class EmployeeDialogComponent {
 
   restaurants: Restaurant[] = [];
 
+  link: string | null = null;
+
   submitted: boolean = false;
 
   employeeSexe = [
@@ -188,8 +190,12 @@ export class EmployeeDialogComponent {
               summary: 'Succès',
               detail: 'Employé enregistré avec succès.'
             });
-            this.saveSuccess.emit();
-            this.hideDialog();
+            if(this.employee.role == 'DIRECTOR' || this.employee.role == 'MANAGER'){
+              this.link = response.link;
+            }else{
+              this.saveSuccess.emit();
+              this.hideDialog();
+            }
 
           })
           .catch(error => {
@@ -214,6 +220,9 @@ export class EmployeeDialogComponent {
     this.employeeForm.reset();
   }
 
-
+  validateLink(){
+    this.saveSuccess.emit();
+    this.hideDialog();
+  }
 
 }
