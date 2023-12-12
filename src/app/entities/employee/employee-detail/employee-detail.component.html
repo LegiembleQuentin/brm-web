@@ -112,7 +112,6 @@
         <div class="custom-card">
           <div class="card-header salary-card">Historique des salaires</div>
           <div class="card-content">
-
           </div>
         </div>
         <div class="custom-card">
@@ -145,6 +144,12 @@
     </div>
 
     <app-employee-dialog [employee]="employee" (saveSuccess)="loadEmployee()"></app-employee-dialog>
+
+
+    <p-dialog [(visible)]="disabilityModal" [modal]="true" [style]="{width:'600px'}" [header]="'D '">
+
+
+    </p-dialog>
 
   </div>
 </div>

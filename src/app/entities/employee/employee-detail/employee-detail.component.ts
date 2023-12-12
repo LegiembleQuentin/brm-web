@@ -14,6 +14,7 @@ export class EmployeeDetailComponent {
 
   employeeId: string | null | undefined;
   employee!: Employee;
+  disabilityModal = false
 
   constructor(
     private route: ActivatedRoute,
