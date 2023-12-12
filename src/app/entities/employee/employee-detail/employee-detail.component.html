@@ -119,8 +119,10 @@
           <div class="card-header note-card">Feedbacks</div>
           <div class="card-content">
             <div *ngFor="let feedback of employee.feedbacks; let i = index;">
-              <span>Du: {{feedback.createdAt | date: 'dd/MM/yyyy'}}</span>
-              <span *ngIf="feedback.warning">Avertissement!</span>
+              <div class="one-feedback">
+                <span>Du: {{feedback.createdAt | date: 'dd/MM/yyyy'}}</span>
+                <span *ngIf="feedback.warning" class="warning">Avertissement!</span>
+              </div>
               <hr>
             </div>
             <a [routerLink]="['/feedback']" [queryParams]="{employee: employee.id}">Voir plus</a>
@@ -130,7 +132,7 @@
           <div class="card-header absence-card">Absences</div>
           <div class="card-content">
             <div *ngFor="let absence of employee.absences; let i = index;">
-              <div>
+              <div class="one-absence">
                 <span>Du: {{absence.startDate | date: 'dd/MM/yyyy'}}</span>
                 <span>Au: {{absence.endDate | date: 'dd/MM/yyyy'}}</span>
               </div>
