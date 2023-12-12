@@ -101,7 +101,7 @@
               <div class="part-title">Handicap: </div>
               <div class="part-content">
                 <span>{{employee.disability ? 'Oui' : 'Non'}}</span>
-                <a *ngIf="employee.disability" class="part-link">Voir</a>
+                <a *ngIf="employee.disability" class="part-link" (click)="openDisabilityModal()">Voir</a>
               </div>
             </div>
           </div>
@@ -146,9 +146,13 @@
     <app-employee-dialog [employee]="employee" (saveSuccess)="loadEmployee()"></app-employee-dialog>
 
 
-    <p-dialog [(visible)]="disabilityModal" [modal]="true" [style]="{width:'600px'}" [header]="'D '">
-
-
+    <p-dialog [(visible)]="disabilityModal" [modal]="true" [style]="{width:'600px'}" [header]="'Handicap '">
+      <div class="custom-modal-content">
+        <div class="disability">
+          <span class="detail-attribut">Description: </span>
+          <span>{{employee.disabilityDesc}}</span>
+        </div>
+      </div>
     </p-dialog>
 
   </div>

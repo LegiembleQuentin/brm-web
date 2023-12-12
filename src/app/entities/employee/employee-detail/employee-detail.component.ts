@@ -50,4 +50,11 @@ export class EmployeeDetailComponent {
     this.employeeDialog.showDialog(this.employee);
   }
 
+  openDisabilityModal(){
+    this.disabilityModal = true;
+  }
+
+  hideDisabilityModal(){
+    this.disabilityModal = false;
+  }
 }
