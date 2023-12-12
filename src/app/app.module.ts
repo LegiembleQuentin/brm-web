@@ -16,7 +16,8 @@ import { ProductModule } from "./entities/product/product.module";
 import { RestaurantService } from './service/restaurant/restaurant.service';
 import {OrderModule} from "./entities/order/order.module";
 import {VerifyTokenComponent} from "./verify-token/verify-token.component";
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import {AuthInterceptorService} from "./service/auth-interceptor/auth-interceptor.service";
 
 @NgModule({
   declarations: [
@@ -41,6 +42,11 @@ import {VerifyTokenComponent} from "./verify-token/verify-token.component";
   providers: [
     EmployeeService,
     RestaurantService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
