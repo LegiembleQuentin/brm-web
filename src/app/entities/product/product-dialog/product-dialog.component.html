@@ -19,38 +19,44 @@
       </div>
 
 
-      <div formArrayName="productStocks">
+      <div formArrayName="productStocks" class="add-stocks">
         <div *ngFor="let stockGroup of productStocks.controls; let i = index;" [formGroupName]="i" class="p-field p-grid">
 
-          <div class="p-col">
-            <label for="stock-{{i}}">Stock</label>
-            <p-dropdown
-              [options]="stocks"
-              optionLabel="name"
-              placeholder="Select a stock"
-              formControlName="stock"
-              [id]="'stock-' + i"
-              [inputId]="'stock-' + i">
-            </p-dropdown>
-            <small class="ng-dirty ng-invalid" *ngIf="stockGroup.get('stock')?.invalid && (stockGroup.get('stock')?.touched || stockGroup.get('stock')?.dirty)">
-              Ce champ est obligatoire.
-            </small>
-          </div>
+          <div class="one-stock">
+            <div class="p-col dropdown-stock-container">
+              <label for="stock-{{i}}">Stock</label>
+              <p-dropdown
+                [options]="stocks"
+                optionLabel="name"
+                placeholder="Select a stock"
+                formControlName="stock"
+                [id]="'stock-' + i"
+                [inputId]="'stock-' + i">
+              </p-dropdown>
+              <small class="ng-dirty ng-invalid" *ngIf="stockGroup.get('stock')?.invalid && (stockGroup.get('stock')?.touched || stockGroup.get('stock')?.dirty)">
+                Ce champ est obligatoire.
+              </small>
+            </div>
 
-          <div class="p-col">
-            <label for="stock_quantity-{{i}}">Stock Quantity</label>
-            <input id="stock_quantity-{{i}}" formControlName="stock_quantity" type="number" pInputText />
-            <small class="ng-dirty ng-invalid" *ngIf="stockGroup.get('stock_quantity')?.invalid && (stockGroup.get('stock_quantity')?.touched || stockGroup.get('stock_quantity')?.dirty)">
-              Quantity is required.
-            </small>
-          </div>
+            <div class="stock-quantity-container">
+              <div class="p-col">
+                <label for="stock_quantity-{{i}}">Stock Quantity</label>
+                <input id="stock_quantity-{{i}}" formControlName="stock_quantity" type="number" pInputText />
+                <small class="ng-dirty ng-invalid" *ngIf="stockGroup.get('stock_quantity')?.invalid && (stockGroup.get('stock_quantity')?.touched || stockGroup.get('stock_quantity')?.dirty)">
+                  Quantity is required.
+                </small>
+              </div>
+            </div>
 
-          <div class="p-col">
-            <button type="button" pButton icon="pi pi-minus" (click)="removeStock(i)"></button>
+            <div class="p-col delete-btn">
+              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded red-custom-btn" (click)="removeStock(i)"></button>
+            </div>
           </div>
 
         </div>
-        <button type="button" (click)="addStock()">Ajouter un Ingredient</button>
+        <div class="add-stock-btn">
+          <button pButton pRipple icon="pi pi-plus-circle" class="p-button-rounded light-blue-custom-btn mr-2" (click)="addStock()"><span>Ajouter un ingrédient (stock)</span></button>
+        </div>
       </div>
 
       <div class="field">

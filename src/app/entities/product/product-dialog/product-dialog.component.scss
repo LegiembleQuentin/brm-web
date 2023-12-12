@@ -1,0 +1,22 @@
+.add-stocks{
+  .one-stock{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    .dropdown-stock-container {
+      width: 60%;
+    }
+    .stock-quantity-container {
+      width: 25%;
+    }
+    .delete-btn {
+      width: 10%;
+    }
+  }
+  .add-stock-btn{
+    display: flex;
+    justify-content: center;
+    width: 220px;
+  }
+}

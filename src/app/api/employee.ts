@@ -1,4 +1,6 @@
 import {mapRestaurantToApiData, Restaurant} from "./restaurant";
+import {Feedback} from "./feedback";
+import {Absence, mapApiDataToAbsence} from "./absence";
 
 export enum ContractType {
   FULL_TIME = "FULL_TIME",
@@ -38,6 +40,8 @@ export interface Employee {
   createdAt?: Date;
   modifiedAt?: Date;
   restaurant?: Restaurant;
+  feedbacks?: Feedback[];
+  absences?: Absence[];
 }
 
 export function mapApiDataToEmployee(apiData: any): Employee {
@@ -62,6 +66,13 @@ export function mapApiDataToEmployee(apiData: any): Employee {
     createdAt: apiData.created_at ? new Date(apiData.created_at) : undefined,
     modifiedAt: apiData.modified_at ? new Date(apiData.modified_at) : undefined,
     restaurant: apiData.restaurant,
+    feedbacks: apiData.concerned_feedback ? apiData.concerned_feedback.map((feedback: any) => ({
+      id: feedback.id,
+      warning: feedback.warning,
+      content: feedback.content,
+      createdAt: feedback.created_at ? new Date(feedback.created_at) : undefined,
+    })) : [],
+    absences: apiData.absences ? apiData.absences.map((absence: any) => mapApiDataToAbsence(absence)) : []
   };
 }
 
