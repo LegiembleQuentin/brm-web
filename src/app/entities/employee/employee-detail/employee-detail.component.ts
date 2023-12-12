@@ -32,6 +32,7 @@ export class EmployeeDetailComponent {
         .then(employeeData => {
           if (employeeData) {
             this.employee = mapApiDataToEmployee(employeeData);
+            console.log(this.employee);
           } else {
             this.router.navigate(['/404']);
           }
