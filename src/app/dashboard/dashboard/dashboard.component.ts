@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {MessageService} from "primeng/api";
+import {DashboardService} from "../../service/dashboard/dashboard.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -6,26 +8,82 @@ import { Component } from '@angular/core';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
-  public chartProductSells : any = null;
-  public chartProductSellsData : any = null;
-  public chartProductSellsOption : any = null;
+  public loaded : boolean = false;
+
+  public chartProductSales : any = null;
+  public chartProductSalesData : any = null;
+  public chartProductSalesOption : any = null;
+
+  public sales : any = null;
+
+  constructor(
+    private dashboardService: DashboardService,
+    private messageService: MessageService,) { }
 
   ngOnInit() {
-    this.chartProductSellsData = {
-      labels: ['Steakhouse', 'Frittes', 'Glaces', 'Whopper', 'Jsp', 'Ta grand mere', 'Test', 'Big king', 'Fries'],
+
+
+    this.initCharts();
+  }
+
+  initCharts(){
+    Promise.all([this.loadProductSales(), this.loadSales()]).then(() => {
+      this.adaptChartProductSales();
+      this.loaded = true;
+    });
+  }
+
+  async loadProductSales() {
+    try {
+      this.chartProductSales = await this.dashboardService.getProductSalesDatas()
+      console.log(this.chartProductSales);
+    } catch (error) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Erreur',
+        detail: 'Erreur lors du chargement des ventes des produits '
+      });
+    }
+  }
+
+  async loadSales() {
+    try {
+      this.sales = await this.dashboardService.getSalesDatas()
+      console.log(this.sales);
+    } catch (error) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Erreur',
+        detail: 'Erreur lors du chargement des chiffre d\'affaires'
+      });
+    }
+  }
+
+
+  adaptChartProductSales() {
+    this.chartProductSalesData = {
+      labels: this.chartProductSales.map((item: { productName: any; }) => item.productName),
       datasets: [
         {
-          label: "produits",
+          label: "Nombre de produit vendus",
           borderColor: "red",
-          data: [100, 500, 90, 50, 600, 150, 930, 15, 24],
+          data: this.chartProductSales.map((item: { salesQuantity: any; }) => item.salesQuantity),
           backgroundColor: [
             "#FF6384",
+          ]
+        },
+        {
+          label: "Prix",
+          borderColor: "red",
+          data: this.chartProductSales.map((item: { price: any; }) => item.price),
+          backgroundColor: [
+            "#36A2EB",
           ]
         }
       ]
     };
 
-    this.chartProductSellsOption = {
+    this.chartProductSalesOption = {
       indexAxis: 'y',
       maintainAspectRatio: false,
       aspectRatio: 0.8,
@@ -38,20 +96,4 @@ export class DashboardComponent {
       },
     }
   }
-
-  // public adaptChart(livret: any) {
-  //   let expense = livret.initialBalance - this.getBalance(livret);
-  //   this.chart1Data = {
-  //     labels: ['Dépenses', 'Restant'],
-  //     datasets: [
-  //       {
-  //         data: [expense, this.getBalance(livret)],
-  //         backgroundColor: [
-  //           "#FF6384",
-  //           "#36A2EB"
-  //         ]
-  //       }
-  //     ]
-  //   };
-  // }
 }
