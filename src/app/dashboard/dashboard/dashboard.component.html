@@ -1,10 +1,57 @@
-<div class="dashboard-container">
+<h2>Dashboard </h2>
+<div class="dashboard-container" *ngIf="loaded">
   <div class="first-part">
     <div class="custom-card">
+      <div class="card-header">Chiffre d'affaire annuel</div>
+      <div class="card-content">
+        <div class="salesText">
+          {{sales.totalSales | currency:"EUR"}}
+        </div>
+      </div>
+    </div>
+    <div class="custom-card">
+      <div class="card-header">Chiffre d'affaire mensuel moyen</div>
+      <div class="card-content">
+        <div class="salesText">
+          {{sales.averageSalesPerMonth | currency:"EUR"}}
+        </div>
+      </div>
+    </div>
+    <div class="custom-card">
+      <div class="card-header">Chiffre d'affaire journalier moyen</div>
+      <div class="card-content">
+        <div class="salesText">
+          {{sales.salesPerDay | currency:"EUR"}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="second-part">
+    <div class="custom-card">
+      <div class="card-header">Chiffre d'affaire mensuel de l'année actuelle</div>
+      <div class="card-content">
+        <div>
+          <p-chart class="chart" type="line" [data]="chartSalesPerMonthData" [options]="chartSalesPerMonthOption"></p-chart>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="third-part">
+    <div class="custom-card bar-card">
       <div class="card-header">Produits les plus vendus</div>
       <div class="card-content">
         <div>
           <p-chart class="chart" type="bar" [data]="chartProductSalesData" [options]="chartProductSalesOption"></p-chart>
+        </div>
+      </div>
+    </div>
+    <div class="custom-card pie-card">
+      <div class="card-header">% Chiffe d'affaire par produit </div>
+      <div class="card-content">
+        <div>
+          <p-chart class="chart" type="pie" [data]="chartProductSalesPieData" [options]="chartProductSalesPieOption"></p-chart>
         </div>
       </div>
     </div>

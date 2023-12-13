@@ -1,0 +1,36 @@
+.dashboard-container {
+  .first-part
+  {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: stretch;
+    margin-bottom: 2rem;
+    .custom-card{
+      width: 32%;
+      .salesText {
+        font-size: 1.3rem;
+      }
+    }
+  }
+  .second-part
+  {
+    margin-bottom: 2rem;
+    .custom-card{
+      width: 100%;
+    }
+  }
+  .third-part
+  {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    .bar-card {
+      width: 59%;
+    }
+    .pie-card {
+      width: 39%;
+    }
+  }
+}
+

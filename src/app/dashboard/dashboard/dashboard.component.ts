@@ -13,6 +13,20 @@ export class DashboardComponent {
   public chartProductSales : any = null;
   public chartProductSalesData : any = null;
   public chartProductSalesOption : any = null;
+  public chartProductSalesPieData : any = null;
+  public chartProductSalesPieOption : any = null;
+
+  public chartSalesPerMonthData : any = null;
+  public chartSalesPerMonthOption : any = null;
+
+  public colorVariants : any = {
+    brightPink: '#FF6384',
+    celestialBlue: '#36A2EB',
+    slateBlue: '#6465D9',
+    puce: '#C57E8D',
+    steelPink: '#CE2FD6',
+    slateBlue2: '#7350C1'
+  };
 
   public sales : any = null;
 
@@ -21,16 +35,16 @@ export class DashboardComponent {
     private messageService: MessageService,) { }
 
   ngOnInit() {
-
-
-    this.initCharts();
+    Promise.all([this.loadProductSales(), this.loadSales()]).then(() => {
+      this.initCharts();
+      this.loaded = true;
+    });
   }
 
   initCharts(){
-    Promise.all([this.loadProductSales(), this.loadSales()]).then(() => {
-      this.adaptChartProductSales();
-      this.loaded = true;
-    });
+    this.adaptChartProductSales();
+    this.adaptChartProductSalesPie();
+    this.adaptChartSalesPerMonth();
   }
 
   async loadProductSales() {
@@ -59,6 +73,51 @@ export class DashboardComponent {
     }
   }
 
+  adaptChartSalesPerMonth() {
+    this.chartSalesPerMonthData = {
+      labels: ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre'],
+      datasets: [
+        {
+          label: 'Chiffre d\'affaire',
+          data: this.extractSalesData(this.sales),
+          fill: false,
+          borderColor: "#36A2EB",
+          tension: 0.4
+        },
+      ]
+    }
+
+    this.chartSalesPerMonthOption = {
+      maintainAspectRatio: false,
+      aspectRatio: 0.6,
+      plugins: {
+        legend: {
+          labels: {
+            color: "white"
+          }
+        }
+      },
+    }
+  }
+
+  adaptChartProductSalesPie() {
+    //generer les couleurs en fonction du nombre d'item
+    const backgroundColors = this.chartProductSales.map((item: any, index: any) => {
+      const colorKeys = Object.keys(this.colorVariants);
+      const color = this.colorVariants[colorKeys[index % colorKeys.length]];
+      return this.lightenColor(color);
+    });
+
+    this.chartProductSalesPieData = {
+      labels: this.chartProductSales.map((item: { productName: any; }) => item.productName),
+      datasets: [
+        {
+          data: this.chartProductSales.map((item: { price: any; }) => item.price),
+          backgroundColor: backgroundColors,
+        }
+      ],
+    }
+  }
 
   adaptChartProductSales() {
     this.chartProductSalesData = {
@@ -95,5 +154,25 @@ export class DashboardComponent {
         }
       },
     }
+  }
+
+  lightenColor(hexColor: string) {
+    let color = hexColor.substring(1);
+    let rgb = parseInt(color, 16);
+    let r = (rgb >> 16) + 32;
+    let g = (rgb >> 8 & 0x00FF) + 32;
+    let b = (rgb & 0x0000FF) + 32;
+
+    r = Math.max(0, Math.min(255, r));
+    g = Math.max(0, Math.min(255, g));
+    b = Math.max(0, Math.min(255, b));
+
+    return `#${(0x1000000 + r * 0x10000 + g * 0x100 + b).toString(16).slice(1)}`;
+  }
+
+  extractSalesData(salesData: any) {
+    const months = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
+
+    return months.map(month => parseFloat(salesData.salesPerMonth[month]));
   }
 }
