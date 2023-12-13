@@ -13,6 +13,7 @@ import { StockModule } from "./entities/stock/stock.module";
 import { NotFoundModule } from "./not-found/not-found.module";
 import { ProductModule } from "./entities/product/product.module";
 import { RestaurantService } from './service/restaurant/restaurant.service';
+import { CustomerModule } from './entities/customer/customer.module';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { RestaurantService } from './service/restaurant/restaurant.service';
     AppLayoutModule,
     EmployeeModule,
     FeedbackModule,
+    CustomerModule,
     RestaurantModule,
     AbsenceModule,
     StockModule,
@@ -34,7 +36,6 @@ import { RestaurantService } from './service/restaurant/restaurant.service';
   ],
   providers: [
     EmployeeService,
-    RestaurantService,
   ],
   bootstrap: [AppComponent]
 })

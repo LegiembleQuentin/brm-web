@@ -12,6 +12,8 @@ import { ProductListingComponent } from "./entities/product/product-listing/prod
 import { ProductDetailComponent } from "./entities/product/product-detail/product-detail.component";
 import { RestaurantListingComponent } from './entities/restaurant/restaurant-listing/restaurant-listing.component';
 import { RestaurantDetailComponent } from './entities/restaurant/restaurant-detail/restaurant-detail.component';
+import { CustomerListingComponent } from './entities/customer/customer-listing/customer-listing.component';
+import { CustomerDetailComponent } from './entities/customer/customer-detail/customer-detail.component';
 
 const routes: Routes = [
   {
@@ -55,6 +57,13 @@ const routes: Routes = [
         children: [
           { path: '', component: ProductListingComponent },
           { path: ':id', component: ProductDetailComponent },
+        ]
+      },
+      {
+        path: 'customer',
+        children: [
+          { path: '', component: CustomerListingComponent },
+          { path: ':id', component: CustomerDetailComponent },
         ]
       },
 

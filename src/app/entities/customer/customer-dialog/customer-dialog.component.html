@@ -1,0 +1,363 @@
+<p-dialog
+  [(visible)]="display"
+  [style]="{ width: '70%' }"
+  header="Details du Client"
+  [modal]="true"
+  class="p-fluid"
+>
+  <ng-template pTemplate="content">
+    <form [formGroup]="customerForm" (ngSubmit)="saveCustomer()">
+      <div class="field">
+        <label for="firstname"
+          >Prénom <span class="requiredStar">*</span></label
+        >
+        <input
+          type="text"
+          pInputText
+          id="firstname"
+          formControlName="firstname"
+          required
+          value="customer.firstname"
+          autofocus
+          [ngModel]="customer.firstname"
+          [ngClass]="{
+            'ng-invalid ng-dirty':
+              customerForm.controls.firstname.invalid &&
+              (customerForm.controls.firstname.touched ||
+                customerForm.controls.firstname.dirty)
+          }"
+        />
+        <small
+          class="error-message"
+          *ngIf="
+            customerForm.controls.firstname.errors?.required &&
+            (customerForm.controls.firstname.touched ||
+              customerForm.controls.firstname.dirty)
+          "
+        >
+          Ce champ est obligatoire.
+        </small>
+        <small
+          class="error-message"
+          *ngIf="
+            customerForm.controls.firstname.errors?.minlength &&
+            (customerForm.controls.firstname.touched ||
+              customerForm.controls.firstname.dirty)
+          "
+        >
+          Le nom doit comporter au moins
+          {{ customerForm.controls.firstname.errors?.minlength.requiredLength }}
+          caractères.
+        </small>
+        <small
+          class="error-message"
+          *ngIf="
+            customerForm.controls.firstname.errors?.maxlength &&
+            (customerForm.controls.firstname.touched ||
+              customerForm.controls.firstname.dirty)
+          "
+        >
+          Le nom ne doit pas dépasser
+          {{ customerForm.controls.firstname.errors?.maxlength.requiredLength }}
+          caractères.
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="lastname">Nom <span class="requiredStar">*</span></label>
+        <input
+          type="text"
+          pInputText
+          id="lastname"
+          formControlName="lastname"
+          required
+          value="customer.lastname"
+          autofocus
+          [ngModel]="customer.lastname"
+          [ngClass]="{
+            'ng-invalid ng-dirty':
+              customerForm.controls.lastname.invalid &&
+              (customerForm.controls.lastname.touched ||
+                customerForm.controls.lastname.dirty)
+          }"
+        />
+        <small
+          class="error-message"
+          *ngIf="
+            customerForm.controls.lastname.errors?.required &&
+            (customerForm.controls.lastname.touched ||
+              customerForm.controls.lastname.dirty)
+          "
+        >
+          Ce champ est obligatoire.
+        </small>
+        <small
+          class="error-message"
+          *ngIf="
+            customerForm.controls.lastname.errors?.minlength &&
+            (customerForm.controls.lastname.touched ||
+              customerForm.controls.lastname.dirty)
+          "
+        >
+          Le nom doit comporter au moins
+          {{ customerForm.controls.lastname.errors?.minlength.requiredLength }}
+          caractères.
+        </small>
+        <small
+          class="error-message"
+          *ngIf="
+            customerForm.controls.lastname.errors?.maxlength &&
+            (customerForm.controls.lastname.touched ||
+              customerForm.controls.lastname.dirty)
+          "
+        >
+          Le nom ne doit pas dépasser
+          {{ customerForm.controls.lastname.errors?.maxlength.requiredLength }}
+          caractères.
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="city">Ville <span class="requiredStar">*</span></label>
+        <input
+          type="text"
+          pInputText
+          [ngModel]="customer.city"
+          id="city"
+          formControlName="city"
+        />
+        <small
+          class="ng-dirty ng-invalid"
+          *ngIf="customerForm.controls.city.errors?.['required'] && (customerForm.controls.city.touched || customerForm.controls.city.dirty)"
+        >
+          Ce champ est obligatoire.
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="adress">Adresse <span class="requiredStar">*</span></label>
+        <input
+          type="text"
+          pInputText
+          [ngModel]="customer.adress"
+          id="adress"
+          formControlName="adress"
+        />
+        <small
+          *ngIf="
+            customerForm.controls['adress'].errors?.minlength &&
+            (customerForm.controls['adress'].touched ||
+              customerForm.controls['adress'].dirty)
+          "
+        >
+          L'adresse doit comporter au moins
+          {{ customerForm.controls["adress"].errors?.minlength.requiredLength }}
+          caractères.
+        </small>
+        <small
+          *ngIf="
+            customerForm.controls['adress'].errors?.maxlength &&
+            (customerForm.controls['adress'].touched ||
+              customerForm.controls['adress'].dirty)
+          "
+        >
+          L'adresse ne doit pas dépasser
+          {{ customerForm.controls["adress"].errors?.maxlength.requiredLength }}
+          caractères.
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="postalCode">Code Postal</label>
+        <input
+          type="text"
+          pInputText
+          [ngModel]="customer.postalCode"
+          id="postalCode"
+          formControlName="postalCode"
+          [ngClass]="{
+            'ng-invalid ng-dirty':
+              customerForm.controls.postalCode.invalid &&
+              (customerForm.controls.postalCode.touched ||
+                customerForm.controls.postalCode.dirty)
+          }"
+        />
+        <small
+          class="ng-dirty ng-invalid"
+          *ngIf="customerForm.controls.postalCode.errors?.['invalidPostalCode'] && (customerForm.controls.postalCode.touched || customerForm.controls.postalCode.dirty)"
+        >
+          Le code postal doit être un numéro à 5 chiffres.
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="email">Email <span class="requiredStar">*</span></label>
+        <input
+          type="email"
+          pInputText
+          id="email"
+          [ngModel]="customer.email"
+          formControlName="email"
+          autofocus
+          [ngClass]="{
+            'ng-invalid ng-dirty':
+              customerForm.controls.email.invalid &&
+              (customerForm.controls.email.touched ||
+                customerForm.controls.email.dirty)
+          }"
+        />
+        <small
+          class="ng-dirty ng-invalid"
+          *ngIf="customerForm.controls.email.errors?.['required'] && (customerForm.controls.email.touched || customerForm.controls.email.dirty)"
+        >
+          Ce champ est obligatoire.
+        </small>
+        <small
+          class="ng-dirty ng-invalid"
+          *ngIf="customerForm.controls.email.errors?.['email'] && (customerForm.controls.email.touched || customerForm.controls.email.dirty)"
+        >
+          L'adresse email n'est pas valide.
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="phone">Téléphone <span class="requiredStar">*</span></label>
+        <input
+          type="text"
+          pInputText
+          [ngModel]="customer.phone"
+          id="phone"
+          formControlName="phone"
+          autofocus
+          [ngClass]="{
+            'ng-invalid ng-dirty':
+              customerForm.controls.phone.invalid &&
+              (customerForm.controls.phone.touched ||
+                customerForm.controls.phone.dirty)
+          }"
+        />
+        <small
+          class="ng-dirty ng-invalid"
+          *ngIf="customerForm.controls.phone.errors?.['required'] && (customerForm.controls.phone.touched || customerForm.controls.phone.dirty)"
+        >
+          Ce champ est obligatoire.
+        </small>
+        <small
+          class="ng-dirty ng-invalid"
+          *ngIf="customerForm.controls.phone.errors?.['pattern'] && (customerForm.controls.phone.touched || customerForm.controls.phone.dirty)"
+        >
+          Le numéro de téléphone doit être composé de 10 chiffres.
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="city">Ville <span class="requiredStar">*</span></label>
+        <input
+          type="text"
+          pInputText
+          [ngModel]="customer.city"
+          id="city"
+          formControlName="city"
+        />
+        <small
+          class="ng-dirty ng-invalid"
+          *ngIf="customerForm.controls.city.errors?.['required'] && (customerForm.controls.city.touched || customerForm.controls.city.dirty)"
+        >
+          Ce champ est obligatoire.
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="country">Pays <span class="requiredStar">*</span></label>
+        <p-dropdown
+          inputId="country"
+          id="country"
+          formControlName="country"
+          optionLabel="label"
+          optionValue="value"
+          [options]="countriesList"
+          placeholder="Sélectionner un Pays"
+        ></p-dropdown>
+        <small
+          *ngIf="
+            customerForm.controls['country'].errors?.minlength &&
+            (customerForm.controls['country'].touched ||
+              customerForm.controls['country'].dirty)
+          "
+        >
+          L'adresse doit comporter au moins
+          {{
+            customerForm.controls["country"].errors?.minlength.requiredLength
+          }}
+          caractères.
+        </small>
+        <small
+          *ngIf="
+            customerForm.controls['country'].errors?.maxlength &&
+            (customerForm.controls['country'].touched ||
+              customerForm.controls['country'].dirty)
+          "
+        >
+          L'adresse ne doit pas dépasser
+          {{
+            customerForm.controls["country"].errors?.maxlength.requiredLength
+          }}
+          caractères.
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="fidelityPoints"
+          >Point de fidélité <span class="requiredStar">*</span></label
+        >
+        <input
+          type="text"
+          pInputText
+          [ngModel]="customer.fidelityPoints"
+          id="fidelityPoints"
+          formControlName="fidelityPoints"
+          autofocus
+          [ngClass]="{
+            'ng-invalid ng-dirty':
+              customerForm.controls.fidelityPoints.invalid &&
+              (customerForm.controls.fidelityPoints.touched ||
+                customerForm.controls.fidelityPoints.dirty)
+          }"
+        />
+        <small
+          class="ng-dirty ng-invalid"
+          *ngIf="customerForm.controls.fidelityPoints.errors?.['required'] && (customerForm.controls.fidelityPoints.touched || customerForm.controls.fidelityPoints.dirty)"
+        >
+          Ce champ est obligatoire.
+        </small>
+        <small
+          class="ng-dirty ng-invalid"
+          *ngIf="customerForm.controls.fidelityPoints.errors?.['pattern'] && (customerForm.controls.fidelityPoints.touched || customerForm.controls.fidelityPoints.dirty)"
+        >
+          La moyenne doit être composé de 1 chiffres.
+        </small>
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      (click)="hideDialog()"
+      icon="pi pi-times"
+      class="p-button-text"
+    ></button>
+    <button
+      pButton
+      pRipple
+      type="submit"
+      label="Save"
+      icon="pi pi-check"
+      (click)="saveCustomer()"
+      [disabled]="customerForm.invalid"
+      class="p-button-text"
+    ></button>
+  </ng-template>
+</p-dialog>

@@ -34,7 +34,7 @@ export class AppMenuComponent implements OnInit {
       {
         label: 'Gestion client',
         items: [
-          { label: 'Clients', icon: 'pi pi-fw pi-users', routerLink: ['/sdfgsdfg'] },
+          { label: 'Clients', icon: 'pi pi-fw pi-users', routerLink: ['/customer'] },
           { label: 'Retours', icon: 'pi pi-fw pi-users', routerLink: ['/dsgsdfgsdg'] },
         ]
       },

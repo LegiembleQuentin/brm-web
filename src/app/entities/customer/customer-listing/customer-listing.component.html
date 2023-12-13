@@ -1,0 +1,145 @@
+<div class="grid">
+  <div class="col-12">
+    <p-toast></p-toast>
+    <p-table
+      #dt
+      [value]="customers"
+      [columns]="cols"
+      responsiveLayout="scroll"
+      [rows]="10"
+      [globalFilterFields]="[
+        'name',
+        'country.name',
+        'representative.name',
+        'status'
+      ]"
+      [paginator]="true"
+      [rowsPerPageOptions]="[10, 20, 30]"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      selectionMode="multiple"
+      [rowHover]="true"
+      dataKey="id"
+    >
+      <ng-template pTemplate="caption">
+        <p-toolbar styleClass="mb-4">
+          <h5 class="custom-title">Clients</h5>
+          <ng-template pTemplate="right">
+            <div class="my-2 customBtnGrp">
+              <div class="search-bar">
+                <div class="input-search">
+                  <i class="pi pi-search"></i>
+                  <input
+                    type="text"
+                    [(ngModel)]="filters.search"
+                    (keyup.enter)="search()"
+                    (blur)="search()"
+                    placeholder="Rechercher"
+                  />
+                </div>
+                <div class="underline-search"></div>
+              </div>
+              <!-- <div class="addBtn" (click)="openNew()">
+                <span class="addBtnPlus">+</span>
+                <span>Ajouter</span>
+              </div> -->
+
+              <!-- <span class="block mt-2 md:mt-0 p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input
+                  pInputText
+                  type="text"
+                  placeholder="Search..."
+                  class="w-full sm:w-auto"
+                />
+              </span> -->
+            </div>
+          </ng-template>
+        </p-toolbar>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th>
+          <th pSortableColumn="name">
+            Nom <p-sortIcon field="name"></p-sortIcon>
+          </th>
+          <th pSortableColumn="adress">
+            Adresse <p-sortIcon field="adress"></p-sortIcon>
+          </th>
+          <th pSortableColumn="city">
+            Ville <p-sortIcon field="city"></p-sortIcon>
+          </th>
+          <th pSortableColumn="phone">
+            Telephone<p-sortIcon field="phone"></p-sortIcon>
+          </th>
+          <th pSortableColumn="email">
+            Email <p-sortIcon field="email"></p-sortIcon>
+          </th>
+          <th pSortableColumn="lastCommand">
+            Dernière Commande <p-sortIcon field="lastCommand"></p-sortIcon>
+          </th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-customer>
+        <tr>
+          <td style="width: 14%; min-width: 10rem">
+            <span class="p-column-title">Id</span>
+            {{ customer.id }}
+          </td>
+          <td style="width: 14%; min-width: 10rem">
+            <span class="p-column-title">Name</span>
+            {{ customer.firstname }}
+          </td>
+          <td style="width: 14%; min-width: 10rem">
+            <span class="p-column-title">Adresse</span>
+            {{ customer.adress }}
+          </td>
+          <td style="width: 14%; min-width: 10rem">
+            <span class="p-column-title">Ville</span>
+            {{ customer.city }}
+          </td>
+          <td style="width: 14%; min-width: 10rem">
+            <span class="p-column-title">Tél</span>
+            {{ customer.phone }}
+          </td>
+          <td style="width: 14%; min-width: 10rem">
+            <span class="p-column-title">Email</span>
+            {{ customer.email }}
+          </td>
+          <td style="width: 14%; min-width: 10rem">
+            <span class="p-column-title">Dernière Commande</span>
+            {{ customer.lastCommand | date : "dd/MM/yyyy" }}
+          </td>
+          <td style="width: 14%; min-width: 10rem">
+            <span class="p-column-title">Point</span>
+            {{ customer.fidelityPoint }}
+          </td>
+          <td>
+            <div class="flex">
+              <button
+                pButton
+                pRipple
+                icon="pi pi-ellipsis-h"
+                class="p-button-rounded light-blue-custom-btn mr-2"
+                [routerLink]="['/customer', customer.id]"
+              ></button>
+              <button
+                pButton
+                pRipple
+                icon="pi pi-pencil"
+                class="p-button-rounded light-blue-custom-btn mr-2"
+                (click)="openEdit(customer)"
+              ></button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <app-customer-dialog
+    [customer]="customer"
+    (saveSuccess)="loadCustomers()"
+  ></app-customer-dialog>
+</div>
