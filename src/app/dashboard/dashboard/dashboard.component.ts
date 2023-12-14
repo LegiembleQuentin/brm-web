@@ -107,6 +107,35 @@ export class DashboardComponent {
         },
       ]
     }
+    this.chartAbsencesOption = {
+      maintainAspectRatio: false,
+      aspectRatio: 0.8,
+      plugins: {
+        tooltips: {
+          mode: 'index',
+          intersect: false
+        },
+        legend: {
+          labels: {
+            color: 'white'
+          }
+        }
+      },
+      scales: {
+        x: {
+          stacked: true,
+          ticks: {
+            color: 'white'
+          },
+        },
+        y: {
+          stacked: true,
+          ticks: {
+            color: 'white'
+          },
+        }
+      }
+    }
   }
 
   adaptChartSalesPerMonth() {
@@ -133,6 +162,18 @@ export class DashboardComponent {
           }
         }
       },
+      scales: {
+        x: {
+          ticks: {
+            color: 'white'
+          },
+        },
+        y: {
+          ticks: {
+            color: 'white'
+          },
+        }
+      }
     }
   }
 
@@ -152,6 +193,18 @@ export class DashboardComponent {
           backgroundColor: backgroundColors,
         }
       ],
+    };
+
+    this.chartProductSalesPieOption = {
+      maintainAspectRatio: false,
+      aspectRatio: 0.6,
+      plugins: {
+        legend: {
+          labels: {
+            color: "white"
+          }
+        }
+      },
     }
   }
 
@@ -189,6 +242,18 @@ export class DashboardComponent {
           }
         }
       },
+      scales: {
+        x: {
+          ticks: {
+            color: 'white'
+          },
+        },
+        y: {
+          ticks: {
+            color: 'white'
+          },
+        }
+      }
     }
   }
 
