@@ -1,0 +1,129 @@
+<div class="grid">
+  <div class="col-12" *ngIf="customer">
+    <p-toast></p-toast>
+
+    <div class="detail-header">
+      <div>
+        <h2>{{ customer.lastname + " " + customer.firstname }}</h2>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-pencil"
+          class="p-button-rounded light-blue-custom-btn mr-2"
+          (click)="openEdit()"
+        ></button>
+      </div>
+      <small>ID: {{ customer.id }}</small>
+    </div>
+
+    <div class="employee-detail-container">
+      <div class="first-part">
+        <div class="custom-card customer-custom-card">
+          <div class="card-header">Date de création</div>
+          <div class="card-content">
+            <div>
+              {{ customer.createdAt | date : "dd/MM/yyyy" }}
+            </div>
+          </div>
+        </div>
+        <div class="custom-card customer-custom-card">
+          <div class="card-header">Dernière Commande</div>
+          <div class="card-content">
+            <div *ngIf="customer.lastCommand">
+              {{ customer.lastCommand | date : "dd/MM/yyyy" }}
+            </div>
+            <div *ngIf="!customer.lastCommand">--</div>
+          </div>
+        </div>
+        <div class="custom-card customer-custom-card">
+          <div class="card-header">Points de Fidélité</div>
+          <div class="card-content">
+            <div>
+              <span *ngIf="customer.fidelityPoints">{{
+                customer.fidelityPoints
+              }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="personal-part">
+        <div class="custom-card">
+          <div class="card-header">Informations personnelles</div>
+          <div class="card-content">
+            <div class="card-part">
+              <div class="part-title">Nom:</div>
+              <div class="part-content">{{ customer.lastname }}</div>
+            </div>
+            <div class="card-part">
+              <div class="part-title">Prénom:</div>
+              <div class="part-content">{{ customer.firstname }}</div>
+            </div>
+            <div class="card-part">
+              <div class="part-title">Email:</div>
+              <div class="part-content">{{ customer.email }}</div>
+            </div>
+            <div class="card-part">
+              <div class="part-title">Ville</div>
+              <div class="part-content">{{ customer.city }}</div>
+            </div>
+            <div class="card-part">
+              <div class="part-title">Pays</div>
+              <div class="part-content">
+                {{ customer.country }}
+              </div>
+            </div>
+            <div class="card-part">
+              <div class="part-title">Adresse:</div>
+              <div class="part-content">
+                {{ customer.adress }}
+              </div>
+            </div>
+            <div class="card-part">
+              <div class="part-title">Code postal:</div>
+              <div class="part-content">
+                {{ customer.postalCode }}
+              </div>
+            </div>
+            <div class="card-part">
+              <div class="part-title">Téléphone</div>
+              <div class="part-content">
+                {{ customer.phone }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="third-part">
+        <div class="custom-card">
+          <div class="card-header salary-card">Historique des Commandes</div>
+          <div class="card-content"></div>
+        </div>
+        <div class="custom-card">
+          <div class="card-header note-card">Notes</div>
+          <div class="card-content"></div>
+        </div>
+        <div class="custom-card-container">
+          <div class="custom-card absences-card">
+            <div class="card-header">Commentaires</div>
+            <div class="card-content">
+              <div>
+                <span>--</span>
+              </div>
+            </div>
+          </div>
+          <div class="custom-card">
+            <div class="card-header warning-card">Signalement</div>
+            <div class="card-content"></div>
+          </div>
+        </div>
+      </div>
+
+      <app-customer-dialog
+        [customer]="customer"
+        (saveSuccess)="loadCustomer()"
+      ></app-customer-dialog>
+    </div>
+  </div>
+</div>

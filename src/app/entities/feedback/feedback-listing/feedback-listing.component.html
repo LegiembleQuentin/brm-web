@@ -5,7 +5,12 @@
     <div class="custom-topbar">
       <div class="topbar-background">
         <div>
-          <button (click)="search()" class="light-blue-custom-btn custom-btn-search ml-2">Filtrer</button>
+          <button
+            (click)="search()"
+            class="light-blue-custom-btn custom-btn-search ml-2"
+          >
+            Filtrer
+          </button>
         </div>
         <div class="topbar-container">
           <div class="warning-filter">
@@ -18,13 +23,20 @@
           </div>
           <div class="custom-dropdown date-filter">
             <label for="dateFilter">Date</label>
-            <p-calendar [showIcon]="true"
-                        id="dateFilter"
-                        [(ngModel)]="filters.date"
-                        inputId="birthdate"
+            <p-calendar
+              [showIcon]="true"
+              id="dateFilter"
+              [(ngModel)]="filters.date"
+              inputId="birthdate"
             ></p-calendar>
           </div>
-          <div class="custom-dropdown restaurant-filter">
+          <div
+            class="custom-dropdown restaurant-filter"
+            [ngClass]="{
+              'custom-dropdown-selected': filters.employee,
+              'custom-dropdown-not-selected': !filters.employee
+            }"
+          >
             <label for="employeeFilter">Employé</label>
             <p-dropdown
               [options]="getEmployeeWithNoneOption()"
@@ -33,10 +45,18 @@
               placeholder="Employé"
               [(ngModel)]="filters.employee"
               id="employeeFilter"
-              inputId="employeeFilter">
+              inputId="employeeFilter"
+              class="p-dropdown-filter"
+            >
             </p-dropdown>
           </div>
-          <div class="custom-dropdown restaurant-filter">
+          <div
+            class="custom-dropdown restaurant-filter"
+            [ngClass]="{
+              'custom-dropdown-selected': filters.author,
+              'custom-dropdown-not-selected': !filters.author
+            }"
+          >
             <label for="authorFilter">Auteur</label>
             <p-dropdown
               [options]="getEmployeeWithNoneOption()"
@@ -45,17 +65,35 @@
               placeholder="Auteur"
               [(ngModel)]="filters.author"
               id="authorFilter"
-              inputId="authorFilter">
+              inputId="authorFilter"
+              class="p-dropdown-filter"
+            >
             </p-dropdown>
           </div>
         </div>
       </div>
     </div>
 
-
-
-
-    <p-table #dt [value]="feedbacks" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['name','country.name','representative.name','status']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" selectionMode="multiple" [rowHover]="true" dataKey="id">
+    <p-table
+      #dt
+      [value]="feedbacks"
+      [columns]="cols"
+      responsiveLayout="scroll"
+      [rows]="10"
+      [globalFilterFields]="[
+        'name',
+        'country.name',
+        'representative.name',
+        'status'
+      ]"
+      [paginator]="true"
+      [rowsPerPageOptions]="[10, 20, 30]"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      selectionMode="multiple"
+      [rowHover]="true"
+      dataKey="id"
+    >
       <ng-template pTemplate="caption">
         <p-toolbar styleClass="mb-4">
           <h5 class="custom-title">Feedbacks</h5>
@@ -71,63 +109,99 @@
       <ng-template pTemplate="header">
         <tr>
           <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th>
-          <th pSortableColumn="warning">Avertissement <p-sortIcon field="warning"></p-sortIcon></th>
-          <th pSortableColumn="content">Description <p-sortIcon field="content"></p-sortIcon></th>
-          <th pSortableColumn="createdAt">Date <p-sortIcon field="createdAt"></p-sortIcon></th>
-          <th pSortableColumn="author">Auteur <p-sortIcon field="author"></p-sortIcon></th>
-          <th pSortableColumn="employee">Employé concerné <p-sortIcon field="employee"></p-sortIcon></th>
+          <th pSortableColumn="warning">
+            Avertissement <p-sortIcon field="warning"></p-sortIcon>
+          </th>
+          <th pSortableColumn="content">
+            Description <p-sortIcon field="content"></p-sortIcon>
+          </th>
+          <th pSortableColumn="createdAt">
+            Date <p-sortIcon field="createdAt"></p-sortIcon>
+          </th>
+          <th pSortableColumn="author">
+            Auteur <p-sortIcon field="author"></p-sortIcon>
+          </th>
+          <th pSortableColumn="employee">
+            Employé concerné <p-sortIcon field="employee"></p-sortIcon>
+          </th>
           <th></th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-feedback>
         <tr>
-          <td style="width:14%; min-width:10rem;">
+          <td style="width: 14%; min-width: 10rem">
             <span class="p-column-title">ID</span>
-            {{feedback.id}}
+            {{ feedback.id }}
           </td>
-          <td style="width:14%; min-width:10rem;" *ngIf="feedback.warning">
+          <td style="width: 14%; min-width: 10rem" *ngIf="feedback.warning">
             <span class="p-column-title">Avertissement</span>
             Oui
           </td>
-          <td style="width:14%; min-width:10rem;" *ngIf="!feedback.warning">
+          <td style="width: 14%; min-width: 10rem" *ngIf="!feedback.warning">
             <span class="p-column-title">Avertissement</span>
             Non
           </td>
-          <td style="width:14%; min-width:10rem;">
-          <span class="p-column-title">Description</span>
-            {{feedback.content | truncate:20}}
-        </td>
-          <td style="width:14%; min-width:10rem;">
+          <td style="width: 14%; min-width: 10rem">
+            <span class="p-column-title">Description</span>
+            {{ feedback.content | truncate : 20 }}
+          </td>
+          <td style="width: 14%; min-width: 10rem">
             <span class="p-column-title">Date</span>
-            {{feedback.createdAt | date:'dd/MM/yyyy'  }}
+            {{ feedback.createdAt | date : "dd/MM/yyyy" }}
           </td>
-          <td style="width:14%; min-width:10rem;">
+          <td style="width: 14%; min-width: 10rem">
             <span class="p-column-title">Auteur</span>
-            {{feedback.author.name}} {{feedback.author.firstname}}
+            {{ feedback.author.name }} {{ feedback.author.firstname }}
           </td>
-          <td style="width:14%; min-width:10rem;" *ngIf="feedback.employee">
+          <td style="width: 14%; min-width: 10rem" *ngIf="feedback.employee">
             <span class="p-column-title">Employé concerné</span>
-            {{feedback.employee.name}} {{feedback.employee.firstname}}
+            {{ feedback.employee.name }} {{ feedback.employee.firstname }}
           </td>
-          <td style="width:14%; min-width:10rem;" *ngIf="!feedback.employee">
+          <td style="width: 14%; min-width: 10rem" *ngIf="!feedback.employee">
             <span class="p-column-title">Employé concerné</span>
             Aucun
           </td>
 
           <td>
             <div class="flex">
-              <button pButton pRipple icon="pi pi-ellipsis-h" class="p-button-rounded light-blue-custom-btn mr-2" (click)="openDetail(feedback)"></button>
-              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded light-blue-custom-btn mr-2" (click)="openEdit(feedback)"></button>
-              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded red-custom-btn" (click)="deleteFeedback(feedback)"></button>
+              <button
+                pButton
+                pRipple
+                icon="pi pi-ellipsis-h"
+                class="p-button-rounded light-blue-custom-btn mr-2"
+                (click)="openDetail(feedback)"
+              ></button>
+              <button
+                pButton
+                pRipple
+                icon="pi pi-pencil"
+                class="p-button-rounded light-blue-custom-btn mr-2"
+                (click)="openEdit(feedback)"
+              ></button>
+              <button
+                pButton
+                pRipple
+                icon="pi pi-trash"
+                class="p-button-rounded red-custom-btn"
+                (click)="deleteFeedback(feedback)"
+              ></button>
             </div>
           </td>
         </tr>
       </ng-template>
     </p-table>
 
-    <app-feedback-dialog [feedback]="feedback" (saveSuccess)="loadFeedbacks()"></app-feedback-dialog>
+    <app-feedback-dialog
+      [feedback]="feedback"
+      (saveSuccess)="loadFeedbacks()"
+    ></app-feedback-dialog>
 
-    <p-dialog [(visible)]="feedbackDetailDialog" [modal]="true" [style]="{width:'600px'}" [header]="'Feedback ' + feedback?.id">
+    <p-dialog
+      [(visible)]="feedbackDetailDialog"
+      [modal]="true"
+      [style]="{ width: '600px' }"
+      [header]="'Feedback ' + feedback?.id"
+    >
       <div class="custom-modal-content">
         <div>
           <span class="detail-attribut">Avertissement: </span>
@@ -137,37 +211,73 @@
 
         <div *ngIf="feedback.warning">
           <span class="detail-attribut">Employé concerné: </span>
-          <a [routerLink]="['/employee', feedback.employee?.id]">{{feedback.employee?.name}} {{feedback.employee?.firstname}}</a>
+          <a [routerLink]="['/employee', feedback.employee?.id]"
+            >{{ feedback.employee?.name }} {{ feedback.employee?.firstname }}</a
+          >
         </div>
 
         <div>
           <span class="detail-attribut">Description: </span>
-          <span>{{feedback.content}}</span>
+          <span>{{ feedback.content }}</span>
         </div>
 
         <div>
           <span class="detail-attribut">Auteur: </span>
-          <a [routerLink]="['/employee', feedback.author?.id]">{{feedback.author?.name}} {{feedback.author?.firstname}}</a>
+          <a [routerLink]="['/employee', feedback.author?.id]"
+            >{{ feedback.author?.name }} {{ feedback.author?.firstname }}</a
+          >
         </div>
 
         <div>
           <span class="detail-attribut">Le: </span>
-          <span>{{feedback.createdAt |  date:'dd/MM/yyyy' }}</span>
+          <span>{{ feedback.createdAt | date : "dd/MM/yyyy" }}</span>
         </div>
       </div>
       <ng-template pTemplate="footer">
-        <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Ok" (click)="closeDetail()"></button>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-check"
+          class="p-button-text"
+          label="Ok"
+          (click)="closeDetail()"
+        ></button>
       </ng-template>
     </p-dialog>
 
-    <p-dialog [(visible)]="deleteFeedbackDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+    <p-dialog
+      [(visible)]="deleteFeedbackDialog"
+      header="Confirm"
+      [modal]="true"
+      [style]="{ width: '450px' }"
+    >
       <div class="flex align-items-center justify-content-center">
         <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-        <span *ngIf="feedback">Êtes vous sûr de vouloir supprimer le feedback <b>{{feedback.id}}</b> de <b>{{feedback.author?.name}} {{feedback.author?.firstname}}</b>?</span>
+        <span *ngIf="feedback"
+          >Êtes vous sûr de vouloir supprimer le feedback
+          <b>{{ feedback.id }}</b> de
+          <b>{{ feedback.author?.name }} {{ feedback.author?.firstname }}</b
+          >?</span
+        >
       </div>
       <ng-template pTemplate="footer">
-        <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteFeedbackDialog = false"></button>
-        <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" [disabled]="isDeleting" (click)="confirmDelete(feedback)"></button>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-times"
+          class="p-button-text"
+          label="No"
+          (click)="deleteFeedbackDialog = false"
+        ></button>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-check"
+          class="p-button-text"
+          label="Yes"
+          [disabled]="isDeleting"
+          (click)="confirmDelete(feedback)"
+        ></button>
       </ng-template>
     </p-dialog>
   </div>

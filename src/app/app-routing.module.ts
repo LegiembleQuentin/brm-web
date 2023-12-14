@@ -12,11 +12,13 @@ import { ProductListingComponent } from "./entities/product/product-listing/prod
 import { ProductDetailComponent } from "./entities/product/product-detail/product-detail.component";
 import { RestaurantListingComponent } from './entities/restaurant/restaurant-listing/restaurant-listing.component';
 import { RestaurantDetailComponent } from './entities/restaurant/restaurant-detail/restaurant-detail.component';
-import {OrderListingComponent} from "./entities/order/order-listing/order-listing.component";
-import {VerifyTokenComponent} from "./verify-token/verify-token.component";
-import {LoginComponent} from "./login/login.component";
-import {DashboardComponent} from "./dashboard/dashboard/dashboard.component";
-
+import { CustomerListingComponent } from './entities/customer/customer-listing/customer-listing.component';
+import { CustomerDetailComponent } from './entities/customer/customer-detail/customer-detail.component';
+import { MentionsComponent } from './mentions-legales/mentions/mentions.component';
+import { VerifyTokenComponent } from './verify-token/verify-token.component';
+import { LoginComponent } from './login/login.component';
+import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
+import { OrderListingComponent } from './entities/order/order-listing/order-listing.component';
 
 const routes: Routes = [
   {
@@ -74,14 +76,21 @@ const routes: Routes = [
           { path: '', component: DashboardComponent },
         ]
       },
+      {
+        path: 'customer',
+        children: [
+          { path: '', component: CustomerListingComponent },
+          { path: ':id', component: CustomerDetailComponent },
+        ]
+      },
       { path: 'verify-token', component: VerifyTokenComponent },
       { path: 'login', component: LoginComponent },
 
-
-
+      { path: 'mentions', component: MentionsComponent },
 
       { path: '404', component: NotFoundComponent },
-      { path: '**', redirectTo: '/404' }
+      { path: '**', redirectTo: '/404' },
+
     ]
   }
 ];

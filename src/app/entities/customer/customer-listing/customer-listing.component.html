@@ -3,7 +3,7 @@
     <p-toast></p-toast>
     <p-table
       #dt
-      [value]="restaurants"
+      [value]="customers"
       [columns]="cols"
       responsiveLayout="scroll"
       [rows]="10"
@@ -23,20 +23,26 @@
     >
       <ng-template pTemplate="caption">
         <p-toolbar styleClass="mb-4">
-          <h5 class="custom-title">Restaurants</h5>
+          <h5 class="custom-title">Clients</h5>
           <ng-template pTemplate="right">
             <div class="my-2 customBtnGrp">
               <div class="search-bar">
                 <div class="input-search">
                   <i class="pi pi-search"></i>
-                  <input type="text" placeholder="Rechercher" />
+                  <input
+                    type="text"
+                    [(ngModel)]="filters.search"
+                    (keyup.enter)="search()"
+                    (blur)="search()"
+                    placeholder="Rechercher"
+                  />
                 </div>
                 <div class="underline-search"></div>
               </div>
-              <div class="addBtn" (click)="openNew()">
+              <!-- <div class="addBtn" (click)="openNew()">
                 <span class="addBtnPlus">+</span>
                 <span>Ajouter</span>
-              </div>
+              </div> -->
 
               <!-- <span class="block mt-2 md:mt-0 p-input-icon-left">
                 <i class="pi pi-search"></i>
@@ -66,55 +72,49 @@
           <th pSortableColumn="phone">
             Telephone<p-sortIcon field="phone"></p-sortIcon>
           </th>
-          <th pSortableColumn="rating">
-            Note <p-sortIcon field="rating"></p-sortIcon>
+          <th pSortableColumn="email">
+            Email <p-sortIcon field="email"></p-sortIcon>
           </th>
-          <th pSortableColumn="enabled">
-            Actif <p-sortIcon field="enabled"></p-sortIcon>
+          <th pSortableColumn="lastCommand">
+            Dernière Commande <p-sortIcon field="lastCommand"></p-sortIcon>
           </th>
           <th></th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-restaurant>
+      <ng-template pTemplate="body" let-customer>
         <tr>
           <td style="width: 14%; min-width: 10rem">
             <span class="p-column-title">Id</span>
-            {{ restaurant.id }}
+            {{ customer.id }}
           </td>
           <td style="width: 14%; min-width: 10rem">
             <span class="p-column-title">Name</span>
-            {{ restaurant.name }}
+            {{ customer.firstname }}
           </td>
           <td style="width: 14%; min-width: 10rem">
             <span class="p-column-title">Adresse</span>
-            {{ restaurant.adress }}
+            {{ customer.adress }}
           </td>
           <td style="width: 14%; min-width: 10rem">
             <span class="p-column-title">Ville</span>
-            {{ restaurant.city }}
+            {{ customer.city }}
           </td>
           <td style="width: 14%; min-width: 10rem">
             <span class="p-column-title">Tél</span>
-            {{ restaurant.phone }}
+            {{ customer.phone }}
           </td>
           <td style="width: 14%; min-width: 10rem">
-            <span class="p-column-title">Note</span>
-            {{ restaurant.rating }}
+            <span class="p-column-title">Email</span>
+            {{ customer.email }}
           </td>
-          <td *ngIf="restaurant.enabled" style="width: 14%; min-width: 10rem">
-            <span class="p-column-title">Actif</span>
-            Oui
+          <td style="width: 14%; min-width: 10rem">
+            <span class="p-column-title">Dernière Commande</span>
+            {{ customer.lastCommand | date : "dd/MM/yyyy" }}
           </td>
-          <td *ngIf="!restaurant.enabled" style="width: 14%; min-width: 10rem">
-            <span class="p-column-title">Actif</span>
-            Non
+          <td style="width: 14%; min-width: 10rem">
+            <span class="p-column-title">Point</span>
+            {{ customer.fidelityPoint }}
           </td>
-          <!--            <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Reviews</span>-->
-          <!--              <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating>-->
-          <!--            </td>-->
-          <!--            <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Status</span>-->
-          <!--              <span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')">{{product.inventoryStatus}}</span>-->
-          <!--            </td>-->
           <td>
             <div class="flex">
               <button
@@ -122,14 +122,14 @@
                 pRipple
                 icon="pi pi-ellipsis-h"
                 class="p-button-rounded light-blue-custom-btn mr-2"
-                [routerLink]="['/restaurant', restaurant.id]"
+                [routerLink]="['/customer', customer.id]"
               ></button>
               <button
                 pButton
                 pRipple
                 icon="pi pi-pencil"
                 class="p-button-rounded light-blue-custom-btn mr-2"
-                (click)="openEdit(restaurant)"
+                (click)="openEdit(customer)"
               ></button>
             </div>
           </td>
@@ -138,8 +138,8 @@
     </p-table>
   </div>
 
-  <app-restaurant-dialog
-    [restaurant]="restaurant"
-    (saveSuccess)="loadRestaurants()"
-  ></app-restaurant-dialog>
+  <app-customer-dialog
+    [customer]="customer"
+    (saveSuccess)="loadCustomers()"
+  ></app-customer-dialog>
 </div>

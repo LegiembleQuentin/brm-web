@@ -21,7 +21,13 @@
               [(ngModel)]="filters.enabled"
             ></p-toggleButton>
           </div>
-          <div class="custom-dropdown restaurant-filter">
+          <div
+            class="custom-dropdown restaurant-filter"
+            [ngClass]="{
+              'custom-dropdown-selected': filters.restaurant,
+              'custom-dropdown-not-selected': !filters.restaurant
+            }"
+          >
             <label for="restaurantFilter">Restaurant</label>
             <p-dropdown
               [options]="getRestaurantsWithNoneOption()"

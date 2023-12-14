@@ -14,11 +14,13 @@ import { StockModule } from "./entities/stock/stock.module";
 import { NotFoundModule } from "./not-found/not-found.module";
 import { ProductModule } from "./entities/product/product.module";
 import { RestaurantService } from './service/restaurant/restaurant.service';
-import {OrderModule} from "./entities/order/order.module";
-import {VerifyTokenComponent} from "./verify-token/verify-token.component";
+import { OrderModule } from "./entities/order/order.module";
+import { VerifyTokenComponent } from "./verify-token/verify-token.component";
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import {AuthInterceptorService} from "./service/auth-interceptor/auth-interceptor.service";
-import {DashboardModule} from "./dashboard/dashboard.module";
+import { AuthInterceptorService } from "./service/auth-interceptor/auth-interceptor.service";
+import { DashboardModule } from "./dashboard/dashboard.module";
+import { CustomerModule } from './entities/customer/customer.module';
+
 
 @NgModule({
   declarations: [
@@ -32,6 +34,7 @@ import {DashboardModule} from "./dashboard/dashboard.module";
     AppLayoutModule,
     EmployeeModule,
     FeedbackModule,
+    CustomerModule,
     RestaurantModule,
     AbsenceModule,
     StockModule,

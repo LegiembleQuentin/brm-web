@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {Employee, mapEmployeeToApiData} from "../../api/employee";
-import {HttpClient, HttpParams} from "@angular/common/http";
+import { Employee, mapEmployeeToApiData } from "../../api/employee";
+import { HttpClient, HttpParams } from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -16,20 +16,18 @@ export class EmployeeService {
   //   return this.http.delete(this.url + '/employee/' + employee.id, { body: employee.id }).toPromise();
   // }
 
-  saveEmployee(employee: Employee) : Promise<any> {
+  saveEmployee(employee: Employee): Promise<any> {
     employee = mapEmployeeToApiData(employee);
-    return this.http.post(this.url + '/employee', {body: employee}).toPromise();
+    return this.http.post(this.url + '/employee', { body: employee }).toPromise();
   }
 
-  updateEmployee(employee:Employee):Promise<any>{
+  updateEmployee(employee: Employee): Promise<any> {
     employee = mapEmployeeToApiData(employee);
-    return this.http.put(this.url + '/employee', {body: employee}).toPromise();
+    return this.http.put(this.url + '/employee', { body: employee }).toPromise();
   }
 
-  getEmployees(filters: any): Promise<any> {
-    let params = new HttpParams({ fromObject: filters });
-
-    return this.http.get<Employee[]>(this.url + '/employees', { params }).toPromise();
+  getEmployees(): Promise<any> {
+    return this.http.get<Employee[]>(this.url + '/employees').toPromise();
   }
 
   getEmployee(id: string): Promise<Employee> {

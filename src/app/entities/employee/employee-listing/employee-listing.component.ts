@@ -82,7 +82,7 @@ export class EmployeeListingComponent {
 
   async loadEmployees() {
     try {
-      const response = await this.employeeService.getEmployees(this.filters);
+      const response = await this.employeeService.getEmployees();
       this.employees = response.map((employeeData: any) => mapApiDataToEmployee(employeeData));
     } catch (error) {
       this.messageService.add({
@@ -167,3 +167,4 @@ export class EmployeeListingComponent {
     return [{ label: '--', value: null }, ...this.contractType];
   }
 }
+

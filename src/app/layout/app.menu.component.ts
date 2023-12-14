@@ -11,6 +11,8 @@ export class AppMenuComponent implements OnInit {
 
   model: any[] = [];
 
+  legalMention: any[] = [];
+
   openedMenuIndex: number | null = null;
 
   toggleMenu(index: number): void {
@@ -34,7 +36,7 @@ export class AppMenuComponent implements OnInit {
       {
         label: 'Gestion client',
         items: [
-          { label: 'Clients', icon: 'pi pi-fw pi-users', routerLink: ['/sdfgsdfg'] },
+          { label: 'Clients', icon: 'pi pi-fw pi-users', routerLink: ['/customer'] },
           { label: 'Retours', icon: 'pi pi-fw pi-users', routerLink: ['/dsgsdfgsdg'] },
         ]
       },
