@@ -11,6 +11,7 @@ export class VerifyTokenComponent  implements OnInit {
   tokenIsValid: boolean = false;
   Password: string = '';
   confirmPassword: string = '';
+  isLoading : boolean = false;
 
   constructor(private route: ActivatedRoute, private http: HttpClient) { }
 
@@ -29,8 +30,10 @@ export class VerifyTokenComponent  implements OnInit {
     });
   }
   setPassword() {
+    this.isLoading = true;
     if (this.Password === this.confirmPassword) {
       this.http.post('http://127.0.0.1:8000/api/setpassword', { password: this.Password, token : this.token }).subscribe(response => {
+        this.isLoading = false;
         }, error => {
           console.error('Error', error);
         });
