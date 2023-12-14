@@ -5,7 +5,7 @@ import { LayoutService } from "./service/app.layout.service";
 import { AppSidebarComponent } from "./app.sidebar.component";
 import { AppTopBarComponent } from './app.topbar.component';
 import {AuthService} from "../service/auth/auth.service";
-
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-layout',
@@ -23,7 +23,7 @@ export class AppLayoutComponent implements OnDestroy, OnInit {
 
     @ViewChild(AppTopBarComponent) appTopbar!: AppTopBarComponent;
 
-    constructor(public layoutService: LayoutService, public renderer: Renderer2, public router: Router, private auth : AuthService) {
+    constructor(public layoutService: LayoutService, public renderer: Renderer2, public router: Router, private auth : AuthService, private route : ActivatedRoute) {
         this.overlayMenuOpenSubscription = this.layoutService.overlayOpen$.subscribe(() => {
             if (!this.menuOutsideClickListener) {
                 this.menuOutsideClickListener = this.renderer.listen('document', 'click', event => {
@@ -111,13 +111,12 @@ export class AppLayoutComponent implements OnDestroy, OnInit {
         }
     }
   isLog(): boolean {
-    console.log(this.auth.isLog())
      return  this.auth.isLog()
   }
   ngOnInit() {
-    console.log(`${this.auth.getToken()}`);
+
     const currentUrl = this.router.url;
-    if (!this.auth.isLog() && currentUrl !== '/verify-token') {
+    if (!this.auth.isLog() && !currentUrl.startsWith('/verify-token')) {
       this.router.navigate(['/login']);
     }
     if (this.auth.isLog() && currentUrl == '/login'){

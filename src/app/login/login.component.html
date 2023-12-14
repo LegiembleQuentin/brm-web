@@ -6,10 +6,10 @@
       <input type="email" id="username" [(ngModel)] = "username" name="username">
 
 
-      <label for="password">Mot de posse</label>
+      <label for="password">Mot de passe</label>
       <input type="password" id="password" [(ngModel)] = "password" name="password">
 
 
-    <button type="submit" class="btn">Envoyer</button>
+    <button type="submit" class="btn" [disabled]="isLoading">Envoyer</button>
   </form>
 </div>
