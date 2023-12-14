@@ -11,6 +11,8 @@ export class AppMenuComponent implements OnInit {
 
   model: any[] = [];
 
+  legalMention: any[] = [];
+
   openedMenuIndex: number | null = null;
 
   toggleMenu(index: number): void {

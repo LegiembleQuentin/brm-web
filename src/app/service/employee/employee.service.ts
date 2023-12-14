@@ -27,7 +27,6 @@ export class EmployeeService {
   }
 
   getEmployees(): Promise<any> {
-    debugger
     return this.http.get<Employee[]>(this.url + '/employees').toPromise();
   }
 

@@ -109,9 +109,6 @@ h6 {
   }
 }
 
-.p-component {
-  border-radius: 5px;
-}
 .p-dropdown-items-wrapper {
   overflow: unset;
   border-radius: 5px;
@@ -133,6 +130,7 @@ h6 {
 
 .p-dropdown-filter {
   width: 100%;
+  color: #000;
 }
 
 span#pn_id_2_label {
@@ -140,10 +138,41 @@ span#pn_id_2_label {
 }
 
 //sidebar
+
+app-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.enabled-filter {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+p-dropdown.p-element.p-inputwrapper.p-inputwrapper-filled.ng-star-inserted.ng-valid.ng-touched.ng-dirty {
+  color: #000;
+}
+
+#lm-sidebar-redirect {
+  display: flex;
+  justify-content: center;
+  color: grey;
+  transition: color 0.3s;
+}
+#lm-sidebar-redirect:hover {
+  transition: color 0.3s;
+  color: #00a0b4;
+}
 .layout-sidebar {
   padding: 3rem 0;
 }
 .layout-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   .layout-menuitem-root-text {
     color: white;
     font-size: 1.4rem;

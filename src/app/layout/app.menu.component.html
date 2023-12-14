@@ -1,33 +1,38 @@
-<ul class="layout-menu">
-<!--  <ng-container *ngFor="let item of model; let i = index;">-->
-<!--    <li app-menuitem *ngIf="!item.separator" [item]="item" [index]="i" [root]="true"></li>-->
-<!--    <li *ngIf="item.separator" class="menu-separator"></li>-->
-<!--  </ng-container>-->
+<div id="tab-container-sidebar">
+  <ul class="layout-menu">
+    <!--  <ng-container *ngFor="let item of model; let i = index;">-->
+    <!--    <li app-menuitem *ngIf="!item.separator" [item]="item" [index]="i" [root]="true"></li>-->
+    <!--    <li *ngIf="item.separator" class="menu-separator"></li>-->
+    <!--  </ng-container>-->
 
+    <ng-container *ngFor="let item of model; let i = index">
+      <div
+        (click)="toggleMenu(i)"
+        *ngIf="item.visible !== false"
+        [ngClass]="{ 'selected-menuitem': isMenuItemActive(item) }"
+        class="layout-menuitem-root-text"
+      >
+        {{ item.label }}
+        <i *ngIf="openedMenuIndex != i" class="pi pi-angle-down"></i>
+        <i *ngIf="openedMenuIndex === i" class="pi pi-angle-up"></i>
+      </div>
 
-  <ng-container *ngFor="let item of model; let i = index;">
-    <div (click)="toggleMenu(i)"
-         *ngIf="item.visible !== false"
-         [ngClass]="{'selected-menuitem': isMenuItemActive(item)}"
-         class="layout-menuitem-root-text">
-      {{item.label}}
-      <i *ngIf="openedMenuIndex != i" class="pi pi-angle-down"></i>
-      <i *ngIf="openedMenuIndex === i" class="pi pi-angle-up"></i>
-    </div>
-
-    <ul
-      *ngIf="openedMenuIndex === i"
-      [ngClass]="{'selected-menuitem-list': isMenuItemActive(item)}">
-      <li app-menuitem
+      <ul
+        *ngIf="openedMenuIndex === i"
+        [ngClass]="{ 'selected-menuitem-list': isMenuItemActive(item) }"
+      >
+        <li
+          app-menuitem
           *ngIf="!item.separator"
           [item]="item"
           [index]="i"
           [routerLink]="item.routerLink"
           routerLinkActive="current-item"
-          [root]="true">
-      </li>
-      <li *ngIf="item.separator" class="menu-separator"></li>
-    </ul>
-  </ng-container>
-
-</ul>
+          [root]="true"
+        ></li>
+        <li *ngIf="item.separator" class="menu-separator"></li>
+      </ul>
+    </ng-container>
+  </ul>
+</div>
+<a [routerLink]="['/mentions']" id="lm-sidebar-redirect">Mentions Légales</a>

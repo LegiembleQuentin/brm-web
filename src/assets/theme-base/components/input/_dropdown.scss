@@ -1,10 +1,8 @@
 .p-dropdown {
   background: $inputBg;
-  // border: $inputBorder;
+  border: $inputBorder;
   transition: $formElementTransition;
   border-radius: $borderRadius;
-  background-color: #272727;
-  color: #fff;
   font-weight: 600;
 
   &:not(.p-disabled):hover {
@@ -52,7 +50,6 @@
     @include invalid-input();
   }
 }
-
 .p-dropdown-panel {
   background: $inputOverlayBg;
   color: $inputListTextColor;
@@ -146,4 +143,9 @@
       }
     }
   }
+}
+
+.p-dropdown.p-component-filters {
+  background-color: #272727;
+  width: 100%;
 }

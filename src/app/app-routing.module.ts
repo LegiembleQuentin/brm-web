@@ -14,6 +14,7 @@ import { RestaurantListingComponent } from './entities/restaurant/restaurant-lis
 import { RestaurantDetailComponent } from './entities/restaurant/restaurant-detail/restaurant-detail.component';
 import { CustomerListingComponent } from './entities/customer/customer-listing/customer-listing.component';
 import { CustomerDetailComponent } from './entities/customer/customer-detail/customer-detail.component';
+import { MentionsComponent } from './mentions-legales/mentions/mentions.component';
 
 const routes: Routes = [
   {
@@ -67,11 +68,11 @@ const routes: Routes = [
         ]
       },
 
-
-
+      { path: 'mentions', component: MentionsComponent },
 
       { path: '404', component: NotFoundComponent },
-      { path: '**', redirectTo: '/404' }
+      { path: '**', redirectTo: '/404' },
+
     ]
   }
 ];

@@ -1,34 +1,6 @@
 <div class="grid">
   <div class="col-12">
     <p-toast></p-toast>
-    <div class="custom-topbar">
-      <div class="topbar-background">
-        <div class="topbar-container">
-          <div class="custom-dropdown enabled-filter">
-            <label for="enabledFilter">Disponibilité</label>
-            <p-dropdown
-              inputId="enabledFilter"
-              id="enabledFilter"
-              optionLabel="label"
-              optionValue="value"
-              placeholder="Disponibilité"
-              class="p-dropdown-filter"
-            ></p-dropdown>
-          </div>
-          <div class="custom-dropdown">
-            <label for="contractTypeFilter">Contrat</label>
-            <p-dropdown
-              id="contractTypeFilter"
-              inputId="contractTypeFilter"
-              optionLabel="label"
-              optionValue="value"
-              placeholder="Contrat"
-              class="p-dropdown-filter"
-            ></p-dropdown>
-          </div>
-        </div>
-      </div>
-    </div>
     <p-table
       #dt
       [value]="restaurants"
