@@ -24,7 +24,7 @@
           <div class="card-header">Prix</div>
           <div class="card-content">
             <div>
-              {{ product.price }}
+              {{ product.price |  currency:"EUR"}}
             </div>
           </div>
         </div>
@@ -43,10 +43,11 @@
           <div class="card-header product-card">Ingrédients</div>
           <div class="card-content">
             <div class="card-content-part"  *ngFor="let productStock of product.productStocks; let i = index">
-              <div>
+              <div class="one-stock">
                 <span>{{productStock.stock.name}}</span>
                 <span>{{productStock.stock_quantity}} {{productStock.unit}}</span>
               </div>
+              <hr>
             </div>
           </div>
         </div>

@@ -101,7 +101,7 @@
               <div class="part-title">Handicap: </div>
               <div class="part-content">
                 <span>{{employee.disability ? 'Oui' : 'Non'}}</span>
-                <a *ngIf="employee.disability" class="part-link">Voir</a>
+                <a *ngIf="employee.disability" class="part-link" (click)="openDisabilityModal()">Voir</a>
               </div>
             </div>
           </div>
@@ -111,30 +111,49 @@
       <div class="third-part">
         <div class="custom-card">
           <div class="card-header salary-card">Historique des salaires</div>
-          <div class="card-content"></div>
+          <div class="card-content">
+          </div>
         </div>
         <div class="custom-card">
-          <div class="card-header note-card">Notes</div>
-          <div class="card-content"></div>
-        </div>
-        <div class="custom-card-container">
-          <div class="custom-card absences-card">
-            <div class="card-header">Absences / retards</div>
-            <div class="card-content">
-              <div>
-                <span>A remplir plus tard</span>
+          <div class="card-header note-card">Feedbacks</div>
+          <div class="card-content">
+            <div *ngFor="let feedback of employee.feedbacks; let i = index;">
+              <div class="one-feedback">
+                <span>Du: {{feedback.createdAt | date: 'dd/MM/yyyy'}}</span>
+                <span *ngIf="feedback.warning" class="warning">Avertissement!</span>
               </div>
+              <hr>
             </div>
+            <a [routerLink]="['/feedback']" [queryParams]="{employee: employee.id}" *ngIf="employee.feedbacks">Voir plus</a>
           </div>
-          <div class="custom-card">
-            <div class="card-header warning-card">Avertissements</div>
-            <div class="card-content"></div>
+        </div>
+        <div class="custom-card">
+          <div class="card-header absence-card">Absences</div>
+          <div class="card-content">
+            <div *ngFor="let absence of employee.absences; let i = index;">
+              <div class="one-absence">
+                <span>Du: {{absence.startDate | date: 'dd/MM/yyyy'}}</span>
+                <span>Au: {{absence.endDate | date: 'dd/MM/yyyy'}}</span>
+              </div>
+              <hr>
+            </div>
+            <a [routerLink]="['/absence']" [queryParams]="{employee: employee.id}" *ngIf="employee.absences">Voir plus</a>
           </div>
         </div>
       </div>
     </div>
 
     <app-employee-dialog [employee]="employee" (saveSuccess)="loadEmployee()"></app-employee-dialog>
+
+
+    <p-dialog [(visible)]="disabilityModal" [modal]="true" [style]="{width:'600px'}" [header]="'Handicap '">
+      <div class="custom-modal-content">
+        <div class="disability">
+          <span class="detail-attribut">Description: </span>
+          <span>{{employee.disabilityDesc}}</span>
+        </div>
+      </div>
+    </p-dialog>
 
   </div>
 </div>

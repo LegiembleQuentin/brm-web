@@ -78,7 +78,8 @@ export class AppMenuComponent implements OnInit {
       {
         label: 'Gestion des chiffres',
         items: [
-          { label: 'Ventes', icon: 'pi pi-fw pi-users', routerLink: ['/sqdsdfsqdff'] },
+          { label: 'Commandes', icon: 'pi pi-fw pi-users', routerLink: ['/order'] },
+          { label: 'Dashboard', icon: 'pi pi-fw pi-users', routerLink: ['/dashboard'] },
         ]
       },
     ];

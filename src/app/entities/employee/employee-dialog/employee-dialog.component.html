@@ -1,6 +1,6 @@
 <p-dialog [(visible)]="display" [style]="{width: '600px'}" header="Details de l'employé" [modal]="true" class="p-fluid">
   <ng-template pTemplate="content">
-    <form [formGroup]="employeeForm">
+    <form [formGroup]="employeeForm" *ngIf="!link">
       <div class="field">
         <label for="restaurant">Restaurant <span class="requiredStar">*</span></label>
         <p-dropdown
@@ -223,8 +223,20 @@
     </form>
   </ng-template>
 
+  <div class="link-container" *ngIf="link">
+    <div class="link-infos">
+      <span>Voici le lien à envoyer au nouvel utilisateur pour la création de son compte BRM:</span>
+    </div>
+    <span class="link">{{link}}</span>
+    <div>
+      <small class="warning">Ne partagez ce lien à personne d'autre que l'utilisateur concerné. (Ce lien est valable 3 jours)</small>
+    </div>
+
+  </div>
+
   <ng-template pTemplate="footer">
-    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-    <button pButton pRipple [disabled]="employeeForm.invalid" type="submit" label="Save" icon="pi pi-check" class="p-button-text" (click)="saveEmployee()"></button>
+    <button *ngIf="!link" pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+    <button *ngIf="link" pButton pRipple label="Ok" icon="pi pi-times" class="p-button-text" (click)="validateLink()"></button>
+    <button *ngIf="!link" pButton pRipple [disabled]="employeeForm.invalid" type="submit" label="Sauvegarder" icon="pi pi-check" class="p-button-text" (click)="saveEmployee()"></button>
   </ng-template>
 </p-dialog>

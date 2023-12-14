@@ -15,6 +15,10 @@ import { RestaurantDetailComponent } from './entities/restaurant/restaurant-deta
 import { CustomerListingComponent } from './entities/customer/customer-listing/customer-listing.component';
 import { CustomerDetailComponent } from './entities/customer/customer-detail/customer-detail.component';
 import { MentionsComponent } from './mentions-legales/mentions/mentions.component';
+import { VerifyTokenComponent } from './verify-token/verify-token.component';
+import { LoginComponent } from './login/login.component';
+import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
+import { OrderListingComponent } from './entities/order/order-listing/order-listing.component';
 
 const routes: Routes = [
   {
@@ -61,12 +65,26 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'order',
+        children: [
+          { path: '', component: OrderListingComponent },
+        ]
+      },
+      {
+        path: 'dashboard',
+        children: [
+          { path: '', component: DashboardComponent },
+        ]
+      },
+      {
         path: 'customer',
         children: [
           { path: '', component: CustomerListingComponent },
           { path: ':id', component: CustomerDetailComponent },
         ]
       },
+      { path: 'verify-token', component: VerifyTokenComponent },
+      { path: 'login', component: LoginComponent },
 
       { path: 'mentions', component: MentionsComponent },
 
