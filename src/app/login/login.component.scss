@@ -1,46 +1,51 @@
 .form_container {
-  font-family : 'Poppins', sans-serif;
-  display : flex;
-  flex-direction : column;
-  width: 350px;
+  position: absolute;
+  left : 27%;
+  width : 300px;
+  top : 150px;
+  h1 {
+    text-align : center;
 
-
+  }
   form {
+    width : 100%;
     display : flex;
     flex-direction : column;
-      label {
-        font-size : 18px;
-
-      }
-    input {
-      height : 35px;
-      padding : 0.25rem 0.75rem;
-      outline : none;
-      border : none;
-      border-radius : 5px;
+    label {
       font-size : 18px;
-      margin : 0.5rem 0;
+
+    }
+    input {
+      height: 35px;
+      padding: 0.25rem 0.75rem;
+      outline: none;
+      border: none;
+      border-radius: 5px;
+      font-size: 18px;
+      margin: 0.5rem 0;
+
       &:focus {
-        outline : none;
+        outline: none;
         border: none;
       }
     }
     button {
-      margin-top : 1rem;
-      border : none;
-      outline : none;
-      height : 45px;
-      font-size : 24px;
-      font-weight : 700;
-      transition : 0.2s;
-      color : white;
-      background-color : #6CCAFF;
+      margin-top: 1rem;
+      border: none;
+      outline: none;
+      height: 45px;
+      font-size: 24px;
+      font-weight: 700;
+      transition: 0.2s;
+      color: white;
+      background-color: #6CCAFF;
       border-radius: 5px;
       cursor: pointer;
+
       &:hover {
-        background-color : #243F4E;
+        background-color: #243F4E;
       }
     }
   }
-
 }
+
