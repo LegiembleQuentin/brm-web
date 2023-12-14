@@ -19,6 +19,11 @@ export class DashboardComponent {
   public chartSalesPerMonthData : any = null;
   public chartSalesPerMonthOption : any = null;
 
+
+  public absencesData : any = null;
+  public chartAbsencesData : any = null;
+  public chartAbsencesOption : any = null;
+
   public colorVariants : any = {
     brightPink: '#FF6384',
     celestialBlue: '#36A2EB',
@@ -35,7 +40,7 @@ export class DashboardComponent {
     private messageService: MessageService,) { }
 
   ngOnInit() {
-    Promise.all([this.loadProductSales(), this.loadSales()]).then(() => {
+    Promise.all([this.loadProductSales(), this.loadSales(), this.loadAbsences()]).then(() => {
       this.initCharts();
       this.loaded = true;
     });
@@ -45,12 +50,12 @@ export class DashboardComponent {
     this.adaptChartProductSales();
     this.adaptChartProductSalesPie();
     this.adaptChartSalesPerMonth();
+    this.adaptChartAbsences();
   }
 
   async loadProductSales() {
     try {
       this.chartProductSales = await this.dashboardService.getProductSalesDatas()
-      console.log(this.chartProductSales);
     } catch (error) {
       this.messageService.add({
         severity: 'error',
@@ -63,13 +68,44 @@ export class DashboardComponent {
   async loadSales() {
     try {
       this.sales = await this.dashboardService.getSalesDatas()
-      console.log(this.sales);
     } catch (error) {
       this.messageService.add({
         severity: 'error',
         summary: 'Erreur',
         detail: 'Erreur lors du chargement des chiffre d\'affaires'
       });
+    }
+  }
+
+  async loadAbsences() {
+    try {
+      this.absencesData = await this.dashboardService.getAbsencesData();
+    } catch (error) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Erreur',
+        detail: 'Erreur lors du chargement des absences'
+      });
+    }
+  }
+
+  adaptChartAbsences() {
+    this.chartAbsencesData = {
+      labels: this.absencesData.map((item: { restaurant: string; }) => item.restaurant),
+      datasets: [
+        {
+          type: 'bar',
+          label: 'Justifiées',
+          backgroundColor: '#36A2EB',
+          data: this.absencesData.map((item: { dailyApprovedAbsences: number; }) => item.dailyApprovedAbsences)
+        },
+        {
+          type: 'bar',
+          label: 'Injustifiées',
+          backgroundColor: '#FF6384',
+          data: this.absencesData.map((item: { dailyUnapprovedAbsences: number; }) => item.dailyUnapprovedAbsences)
+        },
+      ]
     }
   }
 
@@ -175,4 +211,6 @@ export class DashboardComponent {
 
     return months.map(month => parseFloat(salesData.salesPerMonth[month]));
   }
+
+
 }

@@ -18,4 +18,8 @@ export class DashboardService {
   getSalesDatas() {
     return this.http.get<any>(this.url + '/dashboard/sales').toPromise();
   }
+
+  getAbsencesData() {
+    return this.http.get<any>(this.url + '/dashboard/absences').toPromise();
+  }
 }
