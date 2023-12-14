@@ -1,12 +1,14 @@
-<div *ngIf="tokenIsValid">
+<div class="setpass_container" *ngIf="!tokenIsValid">
   <div>
-    <p>Veuillez renseigner votre mot de passe</p>
+    <h3>Veuillez renseigner votre mot de passe</h3>
   </div>
   <form (ngSubmit)="setPassword()">
-    <input type="password" [(ngModel)]="Password" name="newPassword" placeholder="Nouveau mot de passe">
+    <label for="newPassword">Mot de passe</label>
+    <input type="password" [(ngModel)]="Password" name="newPassword" placeholder="Nouveau mot de passe" id="newPassword">
 
-    <input type="password" [(ngModel)]="confirmPassword" name="confirmPassword" placeholder="Confirmer le mot de passe">
-    <button type="submit">Envoyer</button>
+    <label for="confirmPass">Confirmer le mot de passe</label>
+    <input type="password" [(ngModel)]="confirmPassword" name="confirmPassword" placeholder="Confirmer le mot de passe" id="confirmPass">
+    <button type="submit" [disabled]="isLoading" >Envoyer</button>
   </form>
 </div>
 <div *ngIf="!tokenIsValid">

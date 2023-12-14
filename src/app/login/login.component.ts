@@ -11,19 +11,22 @@ export class LoginComponent implements OnInit{
 token : string | null = null;
 username : string = '';
 password : string = '';
+isLoading  = false;
 
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private auth: AuthService) { }
   login() {
+    this.isLoading = true;
     this.http.post<any>('http://127.0.0.1:8000/api/login', { username: this.username, password: this.password })
       .subscribe(response => {
+        this.isLoading = false;
         // Le JWT est dans la réponse, stockez-le dans un cookie
         const jwt = response.token
         if (jwt) {
           this.auth.storeToken(jwt);
         }else {
           if (response.error){
-            console.log('error')
+            console.log('nojwt')
           }
         }
       }, error  => {
