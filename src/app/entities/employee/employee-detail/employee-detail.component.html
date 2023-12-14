@@ -124,7 +124,7 @@
               </div>
               <hr>
             </div>
-            <a [routerLink]="['/feedback']" [queryParams]="{employee: employee.id}">Voir plus</a>
+            <a [routerLink]="['/feedback']" [queryParams]="{employee: employee.id}" *ngIf="employee.feedbacks">Voir plus</a>
           </div>
         </div>
         <div class="custom-card">
@@ -137,7 +137,7 @@
               </div>
               <hr>
             </div>
-            <a [routerLink]="['/absence']" [queryParams]="{employee: employee.id}">Voir plus</a>
+            <a [routerLink]="['/absence']" [queryParams]="{employee: employee.id}" *ngIf="employee.absences">Voir plus</a>
           </div>
         </div>
       </div>

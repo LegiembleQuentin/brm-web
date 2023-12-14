@@ -14,9 +14,13 @@
       width: 10%;
     }
   }
-  .add-stock-btn{
+  .add-stock-btn-container{
     display: flex;
     justify-content: center;
-    width: 220px;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+    .add-stock-btn{
+      width: 240px;
+    }
   }
 }
