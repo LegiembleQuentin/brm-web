@@ -18,6 +18,7 @@ import {OrderModule} from "./entities/order/order.module";
 import {VerifyTokenComponent} from "./verify-token/verify-token.component";
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import {AuthInterceptorService} from "./service/auth-interceptor/auth-interceptor.service";
+import {DashboardModule} from "./dashboard/dashboard.module";
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import {AuthInterceptorService} from "./service/auth-interceptor/auth-intercepto
     ProductModule,
     OrderModule,
     NotFoundModule,
+    DashboardModule,
     CustomSharedModule
   ],
   providers: [
