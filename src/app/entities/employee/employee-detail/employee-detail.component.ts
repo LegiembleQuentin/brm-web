@@ -14,6 +14,7 @@ export class EmployeeDetailComponent {
 
   employeeId: string | null | undefined;
   employee!: Employee;
+  disabilityModal = false
 
   constructor(
     private route: ActivatedRoute,
@@ -32,6 +33,7 @@ export class EmployeeDetailComponent {
         .then(employeeData => {
           if (employeeData) {
             this.employee = mapApiDataToEmployee(employeeData);
+            console.log(this.employee);
           } else {
             this.router.navigate(['/404']);
           }
@@ -48,4 +50,11 @@ export class EmployeeDetailComponent {
     this.employeeDialog.showDialog(this.employee);
   }
 
+  openDisabilityModal(){
+    this.disabilityModal = true;
+  }
+
+  hideDisabilityModal(){
+    this.disabilityModal = false;
+  }
 }

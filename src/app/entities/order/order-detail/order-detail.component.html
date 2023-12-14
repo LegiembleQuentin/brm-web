@@ -17,14 +17,16 @@
 
     <div>
       <span class="detail-attribut">Client: </span>
-      <span *ngIf="order.customer">{{order.customer.lastname}} {{order.customer.firstname}}</span>
+      <a [routerLink]="['/employee', order.customer.id]" *ngIf="order.customer">{{order.customer.lastname}} {{order.customer.firstname}}</a>
     </div>
 
     <div>
       <span class="detail-attribut">Produits: </span>
       <div *ngFor="let orderProduct of order.orderProducts; let i = index">
-        <span *ngIf="orderProduct"> <a [routerLink]="['/product', orderProduct.product?.id]">{{orderProduct.product?.name}}</a> x {{orderProduct.quantity}}</span>
-        <span *ngIf="orderProduct">{{ getProductPrice(orderProduct) | currency: "EUR" }}</span>
+        <div class="one-product" *ngIf="orderProduct">
+          <span> <a [routerLink]="['/product', orderProduct.product?.id]">{{orderProduct.product?.name}}</a> x {{orderProduct.quantity}}</span>
+          <span>{{ getProductPrice(orderProduct) | currency: "EUR" }}</span>
+        </div>
       </div>
     </div>
   </div>
